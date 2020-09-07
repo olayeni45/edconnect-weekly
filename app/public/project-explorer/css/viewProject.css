@@ -1,0 +1,136 @@
+/*NavBar CSS*/
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+#projectLogo{
+    color:white;
+    font-size:23px;
+}
+
+a.nav-link{
+    color:rgb(214, 211, 211) !important;
+}
+
+.btn-outline-success{
+    border:3px solid white;
+    color:white;
+}
+
+/*Center Container Div*/
+.centerContainer{
+    width:75%;
+    height:670px;
+    margin:40px auto;
+}
+
+.project{
+    width:65%;
+    position: relative;
+    left:30px;
+}
+
+.projectStatusContainer{
+   background-color:rgba(241, 241, 241, 0.884);
+   height:70px;
+   width:100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+
+.statusFlex{
+    display:flex;
+    justify-content: space-between;
+}
+
+.columnFlex{
+    display: flex;
+    flex-direction: column;
+}
+
+.columnFlex >p{
+    margin:0;
+    color:rgb(12, 11, 11);
+    font-size:17px;
+}
+
+.bold{
+    font-weight:500;
+}
+
+#btnFlex{
+    position: relative;
+    right:30px;
+}
+
+#margin{
+    margin-bottom: 50px;
+}
+
+.size{
+    font-size:19px;
+}
+
+.firstCard{
+    height:200px;
+}
+
+.card-header{
+    font-size:18px;
+}
+
+.centerText{
+    text-align:center;
+}
+
+.commentPositioning{
+    position: relative;
+    top:90px;
+}
+
+.pushButton{
+    position: relative;
+    top:15px;
+}
+
+.card-footer{
+color: #007bff;
+font-weight: 500;
+}
+
+#leftPositioning{
+    position: relative;
+    left:-20px;
+    top:-10px;
+}
+
+.authorsName>p{
+    position: relative;
+    top:-8px;
+}
+
+#bola{
+    position: relative;
+    top:-15px;
+}
+
+/*Footer CSS*/
+footer{
+    background-color:rgb(231, 227, 227);
+    height:40px;
+    color:rgb(100, 100, 100);
+}
+
+#ed{
+    color:black;
+}
+
+.footerContent{
+    display:flex;
+    justify-content: flex-end;
+    position: relative;
+    left:-35px;
+    top:10px;
+}

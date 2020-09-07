@@ -4,98 +4,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/profile.css" />
+
     <title>Profile Page</title>
 </head>
 
 <body>
 
-    <h1>Project Explorer</h1>
-    <h2>One Stop Database for Final Year Projects</h2>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Projects</a>
-        <a href="#">Login</a>
-        <a href="#">Register</a>
+        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="search.html">Projects</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="createProject.html">Submit</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="register.html">Sign Up</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="login.html">Login</a>
+                </li>
+            </ul>
+
+        </div>
+
     </nav>
 
-    <p><strong>Anifowose Olayeni</strong></p>
-    <p>mobolajianney@yahoo.com</p>
+    <!--Center Div Container-->
 
-    <ul>
-        <li>Program: Computer Science</li>
-        <li>Matric Number: 17/1553</li>
-        <li>Year of Graduation: 2021</li>
-    </ul>
+    <div class="centerContainer">
 
-    <h3>Update Profile</h3>
+        <p><span id="ade">Ade Ade</span> <span id="test">test@edconnect.ng</span></p>
 
-    <form>
+        <div class="bioDiv">
 
-        <label for="fName">First Name:</label>
-        <br />
-        <input type="text" />
-        <br /> <br />
+            <div class="bioContentDiv">
 
-        <label for="lName">Last Name:</label>
-        <br />
-        <input type="text" />
-        <br /> <br />
+                <div class="columnFlex">
+                    <p>Program</p>
+                    <p>Computer Science</p>
+                </div>
 
-        <label for="email">Email Address:</label>
-        <br />
-        <input type="email" />
-        <br /> <br />
+                <div class="columnFlex">
+                    <p>Matriculation Number</p>
+                    <p>00/0000</p>
+                </div>
 
-        <label for="matric">Matric Number:</label>
-        <br />
-        <input type="text" />
-        <br /> <br />
+                <div class="columnFlex">
+                    <p>Graduation Year</p>
+                    <p>2019</p>
+                </div>
 
-        <label for="program">Program: </label>
-        <br />
-        <select>
-            <option>Computer Science</option>
-            <option>Computer Information Science</option>
-            <option>Public Health</option>
-        </select>
-        <br /> <br />
+            </div>
 
-        <label for="year">Graduation Year: </label>
-        <br />
-        <select>
-            <option>2019</option>
-            <option>2015</option>
-            <option>2020</option>
-        </select>
-        <br /> <br />
+        </div>
 
-        <input type="submit" />
+        <div class="bottomMargin"></div>
 
-    </form>
+        <p class="ruleHeading">Update Profile</p>
+        <hr />
 
-    <h3>Change Password:</h3>
+        <div class="bottomMargin"></div>
 
-    <form>
+        <div class="updateFlexDiv">
 
-        <label for="cPassword">Current Password:</label>
-        <br />
-        <input type="password" />
-        <br /> <br />
+            <form>
 
-        <label for="nPassword">New Password:</label>
-        <br />
-        <input type="password" />
-        <br /> <br />
+                <div class="form-row">
 
-        <label for="confirmPassword">Confirm Password:</label>
-        <br />
-        <input type="password" />
-        <br /> <br />
+                    <div class="form-group col-6">
+                        <label for="fName">First Name</label>
+                        <input type="text" class="form-control" id="fName" placeholder="Ade">
+                    </div>
 
-        <input type="submit" />
+                    <div class="form-group col-6">
+                        <label for="lName">Last Name</label>
+                        <input type="text" class="form-control" id="lName" placeholder="Ade">
+                    </div>
 
-    </form>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-6">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="test@edconnect.ng">
+                    </div>
+
+                    <div class="form-group col-6">
+
+                        <label for="program">Program</label>
+                        <select id="program" class="form-control">
+                            <option selected>Computer Science</option>
+                            <option>Computer Information System</option>
+                            <option>Computer Technology</option>
+                        </select>
+
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-6">
+
+                        <label for="matric">Matriculation Number</label>
+                        <input type="text" class="form-control" id="matric" placeholder="00/0000">
+
+                    </div>
+
+                    <div class="form-group col-6">
+
+                        <label for="graduation">Graduation Year</label>
+                        <select id="graduation" class="form-control">
+                            <option selected>2019</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+
+            </form>
+        </div>
+
+
+
+        <div class="bottomMargin"></div>
+
+        <p class="ruleHeading">Change Password</p>
+        <hr />
+
+        <div class="changeFlexDiv">
+
+            <form>
+
+                <div class="form-row">
+
+                    <div class="form-group col-4">
+                        <label for="cPassword">Current Password</label>
+                        <input type="password" class="form-control" id="cPassword" placeholder="Current Password">
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="nPassword">New Password</label>
+                        <input type="password" class="form-control" id="nPassword" placeholder="Your new password">
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword"
+                            placeholder="Confirm new password">
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Change Password</button>
+
+            </form>
+
+        </div>
+
+
+
+
+    </div>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="footerContent">
+            <p>Project Explorer &copy; 2020 .<span id="ed">Edconnect</span> </p>
+        </div>
+    </footer>
+
+
+
+
+
+
+
 
 </body>
 

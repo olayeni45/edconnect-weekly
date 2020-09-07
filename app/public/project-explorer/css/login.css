@@ -1,0 +1,57 @@
+/*NavBar CSS*/
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+#projectLogo{
+    color:white;
+    font-size:23px;
+}
+
+a.nav-link{
+    color:rgb(214, 211, 211) !important;
+}
+
+.btn-outline-success{
+    border:3px solid white;
+    color:white;
+}
+
+/*Login Div CSS*/
+.centerDiv{
+    width:42%;
+    height:300px;
+    box-sizing: border-box;
+    margin:50px auto;
+}
+
+#email{
+    margin-bottom:10px;
+}
+
+.buttonClass{
+    position: relative;
+    top:15px;
+}
+
+/*Footer CSS*/
+footer{
+    background-color:rgb(231, 227, 227);
+    height:40px;
+    color:rgb(100, 100, 100);
+    position: absolute;
+    bottom:0;
+    width:100%;  
+}
+
+#ed{
+    color:black;
+}
+
+.footerContent{
+    display:flex;
+    justify-content: flex-end;
+    position: relative;
+    left:-35px;
+    top:10px;
+}

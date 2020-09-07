@@ -1,0 +1,116 @@
+/*NavBar CSS*/
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+#projectLogo{
+    color:white;
+    font-size:23px;
+}
+
+a.nav-link{
+    color:rgb(214, 211, 211) !important;
+}
+
+.btn-outline-success{
+    border:3px solid white;
+    color:white;
+}
+
+/*Center Container Div*/
+.centerContainer{
+    width:65%;
+    height:400px;
+    margin:45px auto;
+}
+
+.searchDiv{
+    width:100%;
+    background-color:rgba(247, 247, 247, 0.973);
+    height:70px;
+    display: flex;
+    align-items: center;
+    margin-bottom:30px;
+}
+
+.searchText{
+    width: 60%;
+    height:42px;
+    position: relative;
+    left:15px;
+    margin:3px;
+}
+
+.searchBy{
+    width:25%;
+    height:42px;
+    position: relative;
+    left:15px;
+    margin:3px;
+}
+
+.submitBtn{
+    width:15%;
+    height:42px;
+    position: relative;
+    left:15px;
+    margin:3px;
+}
+
+.results{
+    border:1px solid rgba(167, 165, 165, 0.6);
+    width:200px;
+    height:150px;
+}
+
+
+.mute{
+    color:gray;
+    font-size:15px;
+}
+
+.results>p{
+    margin-bottom: 2px;
+}
+
+.results>p:first-child{
+    color:#007bff;
+    font-weight: 500;
+    font-size:20px;
+}
+
+.results>p:nth-child(2)
+{
+    color:gray;
+    font-size:18px;
+}
+
+.results>p:nth-child(4)
+{
+    color:#007bff;
+    position: relative;
+    top:10px;
+    font-weight: 500;
+}
+
+/*Footer CSS*/
+footer{
+    background-color:rgb(231, 227, 227);
+    height:40px;
+    color:rgb(100, 100, 100);
+    width:100%;
+    position: absolute;
+    bottom:0;
+}
+
+#ed{
+    color:black;
+}
+
+.footerContent{
+    display:flex;
+    justify-content: flex-end;
+    position: relative;
+    left:-35px;
+    top:10px;
+}

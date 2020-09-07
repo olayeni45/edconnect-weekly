@@ -1,0 +1,76 @@
+/*NavBar CSS*/
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+#projectLogo{
+    color:white;
+    font-size:23px;
+}
+
+a.nav-link{
+    color:rgb(214, 211, 211) !important;
+}
+
+.btn-outline-success{
+    border:3px solid white;
+    color:white;
+}
+
+/*Center Container CSS*/
+.centerContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+   height:700px;
+   
+}
+
+.jumbotron{
+    width:80%;
+    position: relative;
+    top:15px;
+    height: 320px;
+}
+
+.jumbotronHeading{
+    font-size:41px;
+}
+
+.textBelow{
+    font-size:18px;
+    font-weight: 500;
+}
+
+.cardContainer{
+    display: flex;
+    justify-content: space-between;
+    width:80%;
+}
+
+.card{
+    width:22%;
+    box-sizing: border-box;
+}
+.card-title{
+    color:#007bff;
+}
+
+/*Footer CSS*/
+footer{
+    background-color:rgb(231, 227, 227);
+    height:40px;
+    color:rgb(100, 100, 100);
+}
+
+#ed{
+    color:black;
+}
+
+.footerContent{
+    display:flex;
+    justify-content: flex-end;
+    position: relative;
+    left:-35px;
+    top:10px;
+}
