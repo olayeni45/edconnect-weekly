@@ -4,56 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/editProject_style.css" />
-
-
+    <link rel="stylesheet" href="css/style.css" />
     <title>Edit Project</title>
 </head>
 
 <body>
 
-    <!--Navigation Bar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <!--NavBar-->
+    <nav>
 
-        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="firstNavFlex">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="index.html" id="projectLogo">Project Explorer</a>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <form class="form-inline ">
+                <input class="searchInput" type="search" placeholder="Search Projects">
+                <button class="btn searchButton" type="submit">Search</button>
             </form>
 
-            <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item ">
-                    <a class="nav-link " href="search.html">Projects</a>
+            <ul class="navUl">
+                <li class="nav-item">
+                    <a class="nav-link" id="searchLink" href="search.html">Projects</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="createProject.html">Submit</a>
+                    <a class="nav-link" id="createLink" href="createProject.html">Submit</a>
                 </li>
             </ul>
 
-            <ul class="navbar-nav ">
+        </div>
+
+        <div class="secondNavFlex">
+
+            <ul class="navUl">
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="register.html">Sign Up</a>
+                    <a class="nav-link" id="registerLink" href="register.html">Sign Up</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="login.html">Login</a>
+                    <a class="nav-link" id="loginLink" href="login.html">Login</a>
                 </li>
             </ul>
 
@@ -61,113 +51,99 @@
 
     </nav>
 
-    <div class="centerContainer">
+    <!--Center Container-->
+    <div class="editCenterContainer">
 
-        <h3>Project 4</h3>
+        <p id="editHeader">Project 4 </p>
 
-        <div class="projectStatusContainer">
+        <div class="editProjDiv">
 
-            <div class="project">
+            <div class="editContent">
 
-                <div class="statusFlex">
-
-                    <div class="columnFlex">
-                        <p>Created By</p>
-                        <p class="bold">Ade Ade</p>
-                    </div>
-
-                    <div class="columnFlex">
-                        <p>Date Created</p>
-                        <p class="bold">2020-09-04</p>
-                    </div>
-
-                    <div class="columnFlex">
-                        <p>Last Updated</p>
-                        <p class="bold">2020-09-04</p>
-                    </div>
-
+                <div class="editProjFlex">
+                    <p class="editFirst">Created by </p>
+                    <p class="editBold">Ade Ade</p>
                 </div>
 
-            </div>
+                <div class="editProjFlex">
+                    <p class="editFirst">Date Created</p>
+                    <p class="editBold">2020-09-04</p>
+                </div>
 
-            <div id="btnFlex">
-                <button type="button" class="btn btn-primary">View Project</button>
+                <div class="editProjFlex">
+                    <p class="editFirst">Last Updated</p>
+                    <p class="editBold">2020-09-04</p>
+                </div>
+
+                <button type="button" class="btn editProjBtn">View Project</button>
+
             </div>
 
         </div>
 
 
-        <div id="margin"></div>
+        <div class="editFlexFormContainer">
 
-        <div class="formContainer">
+            <div class="effc1">
+                <p id="editProjHeader">Edit project</p>
+                <hr class="editProjRule" />
 
-            <form>
-                <div class="row">
-                    <div class="col-6">
+                <form>
 
-                        <h4>Edit Project</h4>
-                        <hr />
+                    <div class="editProjForm">
 
-                        <div class="form-group">
-                            <label for="projectName">Project Name</label>
-                            <input type="text" class="form-control" id="projectName" value="Project 4">
-                        </div>
+                        <label for="projectName" id="editProjectLabel">Project Name</label>
+                        <input type="text" class="form-control" id="editProjectLabelInput"
+                            placeholder="Enter Project Name">
 
-                        <div class="form-group">
-                            <label for="projectAbstract">Project Abstract</label>
-                            <textarea class="form-control" id="projectAbstract"
-                                rows="3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente alias quam saepe perspiciatis eveniet repellat? Dolore, eos. Ipsa, assumenda officia?</textarea>
-                        </div>
+                        <label for="projectAbstract" id="editAbstract">Project Abstract</label>
+                        <textarea class="form-control"
+                            id="editTextArea">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem iusto cumque dolorem, quaerat at ipsam possimus blanditiis perspiciatis voluptates dolor!</textarea>
 
-                        <div class="form-group">
-                            <label for="author">Author(s)</label>
-                            <input type="text" class="form-control" id="author" value="Henry James, Bola Ade">
-                        </div>
+                        <label for="author" id="editAuthorLabel">Author(s)</label>
+                        <input type="text" class="form-control" id="editAuthorInput"
+                            placeholder="Enter author names (seperated by comma) ">
 
-                        <div class="form-group">
-                            <label for="tag">Tag(s)</label>
-                            <input type="text" class="form-control" id="tag" value="#javascript #mongodb">
-                        </div>
+                        <label for="tag" id="editTag">Tag(s)</label>
+                        <input type="text" class="form-control" id="editTagInput" placeholder=" #javascript #mongodb">
 
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn" id="editButton">Save</button>
 
                     </div>
 
-                    <div class="col-6">
-
-                        <h4>Manage Project</h4>
-                        <hr />
-
-                        <div class="input-group">
-
-                            <div class="input-group-append">
-
-                                <div class="input-group-text">
-                                    <input type="file" /></div>
-                            </div>
-                        </div>
-
-                        <hr />
-
-                        <div class="card">
-                            <div class="card-header bold">
-                                Project Files
-                            </div>
-                            <div class="card-body">
-
-                                <p class="card-text centerText">No file uploaded yet</p>
-
-                            </div>
-                        </div>
 
 
+                </form>
+            </div>
 
-                    </div>
+            <div class="effc2">
+                <p id="editProjHeader">Manage project</p>
+                <hr class="editProjRule" />
+
+                <div class="editChooseFile">
+                    <input type="file" class="form-control" />
                 </div>
-            </form>
+
+                <hr class="editProjRule" id="secondRule" />
+
+                <div class="editCardContainer">
+
+                    <div class="cardProject">
+                        <p>Project Files</p>
+
+                    </div>
+
+
+                </div>
+                <div class="innerCardProject">
+                    <p>No file uploaded yet</p>
+
+                </div>
+
+
+            </div>
 
         </div>
-
 
     </div>
 

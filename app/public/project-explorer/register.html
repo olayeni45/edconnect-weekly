@@ -4,55 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/register_style.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
     <title>Sign-up Page</title>
 </head>
 
 <body>
 
-    <!--Navigation Bar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <!--NavBar-->
+    <nav>
 
-        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="firstNavFlex">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="index.html" id="projectLogo">Project Explorer</a>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <form class="form-inline ">
+                <input class="searchInput" type="search" placeholder="Search Projects">
+                <button class="btn searchButton" type="submit">Search</button>
             </form>
 
-            <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item ">
-                    <a class="nav-link " href="search.html">Projects</a>
+            <ul class="navUl">
+                <li class="nav-item">
+                    <a class="nav-link" id="searchLink" href="search.html">Projects</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="createProject.html">Submit</a>
+                    <a class="nav-link" id="createLink" href="createProject.html">Submit</a>
                 </li>
             </ul>
 
-            <ul class="navbar-nav ">
+        </div>
+
+        <div class="secondNavFlex">
+
+            <ul class="navUl">
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="register.html">Sign Up</a>
+                    <a class="nav-link" id="registerLink" href="register.html">Sign Up</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="login.html">Login</a>
+                    <a class="nav-link" id="loginLink" href="login.html">Login</a>
                 </li>
             </ul>
 
@@ -60,89 +52,71 @@
 
     </nav>
 
-    <!--Center Container Div for the form-->
-    <div class="centerContainer">
 
-        <h3>Sign Up</h3>
+    <!--Center Container-->
+    <div class="registerCenterContainer">
+
+        <p id="registerSignup">Sign Up</p>
+
+        <div id="marginBottom"></div>
 
         <form>
 
-            <div class="form-row">
+            <div class="registerFlexA">
 
-                <div class="form-group col-6">
-                    <label for="fName">First Name</label>
-                    <input type="text" class="form-control" id="fName" placeholder="First Name">
-                </div>
+                <label for="fName" id="namePositioning">First Name</label>
+                <input type="text" class="form-control" id="fName" placeholder="First Name">
 
-                <div class="form-group col-6">
-                    <label for="lName">Last Name</label>
-                    <input type="text" class="form-control" id="lName" placeholder="Last Name">
-                </div>
+                <label for="lName" id="lNamePos">Last Name</label>
+                <input type="text" class="form-control" id="lName" placeholder="Last Name">
 
             </div>
 
-            <div class="form-row">
+            <div class="registerFlexB">
 
-                <div class="form-group col-6">
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Your Email address">
-                </div>
+                <label for="email" id="emailPos">Email Address</label>
+                <input type="email" class="form-control" id="emailRegister" placeholder="Your Email address">
 
-                <div class="form-group col-6">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Your Password">
-                </div>
+                <label for="password" id="passPos">Password</label>
+                <input type="password" class="form-control" id="passwordRegister" placeholder="Your Password">
 
             </div>
 
-            <div class="form-row">
+            <div class="registerFlexC">
 
-                <div class="form-group col-6">
+                <label for="program">Program</label>
+                <select id="program" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>Computer Science</option>
+                    <option>Computer Information System</option>
+                    <option>Computer Technology</option>
+                </select>
 
-                    <label for="program">Program</label>
-                    <select id="program" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Computer Information System</option>
-                        <option>Computer Technology</option>
-                    </select>
+                <label for="matric" id="matricPos">Matriculation Number</label>
+                <input type="text" class="form-control" id="matric" placeholder="e.g. 16/2020">
 
-                </div>
-
-                <div class="form-group col-3">
-
-                    <label for="matric">Matriculation Number</label>
-                    <input type="text" class="form-control" id="matric" placeholder="e.g. 16/2020">
-
-                </div>
-
-                <div class="form-group col-3">
-
-                    <label for="graduation">Graduation Year</label>
-                    <select id="graduation" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>2020</option>
-                        <option>2021</option>
-                        <option>2022</option>
-                    </select>
-
-                </div>
+                <label for="graduation" id="gradPos">Graduation Year</label>
+                <select id="graduation" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>2020</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                </select>
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button class="btn registerBtn">Sign Up </button>
 
         </form>
 
     </div>
 
     <!--Footer-->
-    <footer>
+    <footer id="searchFooter">
         <div class="footerContent">
             <p>Project Explorer &copy; 2020 .<span id="ed">Edconnect</span> </p>
         </div>
     </footer>
-
 
 </body>
 

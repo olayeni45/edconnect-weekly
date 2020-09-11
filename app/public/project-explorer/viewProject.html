@@ -4,55 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/viewProject_style.css" />
-
+    <link rel="stylesheet" href="css/style.css" />
     <title>View Project</title>
 </head>
 
 <body>
 
-    <!--Navigation Bar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <!--NavBar-->
+    <nav>
 
-        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="firstNavFlex">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="index.html" id="projectLogo">Project Explorer</a>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <form class="form-inline ">
+                <input class="searchInput" type="search" placeholder="Search Projects">
+                <button class="btn searchButton" type="submit">Search</button>
             </form>
 
-            <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item ">
-                    <a class="nav-link " href="search.html">Projects</a>
+            <ul class="navUl">
+                <li class="nav-item">
+                    <a class="nav-link" id="searchLink" href="search.html">Projects</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="createProject.html">Submit</a>
+                    <a class="nav-link" id="createLink" href="createProject.html">Submit</a>
                 </li>
             </ul>
 
-            <ul class="navbar-nav ">
+        </div>
+
+        <div class="secondNavFlex">
+
+            <ul class="navUl">
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="register.html">Sign Up</a>
+                    <a class="nav-link" id="registerLink" href="register.html">Sign Up</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="login.html">Login</a>
+                    <a class="nav-link" id="loginLink" href="login.html">Login</a>
                 </li>
             </ul>
 
@@ -60,112 +51,110 @@
 
     </nav>
 
-    <div class="centerContainer">
+    <!--Center Container-->
+    <div class="editCenterContainer">
 
+        <p id="editHeader">Project 4 </p>
 
-        <h3>Project 4</h3>
+        <div class="editProjDiv">
 
-        <div class="projectStatusContainer">
+            <div class="editContent">
 
-            <div class="project">
-
-                <div class="statusFlex">
-
-                    <div class="columnFlex">
-                        <p>Created By</p>
-                        <p class="bold">Ade Ade</p>
-                    </div>
-
-                    <div class="columnFlex">
-                        <p>Date Created</p>
-                        <p class="bold">2020-09-04</p>
-                    </div>
-
-                    <div class="columnFlex">
-                        <p>Last Updated</p>
-                        <p class="bold">2020-09-04</p>
-                    </div>
-
+                <div class="editProjFlex">
+                    <p class="editFirst">Created by </p>
+                    <p class="editBold">Ade Ade</p>
                 </div>
 
-            </div>
+                <div class="editProjFlex">
+                    <p class="editFirst">Date Created</p>
+                    <p class="editBold">2020-09-04</p>
+                </div>
 
-            <div id="btnFlex">
-                <button type="button" class="btn btn-primary">Edit Project</button>
+                <div class="editProjFlex">
+                    <p class="editFirst">Last Updated</p>
+                    <p class="editBold">2020-09-04</p>
+                </div>
+
+                <button type="button" class="btn editProjBtn">Edit Project</button>
+
             </div>
 
         </div>
 
 
-        <div id="margin"></div>
+        <div class="editFlexFormContainer">
 
-        <div class="formContainer">
+            <div class="view1">
+                <p id="viewHeader">Project Abstract</p>
+                <hr class="editProjRule" />
 
-            <form>
-                <div class="row">
-                    <div class="col-6">
-
-                        <h4>Project Abstract</h4>
-                        <hr />
-
-                        <div>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda molestiae, quas
-                            cupiditate neque obcaecati debitis nihil at saepe beatae commodi ipsa quo magni voluptates
-                            incidunt culpa asperiores praesentium rerum! Tempore ipsam qui illo nobis omnis labore
-                            perferendis quibusdam velit quia similique? Odio facere velit beatae nisi consequatur quia
-                            quo necessitatibus!
-                        </div>
-
-                        <div class="form-group commentPositioning">
-                            <label for="projectAbstract" class="bold size">Comments</label>
-                            <textarea class="form-control" id="projectAbstract" rows="3">Leave a comment </textarea>
-
-                            <button type="button" class="btn btn-primary pushButton">Submit</button>
-                        </div>
-
-                    </div>
-
-                    <div class="col-6">
-
-                        <h4>Project Details</h4>
-                        <hr />
-
-                        <div class="card firstCard">
-                            <div class="card-header">
-                                Author(s)
-                            </div>
-                            <div class="card-body authorsName">
-                                <p>Henry James</p>
-                                <hr width="490px" id="leftPositioning" />
-                                <p id="bola"> Bola Ade</p>
-
-                            </div>
-                            <div class="card-footer">
-                                #javascript, #mongodb
-                            </div>
-                        </div>
-
-                        <br />
-
-                        <div class="card">
-                            <div class="card-header bold">
-                                Project Files
-                            </div>
-                            <div class="card-body">
-
-                                <p class="card-text centerText">No file uploaded yet</p>
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
+                <div id="loremDiv">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, dolorum ut! Neque, eveniet
+                        cum. Ut accusantium libero, eligendi facere, minima quos quis fuga dolor hic eaque quasi optio
+                        illo, veritatis facilis iusto obcaecati dolorum aspernatur esse! Est pariatur architecto neque
+                        tempora consequatur nam rem at.</p>
                 </div>
-            </form>
+
+                <form>
+
+                    <div class="viewProjectForm">
+
+                        <label for="projectAbstract" id="commentLabel">Comments</label>
+                        <textarea class="form-control" id="formTextArea">Leave a comment </textarea>
+
+
+                        <button type="button" class="btn" id="viewButton">Submit</button>
+
+                    </div>
+
+
+
+                </form>
+            </div>
+
+            <div class="view2">
+                <p id="viewHeader">Project Details</p>
+                <hr class="editProjRule" />
+
+
+                <div class="viewCards">
+
+                    <div class="viewAuthorDiv">
+                        <p>Author(s)</p>
+                    </div>
+
+                    <div class="viewContent">
+                        <p>Henry James</p>
+                    </div>
+                    <div class="viewContent">
+                        <p>Bola Ade</p>
+                    </div>
+
+                    <div class="viewTags">
+                        <p>#javascript, &nbsp; #mongodb</p>
+                    </div>
+
+                </div>
+
+                <div id="viewmarginBottom"></div>
+                <div class="editCardContainer">
+
+                    <div class="cardProject">
+                        <p>Project Files</p>
+
+                    </div>
+
+
+                </div>
+                <div class="innerCardProject">
+                    <p>No file uploaded yet</p>
+
+                </div>
+
+
+            </div>
 
         </div>
-
 
     </div>
 
