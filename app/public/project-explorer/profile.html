@@ -24,7 +24,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
+                <input class="form-control " type="search" placeholder="Search Projects" aria-label="Search"
+                    id="navSearchPos">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
 
@@ -112,7 +113,8 @@
 
                     <div class="form-group col-6">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="test@edconnect.ng">
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="test@edconnect.ng">
                     </div>
 
                     <div class="form-group col-6">
@@ -134,7 +136,7 @@
                     <div class="form-group col-6">
 
                         <label for="matric">Matriculation Number</label>
-                        <input type="text" class="form-control" id="matric" placeholder="00/0000">
+                        <input type="text" class="form-control" id="matric" name="matricNumber" placeholder="00/0000">
 
                     </div>
 
@@ -171,17 +173,19 @@
 
                     <div class="form-group col-4">
                         <label for="cPassword">Current Password</label>
-                        <input type="password" class="form-control" id="cPassword" placeholder="Current Password">
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                            placeholder="Current Password">
                     </div>
 
                     <div class="form-group col-4">
-                        <label for="nPassword">New Password</label>
-                        <input type="password" class="form-control" id="nPassword" placeholder="Your new password">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" class="form-control" id="nPassword" name="newPassword"
+                            placeholder="Your new password">
                     </div>
 
                     <div class="form-group col-4">
                         <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword"
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
                             placeholder="Confirm new password">
                     </div>
 

@@ -30,6 +30,10 @@ a.nav-link{
     color:white;
 }
 
+#navSearchPos{
+    margin-right:8px;
+}
+
 /*Center Container CSS*/
 .indexCenterContainer{
     display: flex;
@@ -225,7 +229,6 @@ input[type="file" i]{
 .buttonClass{
     position: relative;
     top:15px; 
-    width:15%;
 }
 
 .bottomFooter{
