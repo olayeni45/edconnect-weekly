@@ -85,7 +85,7 @@
             </div>
 
             <div id="btnFlex">
-                <button type="button" class="btn btn-primary">Edit Project</button>
+                <a class="btn btn-primary" href="editProject.html" role="button">Edit Project</a>
             </div>
 
         </div>
@@ -124,42 +124,36 @@
                         <h4>Project Details</h4>
                         <hr />
 
-                        <hr class="editProjRule" />
-
-
-                        <div class="viewCards">
-
-                            <div class="viewAuthorDiv">
-                                <p>Author(s)</p>
+                        <div class="card firstCard">
+                            <div class="card-header">
+                                Author(s)
                             </div>
-
-                            <div class="viewContentHenry">
+                            <div class="card-body authorsName">
                                 <p>Henry James</p>
-                            </div>
-                            <div class="viewContent">
-                                <p>Bola Ade</p>
-                            </div>
+                                <hr width="490px" id="leftPositioning" />
+                                <p id="bola"> Bola Ade</p>
 
-                            <div class="viewTags">
-                                <p>#javascript, &nbsp; #mongodb</p>
                             </div>
-
+                            <div class="card-footer">
+                                #javascript, #mongodb
+                            </div>
                         </div>
 
+                        <br />
                         <div id="viewmarginBottom"></div>
-                        <div class="editCardContainer">
 
-                            <div class="cardProject topPosView">
-                                <p>Project Files</p>
+                        <div class="card">
+                            <div class="card-header bold">
+                                Project Files
+                            </div>
+                            <div class="card-body">
+
+                                <p class="card-text centerText">No file uploaded yet</p>
 
                             </div>
-
-
                         </div>
-                        <div class="innerCardProject">
-                            <p>No file uploaded yet</p>
 
-                        </div>
+
 
 
 

@@ -61,10 +61,11 @@ a.nav-link{
     width:80%;
 }
 
-.card{
-    width:22%;
+.maxCardWidth{
+width:22%;
     box-sizing: border-box;
 }
+
 .card-title{
     color:#007bff;
 }
@@ -449,107 +450,29 @@ label{
 }
 
 #viewmarginBottom{
-    margin-bottom:50px;
+    margin-bottom:10px;
 }
 
-.viewCards{
-    border:1px solid #a8aaac;
-    height:220px;
-    border-radius: 3px;
+
+.card-footer{
+color: #007bff;
+font-weight: 500;
 }
 
-.viewAuthorDiv{
-    background-color:#ebecec;
-    height:55px;
+#leftPositioning{
     position: relative;
-    border-bottom:1px solid #a8aaac;
+    left:-20px;
+    top:-10px;
 }
 
-.viewTags{
-    background-color:#ebecec;
-    height:61px;
+.authorsName>p{
     position: relative;
-    top:20px;
+    top:-8px;
 }
 
-.viewTags>p{
-    color:#007bff;
-    font-weight: 500;
-    font-size: 19px;
+#bola{
     position: relative;
-    top:17px;
-    left:24px;
-}
-
-.viewContent{
-   border-bottom:1px solid #a8aaac;
-    position: relative;
-    top:19px;
-}
-
-.viewContentHenry{
-    border-bottom:1px solid #a8aaac;
-    position: relative;
-    top:10px;
-}
-
-.viewContent>p{
-    color:#212529;
-    position: relative;
-    left:20px;
-}
-
-.viewContentHenry>p{
-    color:#212529;
-    position: relative;
-    left:20px;
-}
-
-.viewAuthorDiv>p{
-    font-size:20px;
-    color:#212529;
-    position: relative;
-    top:15px;
-    left:15px;
-}
-
-.cardProject{
-height:60px;
-background-color:#dddde0;
-border-radius: 3px;
-position: relative;
-top:-20px;
-}
-
-.topPosView{
-    position:relative;
-    top:0px;
-}
-.cardProject>p{
-    font-weight: 500;
-    font-size:20px;
-    position: relative;
-    top:20px;
-    left:15px;
-}
-
-.innerCardProject{
-     border:1px solid #a3a4a5;
-     border-top:none;
-     height:70px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-}
-
-.innerCardProject>p{
-    font-weight: 500;
-    font-size:18px;
-}
-
-.editCardContainer{
-    border:1px solid #a3a4a5;
-    height: 60px;
+    top:-15px;
 }
 
 
