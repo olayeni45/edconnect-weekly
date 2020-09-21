@@ -328,6 +328,10 @@ label{
     font-size:16px;
 }
 
+.searchControl{
+    width:100%;
+}
+
 
 .searchDiv{
     width:100%;
