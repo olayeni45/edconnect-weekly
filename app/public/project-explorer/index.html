@@ -4,125 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
     <title>Home Page</title>
+
 </head>
 
 <body>
 
-    <!--NavBar-->
-    <nav>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 
-        <div class="firstNavFlex">
+        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
 
-            <a href="index.html" id="projectLogo">Project Explorer</a>
 
-            <form class="form-inline ">
-                <input class="searchInput" type="search" placeholder="Search Projects">
-                <button class="btn searchButton" type="submit">Search</button>
-            </form>
+        <form class="form-inline ">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
+            <button class="btn btn-outline-light " type="submit">Search</button>
+        </form>
 
-            <ul class="navUl">
-                <li class="nav-item">
-                    <a class="nav-link" id="searchLink" href="search.html">Projects</a>
-                </li>
+        <ul class="navbar-nav mr-auto">
 
-                <li class="nav-item ">
-                    <a class="nav-link" id="createLink" href="createProject.html">Submit</a>
-                </li>
-            </ul>
+            <li class="nav-item ">
+                <a class="nav-link " href="search.html">Projects</a>
+            </li>
 
-        </div>
+            <li class="nav-item ">
+                <a class="nav-link " href="createProject.html">Submit</a>
+            </li>
+        </ul>
 
-        <div class="secondNavFlex">
+        <ul class="navbar-nav ">
 
-            <ul class="navUl">
+            <li class="nav-item ">
+                <a class="nav-link " href="register.html">Sign Up</a>
+            </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" id="registerLink" href="register.html">Sign Up</a>
-                </li>
+            <li class="nav-item ">
+                <a class="nav-link " href="login.html">Login</a>
+            </li>
+        </ul>
 
-                <li class="nav-item ">
-                    <a class="nav-link" id="loginLink" href="login.html">Login</a>
-                </li>
-            </ul>
-
-        </div>
 
     </nav>
 
     <!--Center Div-->
     <div class="indexCenterContainer">
 
-        <div class="indexJumbotronContainer">
+        <div class="jumbotron">
 
-            <div class="textFlex">
-                <p id="projectExplorerHeading">Welcome to Project Explorer</p>
-                <p class="textMain">Project Explorer is a repository for final year projects across all departments at
-                    your instituition. You can submit your project</p>
-                <p class="textMain">and search projects submitted by others to learn from.</p>
-            </div>
-
-
-            <div class="buttonFlex">
-                <button type="submit" id="getStartedButton">Get Started</button>
-                <button type="submit" id="loginButton">Login</button>
-            </div>
-
-
+            <h1 class="jumbotronHeading">Welcome to Project Explorer</h1>
+            <p class="textBelow">Project Explorer is a repository for final year projects across all departments at
+                your instituition. You can submit your project and search projects submitted by others to learn from</p>
+            <a class="btn btn-primary btn-lg " href="#" role="button">Get Started</a>
+            <a class="btn btn-secondary btn-lg " href="#" role="button">Login</a>
         </div>
 
         <div class="cardContainer">
 
-            <div class="cards">
-
-                <div class="innerCardContainer">
-                    <p class="cardHeader">Project 4</p>
-                    <p class="subHead">Henry James, Bola Ade</p>
-                    <p class="thirdHead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odio
-                        accusamus illo porro id
-                        ipsum amet perferendis dignissimos mollitia esse.</p>
-                    <p class="fourthHead">#yaml, &nbsp; &nbsp; #ejs</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project 4</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Henry James, Bola Ade</h6>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor sunt tempora
+                        saepe labore harum distinctio ullam deserunt nemo totam excepturi.</p>
+                    <a href="#" class="card-link">#yaml,</a>
+                    <a href="#" class="card-link">#ejs</a>
                 </div>
-
-
             </div>
 
-            <div class="cards">
-
-                <div class="innerCardContainer">
-                    <p class="cardHeader">Project 3</p>
-                    <p class="subHead">Ben Rice, Ade Sola</p>
-                    <p class="thirdHead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus fuga doloremque
-                        nihil cupiditate, deserunt dolor non! Voluptate eius quaerat corporis!</p>
-                    <p class="fourthHead">#css, &nbsp; &nbsp; #html</p>
-
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project 3</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Ben Rice, Ade Sola</h6>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo nihil
+                        aliquam
+                        nobis nostrum ut unde provident fuga modi praesentium aut!</p>
+                    <a href="#" class="card-link">#css,</a>
+                    <a href="#" class="card-link">#html</a>
                 </div>
-
             </div>
 
-            <div class="cards">
-
-                <div class="innerCardContainer">
-                    <p class="cardHeader">Project 2</p>
-                    <p class="subHead">Fried Lim, Tola Daniel</p>
-                    <p class="thirdHead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellendus
-                        quasi? Quidem beatae quos animi dolore nostrum qui officiis voluptatibus?</p>
-                    <p class="fourthHead">#ejs, &nbsp; &nbsp; #ci</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project 2</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Fried Lim, Tola Daniel</h6>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut illum deserunt
+                        sit
+                        dolore reiciendis aperiam explicabo obcaecati iure molestias hic!</p>
+                    <a href="#" class="card-link">#ejs,</a>
+                    <a href="#" class="card-link">#ci</a>
                 </div>
-
             </div>
 
-            <div class="cards">
-
-                <div class="innerCardContainer">
-                    <p class="cardHeader">Project 1</p>
-                    <p class="subHead">James Li, Ade Brian</p>
-                    <p class="thirdHead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam voluptatum
-                        soluta expedita fugit voluptates optio maxime recusandae rerum in. Distinctio?</p>
-                    <p class="fourthHead">#javascript, &nbsp; &nbsp; #mongodb</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project 1</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">James Li, Ade Brian</h6>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste unde vero
+                        corrupti itaque saepe adipisci nam maxime natus omnis consequatur!</p>
+                    <a href="#" class="card-link">#javascript,</a>
+                    <a href="#" class="card-link">#mongodb</a>
                 </div>
-
             </div>
 
         </div>
@@ -135,8 +119,6 @@
             <p>Project Explorer &copy; 2020 .<span id="ed">Edconnect</span> </p>
         </div>
     </footer>
-
-
 
 </body>
 

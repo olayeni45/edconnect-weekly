@@ -4,47 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Search Page</title>
 
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <title>Search Page</title>
 </head>
 
 <body>
 
-    <!--NavBar-->
-    <nav>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 
-        <div class="firstNavFlex">
+        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <a href="index.html" id="projectLogo">Project Explorer</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <form class="form-inline ">
-                <input class="searchInput" type="search" placeholder="Search Projects">
-                <button class="btn searchButton" type="submit">Search</button>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <ul class="navUl">
-                <li class="nav-item">
-                    <a class="nav-link" id="searchLink" href="search.html">Projects</a>
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="search.html">Projects</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" id="createLink" href="createProject.html">Submit</a>
+                    <a class="nav-link " href="createProject.html">Submit</a>
                 </li>
             </ul>
 
-        </div>
-
-        <div class="secondNavFlex">
-
-            <ul class="navUl">
+            <ul class="navbar-nav ">
 
                 <li class="nav-item ">
-                    <a class="nav-link" id="registerLink" href="register.html">Sign Up</a>
+                    <a class="nav-link " href="register.html">Sign Up</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" id="loginLink" href="login.html">Login</a>
+                    <a class="nav-link " href="login.html">Login</a>
                 </li>
             </ul>
 
@@ -52,30 +54,40 @@
 
     </nav>
 
-    <!--Center Container-->
+
+
     <div class="searchCenterContainer">
 
-        <p id="searchProjectGallery">Project Gallery</p>
+        <h3>Project Gallery</h3>
 
-        <form>
+        <div class="searchDiv">
 
-            <div class="searchDiv">
+            <div class="searchText">
 
-                <input type="text" class="form-control" id="searchHtmlInput"
+                <input type="text" class="form-control " id="search"
                     placeholder="Search project name,authors,abstract,tags">
-
-                <div class="searchBy">Search by</div>
-                <select class="form-control" id="searchSelect">
-                    <option>Name</option>
-                </select>
-
-                <button type="button" class="searchHtmlButton">Submit</button>
 
             </div>
 
-        </form>
+            <div class="searchBy">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Search by</div>
+                    </div>
+                    <select class="form-control">
+                        <option>Name</option>
+                    </select>
+                </div>
+            </div>
 
-        <p> <span id="allP">All Projects</span> <span class="mute">(1 result)</span> </p>
+            <div class="submitBtn">
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+
+        <h5>All Projects <span class="mute">(1 result)</span> </h5>
+
         <div class="results">
             <p>a</p>
             <p>dsad</p>
@@ -86,13 +98,13 @@
     </div>
 
 
+
     <!--Footer-->
-    <footer id="searchFooter">
+    <footer class="bottomFooter">
         <div class="footerContent">
             <p>Project Explorer &copy; 2020 .<span id="ed">Edconnect</span> </p>
         </div>
     </footer>
-
 
 </body>
 

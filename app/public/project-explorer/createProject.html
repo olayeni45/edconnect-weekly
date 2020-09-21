@@ -4,46 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
     <title>Create Project</title>
 </head>
 
 <body>
 
-    <!--NavBar-->
-    <nav>
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 
-        <div class="firstNavFlex">
+        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <a href="index.html" id="projectLogo">Project Explorer</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <form class="form-inline ">
-                <input class="searchInput" type="search" placeholder="Search Projects">
-                <button class="btn searchButton" type="submit">Search</button>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Projects" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <ul class="navUl">
-                <li class="nav-item">
-                    <a class="nav-link" id="searchLink" href="search.html">Projects</a>
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="search.html">Projects</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" id="createLink" href="createProject.html">Submit</a>
+                    <a class="nav-link " href="createProject.html">Submit</a>
                 </li>
             </ul>
 
-        </div>
-
-        <div class="secondNavFlex">
-
-            <ul class="navUl">
+            <ul class="navbar-nav ">
 
                 <li class="nav-item ">
-                    <a class="nav-link" id="registerLink" href="register.html">Sign Up</a>
+                    <a class="nav-link " href="register.html">Sign Up</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" id="loginLink" href="login.html">Login</a>
+                    <a class="nav-link " href="login.html">Login</a>
                 </li>
             </ul>
 
@@ -51,36 +54,39 @@
 
     </nav>
 
-    <!--CreateProject Center Div-->
-    <div class="createProjectCenterContainer">
+    <div class="createProjcenterDiv">
 
-        <p id="createProjHeading">Submit Project</p>
+        <h3>Submit Project</h3>
 
         <form>
-
-            <div class="createProjFormContainer">
-
-                <label for="projectName" id="createProjLabel">Project Name</label>
-                <input type="text" class="form-control" id="createProjectInput" placeholder="Enter Project Name">
-
-                <label for="projectAbstract" id="createProjTextLabel">Project Abstract</label>
-                <textarea class="form-control" id="createAbstractText"></textarea>
-
-                <label for="author" id="createAuthorLabel">Author(s)</label>
-                <input type="text" class="form-control" id="CreateAuthorInput"
-                    placeholder="Enter author names (seperated by comma) ">
-
-                <label for="tag" id="createTagLabel">Tag(s)</label>
-                <input type="text" class="form-control" id="CreateTagInput"
-                    placeholder="Use # to tag project with different topics (e.g. #javascript #mongodb)  ">
-
+            <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input type="text" class="form-control" id="projectName" placeholder="Enter Project Name">
             </div>
 
-            <button type="button" class="btn createProjBtn">Continue</button>
+            <div class="form-group">
+                <label for="projectAbstract">Project Abstract</label>
+                <textarea class="form-control" id="projectAbstract" rows="3" cols="40"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author(s)</label>
+                <input type="text" class="form-control" id="author"
+                    placeholder="Enter author names (seperated by comma) ">
+            </div>
+
+            <div class="form-group">
+                <label for="tag">Tag(s)</label>
+                <input type="text" class="form-control" id="tag"
+                    placeholder="Use # to tag project with different topics (e.g. #javascript #mongodb)  ">
+            </div>
+
+            <button type="button" class="btn btn-primary">Continue</button>
 
         </form>
 
     </div>
+
 
     <!--Footer-->
     <footer>
