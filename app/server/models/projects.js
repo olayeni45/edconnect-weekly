@@ -8,7 +8,16 @@ class Project {
 
 class Projects extends DataModel {
     validate(obj) {
+        //Validating if Authors and tag properties are arrays
+        if (typeof this.authors === "object" && typeof this.tags === "object") {
+            if (this.id != null && this.name != null && this.abstract != null && this.authors != null && this.tags != null && this.createdBy != null) {
+                return true;
+            }
+        }
 
+        else {
+            return false;
+        }
     }
 }
 

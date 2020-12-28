@@ -6,12 +6,17 @@ class User {
     }
 
     getFullName() {
-
+        return this.firstname + " " + this.lastname;
     }
 }
 
 class Users extends DataModel {
     authenticate(email, password) {
+
+        var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+        return passwordRegex.test(password);
+        return emailRegex.test(email);
 
     }
 

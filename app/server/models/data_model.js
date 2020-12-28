@@ -8,7 +8,12 @@ class DataModel {
     }
 
     getById(id) {
-
+        if (this.id != null) {
+            return this;
+        }
+        else {
+            return null;
+        }
     }
 
     save(obj) {
@@ -20,11 +25,21 @@ class DataModel {
     }
 
     update(obj, id) {
-
+        if (obj[id] != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     delete(id) {
-
+        if (obj[id] != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     // this method will be overriden in the sub classes
