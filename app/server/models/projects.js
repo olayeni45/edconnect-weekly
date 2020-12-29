@@ -2,15 +2,21 @@ const DataModel = require('./data_model');
 
 class Project {
     constructor(id, name, abstract, authors, tags, createdBy) {
-
+        this.id = id;
+        this.name = name;
+        this.abstract = abstract;
+        this.authors = authors;
+        this.tags = tags;
+        this.createdBy = createdBy;
     }
 }
 
 class Projects extends DataModel {
     validate(obj) {
         //Validating if Authors and tag properties are arrays
-        if (typeof this.authors === "object" && typeof this.tags === "object") {
-            if (this.id != null && this.name != null && this.abstract != null && this.authors != null && this.tags != null && this.createdBy != null) {
+        if (typeof obj.authors === "object" && typeof obj.tags === "object") {
+
+            if (obj.id != null && obj.name != null && obj.abstract != null && obj.authors != null && obj.tags != null && obj.createdBy != null) {
                 return true;
             }
         }

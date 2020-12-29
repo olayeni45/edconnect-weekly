@@ -1,6 +1,7 @@
 class DataModel {
     constructor() {
         this.data = [];
+        return this;
     }
 
     getAll() {
@@ -8,7 +9,7 @@ class DataModel {
     }
 
     getById(id) {
-        if (this.id != null) {
+        if (obj[id] != null) {
             return this;
         }
         else {
