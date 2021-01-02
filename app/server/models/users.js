@@ -25,32 +25,26 @@ class Users extends DataModel {
             if (this.data[i].email === email && this.data[i].password === password) {
                 return true;
             }
-
         }
-
         return false;
-
     }
 
 
     getByEmail(email) {
         //To return a specified email address
-        for (let j = 0; j < this.data.length; j++) {
-            if (this.data[j].email == email) {
-                return this.data[j];
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].email == email) {
+                return this.data[i];
             }
-
         }
-
         return null;
-
     }
 
     getByMatricNumber(matricNumber) {
         //To return specified matric number
-        for (let j = 0; j < this.data.length; j++) {
-            if (this.data[j].matricNumber == matricNumber) {
-                return this.data[j];
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].matricNumber == matricNumber) {
+                return this.data[i];
             }
         }
 
