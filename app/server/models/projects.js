@@ -14,7 +14,7 @@ class Project {
 class Projects extends DataModel {
     validate(obj) {
         //Validating if Authors and tag properties are arrays
-        if (Array.isArray(obj.authors) || Array.isArray(obj.tags)) {
+        if (Array.isArray(obj.authors) && Array.isArray(obj.tags)) {
 
             if (obj.id != null || obj.name != null || obj.abstract != null || obj.authors != null || obj.tags != null || obj.createdBy != null) {
                 return true;

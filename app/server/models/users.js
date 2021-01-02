@@ -22,7 +22,7 @@ class Users extends DataModel {
     authenticate(email, password) {
         //To validate both email and password from data array
         for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].email == email && this.data[i] == password) {
+            if (this.data[i].email === email && this.data[i].password === password) {
                 return true;
             }
 
