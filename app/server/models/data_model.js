@@ -1,7 +1,6 @@
 class DataModel {
     constructor() {
         this.data = [];
-        return this;
     }
 
     getAll() {
@@ -9,12 +8,14 @@ class DataModel {
     }
 
     getById(id) {
-        if (obj[id] != null) {
-            return this;
+        let i;
+        for (i = 0; i < this.data.length; i++) {
+            if (this.data[i].id == id) {
+                return this.data[i];
+            }
         }
-        else {
-            return null;
-        }
+
+        return null;
     }
 
     save(obj) {
@@ -26,21 +27,32 @@ class DataModel {
     }
 
     update(obj, id) {
-        if (obj[id] != null) {
-            return true;
+        let i;
+        for (i = 0; i < this.data.length; i++) {
+            if (this.data[i].id == id) {
+                for (let objectName in obj) {
+                    this.data[i][objectName] = obj[objectName];
+                }
+                return true;
+            }
         }
-        else {
-            return false;
-        }
+
+        return false;
     }
 
     delete(id) {
-        if (obj[id] != null) {
+        let i;
+        let initialLength = this.data.length;
+        for (i = 0; i < this.data.length; i++) {
+            if (this.data[i].id == id) {
+                this.data.splice(i, 1);
+            }
+        }
+
+        if (this.data.length < initialLength) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     // this method will be overriden in the sub classes

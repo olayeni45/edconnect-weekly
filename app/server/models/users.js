@@ -20,77 +20,98 @@ class User {
 class Users extends DataModel {
 
     authenticate(email, password) {
-
-        var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-
-        if (emailRegex.test(this.email)) {
-
-            if (passwordRegex.test(this.password)) {
+        //To validate both email and password from data array
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].email == email && this.data[i] == password) {
                 return true;
             }
+
         }
 
-        else {
+        return false;
 
-            return false;
-        }
     }
 
 
     getByEmail(email) {
+        //To return a specified email address
+        for (let j = 0; j < this.data.length; j++) {
+            if (this.data[j].email == email) {
+                return this.data[j];
+            }
 
-        if (this.email != null) {
-            return this.email;
         }
-        else {
-            return null;
-        }
+
+        return null;
 
     }
 
     getByMatricNumber(matricNumber) {
-
-        if (this.matricNumber != null) {
-            return this.matricNumber;
+        //To return specified matric number
+        for (let j = 0; j < this.data.length; j++) {
+            if (this.data[j].matricNumber == matricNumber) {
+                return this.data[j];
+            }
         }
 
-        else {
-            return null;
-        }
+        return null;
 
     }
 
     validate(obj) {
+        //To validate all the properties
+        let propertiesValidation = false, emailValidation = false, matricValidation = false;
+        let passwordLength = false;
 
+        //Properties Validation
         if (obj.id != null && obj.firstname != null && obj.lastname != null && obj.email != null && obj.password != null && obj.matricNumber != null && obj.program != null && obj.graduationYear != null) {
+            propertiesValidation = true;
+        }
 
-            for (let i = 0; i < this.data.length; i++) {
-                var emailCheck = this.data[i];
-
-                if (emailCheck != obj.email) {
-                    for (let j = 0; j < this.data.length; j++) {
-                        var matricCheck = this.data[j];
-
-                        if (matricCheck != obj.matricNumber) {
-                            var leastPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{7,}$/;
-                            if (leastPassword.test(obj.email)) {
-                                return true;
-                            }
-
-                        }
-                    }
-
-                }
-
+        //Email Validation
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].email != obj.email) {
+                emailValidation = true;
+                break;
             }
+        }
 
+        //Matric Validation
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].matricNumber != obj.matricNumber) {
+                matricValidation = true;
+                break;
+            }
+        }
 
+        //Password length
+        if (obj.password.length >= 7) {
+            passwordLength = true;
+        }
+
+        if (propertiesValidation == true) {
+            if (emailValidation == true) {
+                if (matricValidation == true) {
+                    if (passwordLength == true) {
+                        return true;
+                    }
+                }
+            }
         }
 
         else {
             return false;
         }
+
+        /*
+        if (propertiesValidation && emailValidation && matricValidation && passwordLength) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+        */
 
 
     }
