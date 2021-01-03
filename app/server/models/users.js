@@ -54,44 +54,41 @@ class Users extends DataModel {
 
     validate(obj) {
         //To validate all the properties
-        let propertiesValidation = false, emailValidation = false, matricValidation = false;
-        let passwordLength = false;
+        let emptyProperties = true;
+        let emailValidation = true;
+        let matricValidation = true;
+        let passwordLength = true;
 
         //Properties Validation
         if (obj.id != null && obj.firstname != null && obj.lastname != null && obj.email != null && obj.password != null && obj.matricNumber != null && obj.program != null && obj.graduationYear != null) {
-            propertiesValidation = true;
+            emptyProperties = false;
         }
 
         //Email Validation
         for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].email != obj.email) {
-                emailValidation = true;
+            if (this.data[i].email === obj.email) {
+                emailValidation = false;
                 break;
             }
         }
 
         //Matric Validation
         for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].matricNumber != obj.matricNumber) {
-                matricValidation = true;
+            if (this.data[i].matricNumber === obj.matricNumber) {
+                matricValidation = false;
                 break;
             }
         }
 
         //Password length
-        if (obj.password.length >= 7) {
-            passwordLength = true;
+        if (obj.password.length < 7) {
+            passwordLength = false;
         }
 
-        if (propertiesValidation == true) {
-            if (emailValidation == true) {
-                if (matricValidation == true) {
-                    if (passwordLength == true) {
-                        return true;
-                    }
-                }
-            }
+        if (emptyProperties && emailValidation && matricValidation && passwordLength) {
+            return true;
         }
+
 
         else {
             return false;
