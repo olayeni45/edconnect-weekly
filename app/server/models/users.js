@@ -60,9 +60,14 @@ class Users extends DataModel {
         let passwordLength = true;
 
         //Properties Validation
+        if (obj.id.length == 0 && obj.firstname.length == 0 && obj.lastname.length == 0 && obj.email.length == 0 && obj.password.length == 0 && obj.matricNumber.length == 0 && obj.program.length == 0 && obj.graduationYear.length == 0) {
+            emptyProperties = false;
+        }
+        /*
         if (obj.id != null && obj.firstname != null && obj.lastname != null && obj.email != null && obj.password != null && obj.matricNumber != null && obj.program != null && obj.graduationYear != null) {
             emptyProperties = false;
         }
+        */
 
         //Email Validation
         for (let i = 0; i < this.data.length; i++) {
@@ -93,17 +98,6 @@ class Users extends DataModel {
         else {
             return false;
         }
-
-        /*
-        if (propertiesValidation && emailValidation && matricValidation && passwordLength) {
-            return true;
-        }
-
-        else {
-            return false;
-        }
-        */
-
 
     }
 }
