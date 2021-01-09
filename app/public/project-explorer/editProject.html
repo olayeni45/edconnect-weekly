@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+
+    <title>Edit Project</title>
+</head>
+
+<body>
+
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+
+        <a class="navbar-brand" href="index.html" id="projectLogo">Project Explorer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control" type="search" placeholder="Search Projects" aria-label="Search"
+                    id="navSearchPos">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="search.html">Projects</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="createProject.html">Submit</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="register.html">Sign Up</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="login.html">Login</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <div class="editProjectcenterContainer">
+
+        <h3>Project 4</h3>
+
+        <div class="projectStatusContainer">
+
+            <div class="project">
+
+                <div class="statusFlex">
+
+                    <div class="columnFlex">
+                        <p>Created By</p>
+                        <p class="bold">Ade Ade</p>
+                    </div>
+
+                    <div class="columnFlex">
+                        <p>Date Created</p>
+                        <p class="bold">2020-09-04</p>
+                    </div>
+
+                    <div class="columnFlex">
+                        <p>Last Updated</p>
+                        <p class="bold">2020-09-04</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="btnFlex">
+                <a class="btn btn-primary" href="viewProject.html" role="button">View Project</a>
+
+            </div>
+
+        </div>
+
+
+        <div id="margin"></div>
+
+        <div class="formContainer">
+
+            <form>
+                <div class="row">
+                    <div class="col-6">
+
+                        <h4>Edit Project</h4>
+                        <hr />
+
+                        <div class="form-group">
+                            <label for="name">Project Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="Project 4">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectAbstract">Project Abstract</label>
+                            <textarea class="form-control" id="projectAbstract" name="abstract"
+                                rows="3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente alias quam saepe perspiciatis eveniet repellat? Dolore, eos. Ipsa, assumenda officia?</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="author">Author(s)</label>
+                            <input type="text" class="form-control" id="author" name="authors"
+                                value="Henry James, Bola Ade">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tag">Tag(s)</label>
+                            <input type="text" class="form-control" id="tag" name="tags" value="#javascript #mongodb">
+                        </div>
+
+                        <button type="button" class="btn btn-primary">Save</button>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <h4>Manage Project</h4>
+                        <hr />
+
+                        <div class="input-group">
+
+                            <div class="input-group-append">
+
+                                <div class="input-group-text">
+                                    <input type="file" name="projectFile" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+
+                        <div class="card">
+                            <div class="card-header bold">
+                                Project Files
+                            </div>
+                            <div class="card-body">
+
+                                <p class="card-text centerText">No file uploaded yet</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+    <!--Footer-->
+    <footer>
+        <div class="footerContent">
+            <p>Project Explorer &copy; 2020 .<span id="ed">Edconnect</span> </p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+
+
+</body>
+
+</html>
