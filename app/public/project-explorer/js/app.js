@@ -1,12 +1,10 @@
-//Register.html
-
 //Defining the URIs
-const programListUri = '/api/programs';
-const gradYearsUri = '/api/graduationYears';
-const registerUri = '/api/register';
-const usersUri = '/api/users';
-const loginUri = '/api/login';
-const createProjectUri = '/api/projects';
+const programListUri = "/api/programs";
+const gradYearsUri = "/api/graduationYears";
+const registerUri = "/api/register";
+const usersUri = "/api/users";
+const loginUri = "/api/login";
+const createProjectUri = "/api/projects";
 
 //Defining DOM Variables
 //register.html
@@ -27,6 +25,7 @@ var buttonLogin = document.getElementById("loginBtn");
 var createProjectForm = document.getElementById("createProjectForm");
 var createProjectBtn = document.getElementById("createProjectBtn");
 
+//Register.html
 //GET Requests for the Programs and Graduation Years
 fetch(programListUri,
     {
@@ -39,11 +38,11 @@ fetch(programListUri,
     .then((data) => {
         for (var i = 0; i < data.length; i++) {
             programSelect[i].value = data[i];
-            programSelect[i].textContent = data[i];
+            programSelect[i].innerHTML = data[i];
         }
     })
     .catch((error) => {
-        console.log("Error: " + error);
+        console.log("Error: ", error);
     });
 
 fetch(gradYearsUri,
@@ -57,11 +56,11 @@ fetch(gradYearsUri,
     .then((data) => {
         for (var i = 0; i < data.length; i++) {
             graduationList[i].value = data[i];
-            graduationList[i].textContent = data[i];
+            graduationList[i].innerHTML = data[i];
         }
     })
     .catch((error) => {
-        console.log("Error: " + error);
+        console.log("Error: ", error);
     })
 
 
@@ -89,51 +88,65 @@ signUpButton.addEventListener("click", function (event) {
 
     fetch(registerUri,
         {
-            method: 'POST',
+            method: "POST",
+            headers: { "Content-type": "application/json" },
             body: JSON.stringify(formData),
-            headers: { 'Content-type': 'application/json' }
         })
         .then((response) => {
-            response.json();
+            return response.json();
         })
         .then((data) => {
+            console.log(data);
+
             if (data.status === "ok") {
                 let key = "uid";
                 let value = data.data.id;
                 document.cookie = `${key}=${value};path=/;`;
-                window.Location.href = "project-explorer/index.html";
+                window.location.href = window.location.origin + "/project-explorer/index.html";
             }
             else {
                 var alertDiv = document.createElement("div");
                 alertDiv.className = "alert";
                 alertDiv.classList.add("alert-danger");
 
-                for (var i = 0; i < data.error.length; i++) {
+                var errorMessages = new Array();
+                errorMessages = data.errors;
+
+                for (var i = 0; i < errorMessages.length; i++) {
                     var alerts = document.createElement("p");
-                    alerts.textContent = data.error[i];
+                    alerts.innerHTML = errorMessages[i];
                     alertDiv.appendChild(alerts);
                 }
 
                 signUpForm.prepend(alertDiv);
 
             }
+
         })
         .catch((error) => {
-            console.log("Error: " + error);
+            console.log("Error: ", error);
         });
 })
 
-console.log(window.location.href);
 
-/*NavBar from index.html 
-document.addEventListener('DOMContentLoaded', (ev) => {
+//NavBar from index.html 
+document.addEventListener('DOMContentLoaded', () => {
     //To check if there is a value for the uid cookie
-    //let uidCookie = document.cookie.split(';').filter(item => item.trim().startsWith('uid')).split("=");
-    let userCookieUri = usersUri + "/" + uidCookie;
+    let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
 
-    if (uidCookie) {
+    /*
+        var storedCookie = new Array();
+        storedCookie = document.cookie.split("=");
+        var userCookie = storedCookie[1];
+        console.log(userCookie);
+        
+        userCookie != null
+    */
+    let personalCookieUri = usersUri + "/" + uid;
 
-        fetch(userCookieUri,
+    if (uid != null) {
+
+        fetch(personalCookieUri,
             {
                 "method": "GET"
             })
@@ -141,25 +154,50 @@ document.addEventListener('DOMContentLoaded', (ev) => {
                 return response.json();
             })
             .then(() => {
-                signUpNav.style.display = "hidden";
-                loginNav.style.display = "hidden";
 
-                var logoutDiv = document.createElement("a");
-                logoutDiv.textContent = "Logout";
-                logoutDiv.className = ("nav-link");
+                //Defining new navLinks
+                let signUpLink = document.querySelector('a[href = "register.html"]');
+                let loginLink = document.querySelector('a[href = "login.html"]');
+                let firstAppend = document.querySelector(".changedDiv");
+                let secondAppend = document.querySelector(".innerChangedDiv");
 
+                signUpLink.style.display = "none";
+                loginLink.style.display = "none";
+
+                let logoutLi = document.createElement("li");
+                logoutLi.className = "nav-item";
+                let logoutBtn = document.createElement("a");
+                logoutBtn.className = "nav-link";
+                logoutBtn.setAttribute("href", "#");
+                logoutBtn.setAttribute("id", "logout");
+
+                let userNameLi = document.createElement("li");
+                userNameLi.className = "nav-item";
+                let userNameLink = document.createElement("a");
+                userNameLink.className = "nav-link";
+                userNameLink.setAttribute("href", "#");
+                userNameLink.setAttribute("id", "username");
+                userNameLink.innerHTML = `Hi, {data.firstname}`;
+                userNameLi.appendChild(userNameLink);
+
+                firstAppend.appendChild(logoutLi);
+                secondAppend.appendChild(userNameLi);
+
+                function logout() {
+                    document.cookie = "uid=; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/";
+                    window.location.href = window.location.origin + "/project-explorer/index.html";
+                }
+
+                logoutBtn.addEventListener("click", logout);
 
             })
-
-
-
-    } else {
+            .catch((error) => {
+                console.log("Error: ", error);
+            });
 
     }
-    ev.stopPropagation();
-});
-*/
 
+})
 
 //Login.html
 buttonLogin.addEventListener("click", (event) => {
@@ -167,6 +205,7 @@ buttonLogin.addEventListener("click", (event) => {
 
     var loginEmail = document.getElementById("loginEmail").value;
     var loginPassword = document.getElementById("loginPassword").value;
+
     var loginData = {
         "email": loginEmail,
         "password": loginPassword
@@ -175,18 +214,18 @@ buttonLogin.addEventListener("click", (event) => {
     fetch(loginUri,
         {
             method: "POST",
-            body: JSON.stringify(loginData),
-            headers: { 'Content-type': 'application/json' }
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(loginData)
         })
         .then((response) => {
-            response.json();
+            return response.json();
         })
         .then((data) => {
             if (data.status === "ok") {
                 let key = "uid";
                 let value = data.data.id;
                 document.cookie = `${key}=${value};path=/;`;
-                window.Location.href = "project-explorer/index.html";
+                window.location.href = window.location.origin + "/project-explorer/index.html";
             }
             else {
                 var loginAlertDiv = document.createElement("div");
@@ -222,24 +261,27 @@ createProjectBtn.addEventListener("click", (event) => {
     fetch(createProjectUri,
         {
             method: "POST",
-            body: JSON.stringify(createProjectData),
-            headers: { 'Content-type': 'application/json' }
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(createProjectData)
         })
         .then((response) => {
             return response.json();
         })
         .then((data) => {
             if (data.status === "ok") {
-                window.Location.href = "project-explorer/index.html";
+                window.location.href = window.location.origin + "/project-explorer/index.html";
             }
             else {
                 var createAlertDiv = document.createElement("div");
                 createAlertDiv.className = "alert";
                 createAlertDiv.classList.add("alert-danger");
 
-                for (var i = 0; i < data.error.length; i++) {
+                var errorMessages = new Array();
+                errorMessages = data.errors;
+
+                for (var i = 0; i < errorMessages.length; i++) {
                     var alerts = document.createElement("p");
-                    alerts.textContent = data.error[i];
+                    alerts.innerHTML = errorMessages[i];
                     createAlertDiv.appendChild(alerts);
                 }
 
@@ -254,3 +296,12 @@ createProjectBtn.addEventListener("click", (event) => {
 });
 
 //Restricting Project Submission
+document.addEventListener("DOMContentLoaded", () => {
+
+    let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
+
+    if (uid == null) {
+        window.location.href = window.location.origin + "/project-explorer/login.html";
+    }
+
+})
