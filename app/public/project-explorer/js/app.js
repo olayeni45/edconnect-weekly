@@ -12,6 +12,7 @@ var programSelect = document.getElementById("program");
 var graduationList = document.getElementById("graduation");
 var signUpForm = document.getElementById("signupForm");
 var signUpButton = document.getElementById("signUp");
+var bottomFooter = document.querySelector(".bottomFooter");
 
 //index.html
 var signUpNav = document.getElementById("navSignUp");
@@ -65,7 +66,7 @@ fetch(gradYearsUri,
 
 
 //POST Request from the form 
-signUpButton.addEventListener("click", function (event) {
+signUpButton.addEventListener("click", (event) => {
     event.preventDefault();
 
     let firstname = document.getElementById("fName").value;
@@ -119,6 +120,7 @@ signUpButton.addEventListener("click", function (event) {
                 }
 
                 signUpForm.prepend(alertDiv);
+                bottomFooter.className = "displayFooter";
 
             }
 
@@ -130,7 +132,8 @@ signUpButton.addEventListener("click", function (event) {
 
 
 //NavBar from index.html 
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
+
     //To check if there is a value for the uid cookie
     let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
 
@@ -144,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     let personalCookieUri = usersUri + "/" + uid;
 
-    if (uid != null) {
+    if (uid != " ") {
 
         fetch(personalCookieUri,
             {
@@ -153,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 return response.json();
             })
-            .then(() => {
+            .then((data) => {
+                //var dataFirstName = data.firstname;
+                console.log(data);
 
                 //Defining new navLinks
                 let signUpLink = document.querySelector('a[href = "register.html"]');
@@ -170,6 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 logoutBtn.className = "nav-link";
                 logoutBtn.setAttribute("href", "#");
                 logoutBtn.setAttribute("id", "logout");
+                logoutBtn.innerHTML = "Logout";
+                logoutLi.appendChild(logoutBtn);
 
                 let userNameLi = document.createElement("li");
                 userNameLi.className = "nav-item";
@@ -177,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userNameLink.className = "nav-link";
                 userNameLink.setAttribute("href", "#");
                 userNameLink.setAttribute("id", "username");
-                userNameLink.innerHTML = `Hi, {data.firstname}`;
+                userNameLink.innerHTML = `Hi, ${data.firstname}`;
                 userNameLi.appendChild(userNameLink);
 
                 firstAppend.appendChild(logoutLi);
@@ -197,10 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-})
+};
 
 //Login.html
 buttonLogin.addEventListener("click", (event) => {
+    console.log("Clicked");
     event.preventDefault();
 
     var loginEmail = document.getElementById("loginEmail").value;
@@ -239,6 +247,7 @@ buttonLogin.addEventListener("click", (event) => {
         .catch((error) => {
             console.log("Error: " + error);
         });
+
 });
 
 
@@ -300,8 +309,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
 
-    if (uid == null) {
+    if (uid == " ") {
         window.location.href = window.location.origin + "/project-explorer/login.html";
     }
 
 })
+
+//Updating the projects
+fetch(createProjectUri,
+    {
+        method: "GET",
+        headers: { 'Content-type': 'application/json' }
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        var returnedProjects = data;
+
+        for (var i = 0; i < returnedProjects.length; i++) {
+
+        }
+
+    })
+    .catch((error) => {
+        console.log("Error: " + error);
+    });

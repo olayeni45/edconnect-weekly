@@ -244,7 +244,11 @@ input[type="file" i]{
     width:100%;  
 }
 
-
+.displayFooter{
+    position:relative;
+    top:350px;
+    width:100%;
+}
 /*Profile.html*/
 /*centerContainer CSS*/
 .profileCenterContainer{
