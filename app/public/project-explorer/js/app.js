@@ -65,71 +65,74 @@ fetch(gradYearsUri,
     })
 
 
-//POST Request from the form 
-signUpButton.addEventListener("click", (event) => {
-    event.preventDefault();
+//POST Request for the signup form 
+if (signUpForm) {
 
-    let firstname = document.getElementById("fName").value;
-    let lastname = document.getElementById("lName").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let matricNumber = document.getElementById("matric").value;
-    let program = document.getElementById("program").value;
-    let graduationYear = document.getElementById("graduation").value;
+    signUpForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    var formData = {
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "password": password,
-        "matricNumber": matricNumber,
-        "program": program,
-        "graduationYear": graduationYear
-    };
+        let firstname = document.getElementById("fName").value;
+        let lastname = document.getElementById("lName").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let matricNumber = document.getElementById("matric").value;
+        let program = document.getElementById("program").value;
+        let graduationYear = document.getElementById("graduation").value;
 
-    fetch(registerUri,
-        {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(formData),
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
+        var formData = {
+            "firstname": firstname,
+            "lastname": lastname,
+            "email": email,
+            "password": password,
+            "matricNumber": matricNumber,
+            "program": program,
+            "graduationYear": graduationYear
+        };
 
-            if (data.status === "ok") {
-                let key = "uid";
-                let value = data.data.id;
-                document.cookie = `${key}=${value};path=/;`;
-                window.location.href = window.location.origin + "/project-explorer/index.html";
-            }
-            else {
-                var alertDiv = document.createElement("div");
-                alertDiv.className = "alert";
-                alertDiv.classList.add("alert-danger");
+        fetch(registerUri,
+            {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(formData),
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
 
-                var errorMessages = new Array();
-                errorMessages = data.errors;
+                if (data.status === "ok") {
+                    let key = "uid";
+                    let value = data.data.id;
+                    document.cookie = `${key}=${value};path=/;`;
+                    window.location.href = window.location.origin + "/project-explorer/index.html";
+                }
+                else {
+                    var alertDiv = document.createElement("div");
+                    alertDiv.className = "alert";
+                    alertDiv.classList.add("alert-danger");
 
-                for (var i = 0; i < errorMessages.length; i++) {
-                    var alerts = document.createElement("p");
-                    alerts.innerHTML = errorMessages[i];
-                    alertDiv.appendChild(alerts);
+                    var errorMessages = new Array();
+                    errorMessages = data.errors;
+
+                    for (var i = 0; i < errorMessages.length; i++) {
+                        var alerts = document.createElement("p");
+                        alerts.innerHTML = errorMessages[i];
+                        alertDiv.appendChild(alerts);
+                    }
+
+                    signUpForm.prepend(alertDiv);
+                    bottomFooter.className = "displayFooter";
+
                 }
 
-                signUpForm.prepend(alertDiv);
-                bottomFooter.className = "displayFooter";
+            })
+            .catch((error) => {
+                console.log("Error: ", error);
+            });
+    })
 
-            }
-
-        })
-        .catch((error) => {
-            console.log("Error: ", error);
-        });
-})
-
+}
 
 //NavBar from index.html 
 window.onload = () => {
@@ -137,14 +140,6 @@ window.onload = () => {
     //To check if there is a value for the uid cookie
     let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
 
-    /*
-        var storedCookie = new Array();
-        storedCookie = document.cookie.split("=");
-        var userCookie = storedCookie[1];
-        console.log(userCookie);
-        
-        userCookie != null
-    */
     let personalCookieUri = usersUri + "/" + uid;
 
     if (uid != " ") {
@@ -153,11 +148,8 @@ window.onload = () => {
             {
                 "method": "GET"
             })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                //var dataFirstName = data.firstname;
+            .then(async (response) => {
+                var data = await response.json();
                 console.log(data);
 
                 //Defining new navLinks
@@ -165,6 +157,7 @@ window.onload = () => {
                 let loginLink = document.querySelector('a[href = "login.html"]');
                 let firstAppend = document.querySelector(".changedDiv");
                 let secondAppend = document.querySelector(".innerChangedDiv");
+                let ulLinks = document.querySelector(".changedLinks");
 
                 signUpLink.style.display = "none";
                 loginLink.style.display = "none";
@@ -189,6 +182,7 @@ window.onload = () => {
 
                 firstAppend.appendChild(logoutLi);
                 secondAppend.appendChild(userNameLi);
+                ulLinks.append(firstAppend, secondAppend);
 
                 function logout() {
                     document.cookie = "uid=; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/";
@@ -207,103 +201,108 @@ window.onload = () => {
 };
 
 //Login.html
-buttonLogin.addEventListener("click", (event) => {
-    console.log("Clicked");
-    event.preventDefault();
+if (loginForm) {
+    buttonLogin.addEventListener("click", (event) => {
+        console.log("Clicked");
+        event.preventDefault();
 
-    var loginEmail = document.getElementById("loginEmail").value;
-    var loginPassword = document.getElementById("loginPassword").value;
+        var loginEmail = document.getElementById("email").value;
+        var loginPassword = document.getElementById("password").value;
 
-    var loginData = {
-        "email": loginEmail,
-        "password": loginPassword
-    };
+        var loginData = {
+            "email": loginEmail,
+            "password": loginPassword
+        };
 
-    fetch(loginUri,
-        {
-            method: "POST",
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(loginData)
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            if (data.status === "ok") {
-                let key = "uid";
-                let value = data.data.id;
-                document.cookie = `${key}=${value};path=/;`;
-                window.location.href = window.location.origin + "/project-explorer/index.html";
-            }
-            else {
-                var loginAlertDiv = document.createElement("div");
-                loginAlertDiv.className = "alert";
-                loginAlertDiv.classList.add("alert-danger");
-                loginAlertDiv.innerHTML = "Invalid email/password";
-                loginForm.prepend(loginAlertDiv);
+        fetch(loginUri,
+            {
+                method: "POST",
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(loginData)
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                if (data.status === "ok") {
+                    let key = "uid";
+                    let value = data.data.id;
+                    document.cookie = `${key}=${value};path=/;`;
+                    window.location.href = window.location.origin + "/project-explorer/index.html";
+                }
+                else {
+                    var loginAlertDiv = document.createElement("div");
+                    loginAlertDiv.className = "alert";
+                    loginAlertDiv.classList.add("alert-danger");
+                    loginAlertDiv.innerHTML = "Invalid email/password";
+                    loginForm.prepend(loginAlertDiv);
 
-            }
-        })
-        .catch((error) => {
-            console.log("Error: " + error);
-        });
+                }
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
 
-});
+    });
+}
 
 
 //CreateProject.html
-createProjectBtn.addEventListener("click", (event) => {
-    event.preventDefault();
+if (createProjectForm) {
 
-    var projectName = document.getElementById("projectName").value;
-    var projectAbstract = document.getElementById("projectAbstract").value;
-    var author = document.getElementById("author").value;
-    var tag = document.getElementById("tag").value;
+    createProjectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    var createProjectData = {
-        "name": projectName,
-        "abstract": projectAbstract,
-        "authors": [author],
-        "tags": [tag]
-    }
+        var projectName = document.getElementById("projectName").value;
+        var projectAbstract = document.getElementById("projectAbstract").value;
+        var author = document.getElementById("author").value;
+        var tag = document.getElementById("tag").value;
 
-    fetch(createProjectUri,
-        {
-            method: "POST",
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(createProjectData)
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            if (data.status === "ok") {
-                window.location.href = window.location.origin + "/project-explorer/index.html";
-            }
-            else {
-                var createAlertDiv = document.createElement("div");
-                createAlertDiv.className = "alert";
-                createAlertDiv.classList.add("alert-danger");
+        var createProjectData = {
+            "name": projectName,
+            "abstract": projectAbstract,
+            "authors": [author],
+            "tags": [tag]
+        }
 
-                var errorMessages = new Array();
-                errorMessages = data.errors;
-
-                for (var i = 0; i < errorMessages.length; i++) {
-                    var alerts = document.createElement("p");
-                    alerts.innerHTML = errorMessages[i];
-                    createAlertDiv.appendChild(alerts);
+        fetch(createProjectUri,
+            {
+                method: "POST",
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(createProjectData)
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                if (data.status === "ok") {
+                    window.location.href = window.location.origin + "/project-explorer/index.html";
                 }
+                else {
+                    var createAlertDiv = document.createElement("div");
+                    createAlertDiv.className = "alert";
+                    createAlertDiv.classList.add("alert-danger");
 
-                createProjectForm.prepend(createAlertDiv);
+                    var errorMessages = new Array();
+                    errorMessages = data.errors;
 
-            }
-        })
-        .catch((error) => {
-            console.log("Error: " + error);
-        });
+                    for (var i = 0; i < errorMessages.length; i++) {
+                        var alerts = document.createElement("p");
+                        alerts.innerHTML = errorMessages[i];
+                        createAlertDiv.appendChild(alerts);
+                    }
 
-});
+                    createProjectForm.prepend(createAlertDiv);
 
+                }
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
+
+    });
+
+}
 //Restricting Project Submission
 document.addEventListener("DOMContentLoaded", () => {
 
