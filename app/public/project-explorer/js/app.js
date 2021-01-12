@@ -150,7 +150,6 @@ window.onload = () => {
             })
             .then(async (response) => {
                 var data = await response.json();
-                console.log(data);
 
                 //Defining new navLinks
                 let signUpLink = document.querySelector('a[href = "register.html"]');
@@ -249,14 +248,13 @@ if (loginForm) {
 
 //CreateProject.html
 if (createProjectForm) {
-
-    createProjectForm.addEventListener("submit", (event) => {
+    createProjectBtn.addEventListener("click", (event) => {
         event.preventDefault();
 
         var projectName = document.getElementById("projectName").value;
         var projectAbstract = document.getElementById("projectAbstract").value;
-        var author = document.getElementById("author").value;
-        var tag = document.getElementById("tag").value;
+        var author = document.getElementById("author").value.split(',');
+        var tag = document.getElementById("tag").value.split(',');
 
         var createProjectData = {
             "name": projectName,
@@ -277,6 +275,7 @@ if (createProjectForm) {
             .then((data) => {
                 if (data.status === "ok") {
                     window.location.href = window.location.origin + "/project-explorer/index.html";
+                    console.log(createProjectData);
                 }
                 else {
                     var createAlertDiv = document.createElement("div");
@@ -285,11 +284,19 @@ if (createProjectForm) {
 
                     var errorMessages = new Array();
                     errorMessages = data.errors;
+                    console.log(errorMessages);
 
-                    for (var i = 0; i < errorMessages.length; i++) {
-                        var alerts = document.createElement("p");
-                        alerts.innerHTML = errorMessages[i];
-                        createAlertDiv.appendChild(alerts);
+                    if (errorMessages == "Unauthorized Access") {
+                        var oneAlert = document.createElement("p");
+                        oneAlert.innerHTML = errorMessages;
+                        createAlertDiv.appendChild(oneAlert);
+                    }
+                    else {
+                        for (var i = 0; i < errorMessages.length; i++) {
+                            var alerts = document.createElement("p");
+                            alerts.innerHTML = errorMessages[i];
+                            createAlertDiv.appendChild(alerts);
+                        }
                     }
 
                     createProjectForm.prepend(createAlertDiv);
@@ -304,15 +311,19 @@ if (createProjectForm) {
 
 }
 //Restricting Project Submission
-document.addEventListener("DOMContentLoaded", () => {
+if (createProjectForm) {
 
-    let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
+    createProjectBtn.addEventListener("click", () => {
 
-    if (uid == " ") {
-        window.location.href = window.location.origin + "/project-explorer/login.html";
-    }
+        let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
 
-})
+        if (uid == " ") {
+            window.location.href = window.location.origin + "/project-explorer/login.html";
+        }
+
+    });
+
+}
 
 //Updating the projects
 fetch(createProjectUri,
@@ -324,13 +335,236 @@ fetch(createProjectUri,
         return response.json();
     })
     .then((data) => {
-        var returnedProjects = data;
 
-        for (var i = 0; i < returnedProjects.length; i++) {
+        var returnedProjects = data;
+        for (var i = 0; i <= 3; i++) {
+
+            //Assigning Project names and links
+            var first = document.querySelector(".first");
+            first.innerHTML = " ";
+            var firstHeader = document.createElement("h5");
+            var firstLink = document.createElement("a");
+            firstLink.innerHTML = returnedProjects[0].name;
+            firstLink.href = window.location.origin + `/project-explorer/viewProject.html?id=${returnedProjects[0].id}`;
+            firstHeader.appendChild(firstLink);
+
+            var second = document.querySelector(".second");
+            second.innerHTML = " ";
+            var secondHeader = document.createElement("h5");
+            var secondLink = document.createElement("a");
+            secondLink.innerHTML = returnedProjects[1].name;
+            secondLink.href = window.location.origin + `/project-explorer/viewProject.html?id=${returnedProjects[1].id}`;
+            secondHeader.appendChild(secondLink);
+
+            var third = document.querySelector(".third");
+            third.innerHTML = " ";
+            var thirdHeader = document.createElement("h5");
+            var thirdLink = document.createElement("a");
+            thirdLink.innerHTML = returnedProjects[2].name;
+            thirdLink.href = window.location.origin + `/project-explorer/viewProject.html?id=${returnedProjects[2].id}`;
+            thirdHeader.appendChild(thirdLink);
+
+            var fourth = document.querySelector(".fourth");
+            fourth.innerHTML = " ";
+            var fourthHeader = document.createElement("h5");
+            var fourthLink = document.createElement("a");
+            fourthLink.innerHTML = returnedProjects[3].name;
+            fourthLink.href = window.location.origin + `/project-explorer/viewProject.html?id=${returnedProjects[3].id}`;
+            fourthHeader.appendChild(fourthLink);
+
+            //Assigning Authors
+            var authorsA = document.querySelector(".authorsA");
+            authorsA.innerHTML = " ";
+            var authorsADiv = document.createElement("div");
+            var authorsAList = document.createElement("p");
+            authorsAList.innerHTML = returnedProjects[0].authors;
+            authorsADiv.appendChild(authorsAList);
+
+            var authorsB = document.querySelector(".authorsB");
+            authorsB.innerHTML = " ";
+            var authorsBDiv = document.createElement("div");
+            var authorsBList = document.createElement("p");
+            authorsBList.innerHTML = returnedProjects[1].authors;
+            authorsBDiv.appendChild(authorsBList);
+
+            var authorsC = document.querySelector(".authorsC");
+            authorsC.innerHTML = " ";
+            var authorsCDiv = document.createElement("div");
+            var authorsCList = document.createElement("p");
+            authorsCList.innerHTML = returnedProjects[2].authors;
+            authorsCDiv.appendChild(authorsCList);
+
+            var authorsD = document.querySelector(".authorsD");
+            authorsD.innerHTML = " ";
+            var authorsDDiv = document.createElement("div");
+            var authorsDList = document.createElement("p");
+            authorsDList.innerHTML = returnedProjects[3].authors;
+            authorsDDiv.appendChild(authorsDList);
+
+            //Assigning Abstracts
+            var abstractA = document.querySelector(".abstractA");
+            abstractA.innerHTML = " ";
+            var abstractADiv = document.createElement("div");
+            var abstractAP = document.createElement("p");
+            abstractAP.innerHTML = returnedProjects[0].abstract;
+            abstractADiv.appendChild(abstractAP);
+
+            var abstractB = document.querySelector(".abstractB");
+            abstractB.innerHTML = " ";
+            var abstractBDiv = document.createElement("div");
+            var abstractBP = document.createElement("p");
+            abstractBP.innerHTML = returnedProjects[1].abstract;
+            abstractBDiv.appendChild(abstractBP);
+
+            var abstractC = document.querySelector(".abstractC");
+            abstractC.innerHTML = " ";
+            var abstractCDiv = document.createElement("div");
+            var abstractCP = document.createElement("p");
+            abstractCP.innerHTML = returnedProjects[2].abstract;
+            abstractCDiv.appendChild(abstractCP);
+
+            var abstractD = document.querySelector(".abstractD");
+            abstractD.innerHTML = " ";
+            var abstractDDiv = document.createElement("div");
+            var abstractDP = document.createElement("p");
+            abstractDP.innerHTML = returnedProjects[3].abstract;
+            abstractDDiv.appendChild(abstractDP);
+
+            //Tag Names
+            var tagsA = document.querySelector(".tagsA");
+            tagsA.innerHTML = " ";
+            var tagsADiv = document.createElement("div");
+            var tagsAList = document.createElement("p");
+            tagsAList.innerHTML = returnedProjects[0].tags;
+            tagsADiv.appendChild(tagsAList);
+
+            var tagsB = document.querySelector(".tagsB");
+            tagsB.innerHTML = " ";
+            var tagsBDiv = document.createElement("div");
+            var tagsBList = document.createElement("p");
+            tagsBList.innerHTML = returnedProjects[1].tags;
+            tagsBDiv.appendChild(tagsBList);
+
+            var tagsC = document.querySelector(".tagsC");
+            tagsC.innerHTML = " ";
+            var tagsCDiv = document.createElement("div");
+            var tagsCList = document.createElement("p");
+            tagsCList.innerHTML = returnedProjects[2].tags;
+            tagsCDiv.appendChild(tagsCList);
+
+            var tagsD = document.querySelector(".tagsD");
+            tagsD.innerHTML = " ";
+            var tagsDDiv = document.createElement("div");
+            var tagsDList = document.createElement("p");
+            tagsDList.innerHTML = returnedProjects[3].tags;
+            tagsDDiv.appendChild(tagsDList);
 
         }
 
+        //Project Names
+        first.appendChild(firstHeader);
+        second.appendChild(secondHeader);
+        third.appendChild(thirdHeader);
+        fourth.appendChild(fourthHeader);
+
+        //Authors
+        authorsA.appendChild(authorsADiv);
+        authorsB.appendChild(authorsBDiv);
+        authorsC.appendChild(authorsCDiv);
+        authorsD.appendChild(authorsDDiv);
+
+        //Abstracts
+        abstractA.appendChild(abstractADiv);
+        abstractB.appendChild(abstractBDiv);
+        abstractC.appendChild(abstractCDiv);
+        abstractD.appendChild(abstractDDiv);
+
+        //Tags
+        tagsA.appendChild(tagsADiv);
+        tagsB.appendChild(tagsBDiv);
+        tagsC.appendChild(tagsCDiv);
+        tagsD.appendChild(tagsDDiv);
     })
     .catch((error) => {
-        console.log("Error: " + error);
+        console.log("Error: ", error);
     });
+
+
+//Update ViewProject Page  
+if (window.location.href.includes("?")) {
+
+    var projectID = window.location.href.split('=')[1];
+    var viewProjectUri = createProjectUri + "/" + projectID;
+
+    fetch(viewProjectUri,
+        {
+            method: "GET"
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+
+            var viewProjects = data;
+
+            //Updating Project Name
+            var projectName = document.querySelector(".projectName");
+            projectName.innerHTML = " ";
+            var projectNameDiv = document.createElement("div");
+            var returnedProjectName = document.createElement("p");
+            returnedProjectName.setAttribute("id", "project_name");
+            returnedProjectName.innerHTML = viewProjects.name;
+            projectNameDiv.appendChild(returnedProjectName);
+            projectName.appendChild(projectNameDiv);
+
+            //Updating Project Abstract
+            var abstractDiv = document.querySelector(".abstractDiv");
+            abstractDiv.innerHTML = " ";
+            var absDiv = document.createElement("div");
+            var absText = document.createElement("p");
+            absText.setAttribute("id", "project_abstract");
+            absText.innerHTML = viewProjects.abstract;
+            absDiv.appendChild(absText);
+            abstractDiv.appendChild(absDiv);
+
+            //Updating project Tags
+            var tags = document.querySelector(".card-footer");
+            tags.innerHTML = " ";
+            var tagDiv = document.createElement("div");
+            var tagP = document.createElement("p");
+            tagP.innerHTML = viewProjects.tags;
+            tagDiv.appendChild(tagP);
+            tags.appendChild(tagDiv);
+
+
+            //Updating CreatedBy
+            var createdID = viewProjects.createdBy
+            var createdByUri = usersUri + "/" + createdID;
+
+            fetch(createdByUri,
+                {
+                    method: "GET"
+                })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    var createdBy = document.querySelector(".createdBy");
+                    createdBy.innerHTML = " ";
+                    var createdByDiv = document.createElement("div");
+                    var createdByText = document.createElement("p");
+                    createdByText.setAttribute("id", "project_author");
+                    createdByText.innerHTML = data.firstname + " " + data.lastname;
+                    createdByDiv.appendChild(createdByText);
+                    createdBy.appendChild(createdByDiv);
+                })
+
+        })
+        .catch((error) => {
+            console.log("Error", error);
+        })
+
+
+
+
+}    
