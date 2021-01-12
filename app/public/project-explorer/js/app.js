@@ -99,7 +99,7 @@ if (signUpForm) {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
+                //console.log(data);
 
                 if (data.status === "ok") {
                     let key = "uid";
@@ -202,7 +202,6 @@ window.onload = () => {
 //Login.html
 if (loginForm) {
     buttonLogin.addEventListener("click", (event) => {
-        console.log("Clicked");
         event.preventDefault();
 
         var loginEmail = document.getElementById("email").value;
@@ -275,7 +274,7 @@ if (createProjectForm) {
             .then((data) => {
                 if (data.status === "ok") {
                     window.location.href = window.location.origin + "/project-explorer/index.html";
-                    console.log(createProjectData);
+                    //console.log(createProjectData);
                 }
                 else {
                     var createAlertDiv = document.createElement("div");
@@ -284,7 +283,7 @@ if (createProjectForm) {
 
                     var errorMessages = new Array();
                     errorMessages = data.errors;
-                    console.log(errorMessages);
+                    //console.log(errorMessages);
 
                     if (errorMessages == "Unauthorized Access") {
                         var oneAlert = document.createElement("p");
@@ -526,6 +525,44 @@ if (window.location.href.includes("?")) {
             absText.innerHTML = viewProjects.abstract;
             absDiv.appendChild(absText);
             abstractDiv.appendChild(absDiv);
+
+            //Updating Authors
+            authorA = document.querySelector(".authorA");
+            authorA.innerHTML = " ";
+            authorADiv = document.createElement("div");
+            authorAP = document.createElement("p");
+            authorAP.setAttribute("id", "project_authors");
+
+            authorB = document.querySelector(".authorB");
+            authorB.innerHTML = " ";
+            authorBDiv = document.createElement("div");
+            authorBP = document.createElement("p");
+            authorBP.setAttribute("id", "project_authors");
+
+            var authorArray;
+            authorArray = viewProjects.authors;
+
+            if (authorArray[0].includes(",")) {
+                var authorSplit = authorArray[0].split(",");
+                authorAP.innerHTML = authorSplit[0];
+                authorBP.innerHTML = authorSplit[1];
+            }
+
+            else if (authorArray[0][0].length > 1) {
+                authorAP.innerHTML = authorArray[0][0];
+                authorBP.innerHTML = authorArray[0][1];
+            }
+            else {
+                for (var i = 0; i < authorArray.length; i++) {
+                    authorAP.innerHTML = authorArray[0];
+                    authorBP.innerHTML = authorArray[1];
+                }
+            }
+
+            authorADiv.appendChild(authorAP);
+            authorA.appendChild(authorADiv);
+            authorBDiv.appendChild(authorBP);
+            authorB.appendChild(authorBDiv);
 
             //Updating project Tags
             var tags = document.querySelector(".card-footer");
