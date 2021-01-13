@@ -313,19 +313,17 @@ if (createProjectForm) {
 
 }
 //Restricting Project Submission
-if (createProjectForm) {
 
-    createProjectBtn.addEventListener("click", () => {
+window.onload = () => {
+    if (window.location.href.includes("create")) {
 
-        let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
-
-        if (uid == " ") {
+        if (document.cookie = " ") {
             window.location.href = window.location.origin + "/project-explorer/login.html";
         }
 
-    });
-
+    }
 }
+
 
 //Updating the projects
 fetch(createProjectUri,
@@ -603,8 +601,5 @@ if (window.location.href.includes("?")) {
         .catch((error) => {
             console.log("Error", error);
         })
-
-
-
 
 }    
