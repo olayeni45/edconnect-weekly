@@ -312,7 +312,7 @@ if (createProjectForm) {
     });
 
 }
-//Restricting Project Submission
+/*Restricting Project Submission
 
 window.onload = () => {
     if (window.location.href.includes("create")) {
@@ -324,6 +324,7 @@ window.onload = () => {
     }
 }
 
+*/
 
 //Updating the projects
 fetch(createProjectUri,
