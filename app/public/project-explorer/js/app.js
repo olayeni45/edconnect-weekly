@@ -313,10 +313,10 @@ if (createProjectForm) {
 
 }
 //Restricting Project Submission
-if (window.location.href.includes("create")) {
-    if (document.cookie = " ") {
-        window.location.href = window.location.origin + "/project-explorer/login.html";
-    }
+var createPage = window.location.href;
+var cookieValue = document.cookie;
+if (createPage.includes("createProject") && cookieValue == "") {
+    window.location.href = window.location.origin + "/project-explorer/login.html";
 }
 
 //Updating the projects
