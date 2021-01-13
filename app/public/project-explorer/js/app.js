@@ -138,63 +138,66 @@ if (signUpForm) {
 window.onload = () => {
 
     //To check if there is a value for the uid cookie
-    let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
+    if (document.cookie != "") {
 
-    let personalCookieUri = usersUri + "/" + uid;
+        let uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
 
-    if (uid != " ") {
+        let personalCookieUri = usersUri + "/" + uid;
 
-        fetch(personalCookieUri,
-            {
-                "method": "GET"
-            })
-            .then(async (response) => {
-                var data = await response.json();
+        if (uid != " ") {
 
-                //Defining new navLinks
-                let signUpLink = document.querySelector('a[href = "register.html"]');
-                let loginLink = document.querySelector('a[href = "login.html"]');
-                let firstAppend = document.querySelector(".changedDiv");
-                let secondAppend = document.querySelector(".innerChangedDiv");
-                let ulLinks = document.querySelector(".changedLinks");
+            fetch(personalCookieUri,
+                {
+                    "method": "GET"
+                })
+                .then(async (response) => {
+                    var data = await response.json();
 
-                signUpLink.style.display = "none";
-                loginLink.style.display = "none";
+                    //Defining new navLinks
+                    let signUpLink = document.querySelector('a[href = "register.html"]');
+                    let loginLink = document.querySelector('a[href = "login.html"]');
+                    let firstAppend = document.querySelector(".changedDiv");
+                    let secondAppend = document.querySelector(".innerChangedDiv");
+                    let ulLinks = document.querySelector(".changedLinks");
 
-                let logoutLi = document.createElement("li");
-                logoutLi.className = "nav-item";
-                let logoutBtn = document.createElement("a");
-                logoutBtn.className = "nav-link";
-                logoutBtn.setAttribute("href", "#");
-                logoutBtn.setAttribute("id", "logout");
-                logoutBtn.innerHTML = "Logout";
-                logoutLi.appendChild(logoutBtn);
+                    signUpLink.style.display = "none";
+                    loginLink.style.display = "none";
 
-                let userNameLi = document.createElement("li");
-                userNameLi.className = "nav-item";
-                let userNameLink = document.createElement("a");
-                userNameLink.className = "nav-link";
-                userNameLink.setAttribute("href", "#");
-                userNameLink.setAttribute("id", "username");
-                userNameLink.innerHTML = `Hi, ${data.firstname}`;
-                userNameLi.appendChild(userNameLink);
+                    let logoutLi = document.createElement("li");
+                    logoutLi.className = "nav-item";
+                    let logoutBtn = document.createElement("a");
+                    logoutBtn.className = "nav-link";
+                    logoutBtn.setAttribute("href", "#");
+                    logoutBtn.setAttribute("id", "logout");
+                    logoutBtn.innerHTML = "Logout";
+                    logoutLi.appendChild(logoutBtn);
 
-                firstAppend.appendChild(logoutLi);
-                secondAppend.appendChild(userNameLi);
-                ulLinks.append(firstAppend, secondAppend);
+                    let userNameLi = document.createElement("li");
+                    userNameLi.className = "nav-item";
+                    let userNameLink = document.createElement("a");
+                    userNameLink.className = "nav-link";
+                    userNameLink.setAttribute("href", "#");
+                    userNameLink.setAttribute("id", "username");
+                    userNameLink.innerHTML = `Hi, ${data.firstname}`;
+                    userNameLi.appendChild(userNameLink);
 
-                function logout() {
-                    document.cookie = "uid=; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/";
-                    window.location.href = window.location.origin + "/project-explorer/index.html";
-                }
+                    firstAppend.appendChild(logoutLi);
+                    secondAppend.appendChild(userNameLi);
+                    ulLinks.append(firstAppend, secondAppend);
 
-                logoutBtn.addEventListener("click", logout);
+                    function logout() {
+                        document.cookie = "uid=; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/";
+                        window.location.href = window.location.origin + "/project-explorer/index.html";
+                    }
 
-            })
-            .catch((error) => {
-                console.log("Error: ", error);
-            });
+                    logoutBtn.addEventListener("click", logout);
 
+                })
+                .catch((error) => {
+                    console.log("Error: ", error);
+                });
+
+        }
     }
 
 };
