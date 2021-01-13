@@ -312,19 +312,12 @@ if (createProjectForm) {
     });
 
 }
-/*Restricting Project Submission
-
-window.onload = () => {
-    if (window.location.href.includes("create")) {
-
-        if (document.cookie = " ") {
-            window.location.href = window.location.origin + "/project-explorer/login.html";
-        }
-
+//Restricting Project Submission
+if (window.location.href.includes("create")) {
+    if (document.cookie = " ") {
+        window.location.href = window.location.origin + "/project-explorer/login.html";
     }
 }
-
-*/
 
 //Updating the projects
 fetch(createProjectUri,
@@ -571,6 +564,7 @@ if (window.location.href.includes("?")) {
             tags.innerHTML = " ";
             var tagDiv = document.createElement("div");
             var tagP = document.createElement("p");
+            tagP.setAttribute("id", "project_tags");
             tagP.innerHTML = viewProjects.tags;
             tagDiv.appendChild(tagP);
             tags.appendChild(tagDiv);
@@ -603,4 +597,6 @@ if (window.location.href.includes("?")) {
             console.log("Error", error);
         })
 
-}    
+}
+
+//Displaying a project on the ViewProject page
