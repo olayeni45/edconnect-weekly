@@ -10,11 +10,12 @@ export default () => {
     const usersUri = "/api/users";
     var uid;
     const [welcome, setWelcome] = useState("");
-    var project;
+    var sign;
 
-    if (window.location.href.split("3000")[1].includes("/projects")) {
-        project = "projectPages";
+    if (window.location.href.split("3000")[1] == "/projects/submit") {
+        sign = "true";
     }
+
 
     const handleLogout = () => {
         document.cookie = "uid=; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/";
@@ -22,7 +23,7 @@ export default () => {
     }
 
     if (window.location.href.split("3000")[1] === "/") {
-        home =  "/";
+        home = "/";
         useEffect(() => {
 
             if (document.cookie != "") {
@@ -73,7 +74,7 @@ export default () => {
                     <Nav.Link href="#" name="welcome">Hi, {welcome}</Nav.Link>
                 </Nav>
             )
-                : (project == "projectPages") ? (
+                : (sign == "true") ? (
                     <Nav className="justify-content-end">
                         <Nav.Link href="#" ></Nav.Link>
                         <Nav.Link href="#" ></Nav.Link>
