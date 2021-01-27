@@ -8,7 +8,7 @@ const Project = (props) => {
     var projectId = window.location.href.split("/projects/")[1];
     const projectUri = "/api/projects" + "/" + projectId;
 
-    const [usersApi, setUsersApi] = useState("");
+    var usersApi;
     const [projectName, setProjectName] = useState("");
     const [projectAbstract, setProjectAbstract] = useState("");
     const [projectAuthor, setProjectAuthor] = useState([""]);
@@ -25,37 +25,46 @@ const Project = (props) => {
                 return response.json();
             })
             .then((data) => {
-                console.table(data);
-                setUsersApi(data.createdBy);
+                console.log(data);
+
+                usersApi = data.createdBy;
+                console.log(usersApi);
                 setProjectName(data.name);
                 setProjectAbstract(data.abstract);
                 setProjectAuthor(data.authors);
                 setProjectTag(data.tags);
 
+                const usersUri = "/api/users" + "/" + usersApi;
+                console.log(usersUri);
+
+                fetch(usersUri,
+                    {
+                        method: "GET"
+                    })
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log(data);
+                        setCreatedBy(data.firstname + " " + data.lastname);
+                        console.log(createdBy);
+                    })
+                    .catch((error) => {
+                        console.log("Error", error);
+                    })
+
             })
             .catch((error) => {
                 console.log("Error", error);
             })
 
-        console.log(usersApi);
-        const usersUri = "/api/users" + "/" + usersApi;
-        console.log(usersUri);
 
-        fetch(usersUri,
-            {
-                method: "GET"
-            })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log("Error", error);
-            })
+
+
 
     }, [])
+
+
 
 
 

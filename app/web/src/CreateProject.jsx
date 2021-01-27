@@ -7,7 +7,7 @@ const CreateProject = (props) => {
     let history = useHistory();
 
 
-    const [projectName, setProjectName] = useState("");
+    const [name, setName] = useState("");
     const [projectAbstract, setProjectAbstract] = useState("");
     const [projectAuthor, setProjectAuthor] = useState("");
     const [projectTag, setProjectTag] = useState("");
@@ -19,8 +19,8 @@ const CreateProject = (props) => {
         const { name, value } = event.target;
 
         switch (name) {
-            case "projectName":
-                setProjectName(value);
+            case "name":
+                setName(value);
                 break;
 
             case "projectAbstract":
@@ -47,7 +47,7 @@ const CreateProject = (props) => {
         event.preventDefault();
 
         var createProjectData = {
-            "name": projectName,
+            "name": name,
             "abstract": projectAbstract,
             "authors": [projectAuthor],
             "tags": [projectTag]
@@ -101,7 +101,7 @@ const CreateProject = (props) => {
                             <Form.Group as={Col}>
                                 <Form.Label>Project Name</Form.Label>
                                 <Form.Control type="text" placeholder="Enter Project Name"
-                                    name="projectName" value={projectName} onChange={handleInputChange} />
+                                    name="name" value={name} onChange={handleInputChange} />
                             </Form.Group>
                         </Form.Row>
 
