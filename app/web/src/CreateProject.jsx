@@ -8,9 +8,9 @@ const CreateProject = (props) => {
 
 
     const [name, setName] = useState("");
-    const [projectAbstract, setProjectAbstract] = useState("");
-    const [projectAuthor, setProjectAuthor] = useState("");
-    const [projectTag, setProjectTag] = useState("");
+    const [abstract, setAbstract] = useState("");
+    const [authors, setAuthors] = useState("");
+    const [tags, setTags] = useState("");
     const [error, setError] = useState([""]);
 
     const createProjectUri = "/api/projects";
@@ -23,16 +23,16 @@ const CreateProject = (props) => {
                 setName(value);
                 break;
 
-            case "projectAbstract":
-                setProjectAbstract(value);
+            case "abstract":
+                setAbstract(value);
                 break;
 
-            case "projectAuthor":
-                setProjectAuthor(value);
+            case "authors":
+                setAuthors(value);
                 break;
 
-            case "projectTag":
-                setProjectTag(value);
+            case "tags":
+                setTags(value);
                 break;
 
         }
@@ -48,9 +48,9 @@ const CreateProject = (props) => {
 
         var createProjectData = {
             "name": name,
-            "abstract": projectAbstract,
-            "authors": [projectAuthor],
-            "tags": [projectTag]
+            "abstract": abstract,
+            "authors": [authors],
+            "tags": [tags]
         }
 
 
@@ -109,7 +109,7 @@ const CreateProject = (props) => {
                         <Form.Group >
                             <Form.Label>Project Abstract</Form.Label>
                             <Form.Control as="textarea" rows={3}
-                                name="projectAbstract" value={projectAbstract} onChange={handleInputChange} />
+                                name="abstract" value={abstract} onChange={handleInputChange} />
                         </Form.Group>
 
 
@@ -118,7 +118,7 @@ const CreateProject = (props) => {
                             <Form.Group as={Col} >
                                 <Form.Label>Author(s)</Form.Label>
                                 <Form.Control type="text" placeholder="Enter author names (seperated by comma)"
-                                    name="projectAuthor" value={projectAuthor} onChange={handleInputChange} />
+                                    name="authors" value={authors} onChange={handleInputChange} />
                             </Form.Group>
                         </Form.Row>
 
@@ -127,7 +127,7 @@ const CreateProject = (props) => {
                             <Form.Group as={Col} >
                                 <Form.Label>Tag(s)</Form.Label>
                                 <Form.Control type="text" placeholder="Use # to tag project with different topics (e.g #javascript #mongodb)"
-                                    name="projectTag" value={projectTag} onChange={handleInputChange} />
+                                    name="tags" value={tags} onChange={handleInputChange} />
                             </Form.Group>
                         </Form.Row>
 
