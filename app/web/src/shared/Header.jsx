@@ -70,14 +70,14 @@ export default () => {
 
             {(home === "/" && (document.cookie != "")) ? (
                 <Nav className="justify-content-end">
-                    <Nav.Link href="#" name="logout" onClick={handleLogout}>Logout</Nav.Link>
-                    <Nav.Link href="#" name="welcome">Hi, {welcome}</Nav.Link>
+                    <Nav.Link href="" name="logout" onClick={handleLogout}>Logout</Nav.Link>
+                    <Nav.Link href="" name="welcome">Hi, {welcome}</Nav.Link>
                 </Nav>
             )
                 : (sign == "true") ? (
                     <Nav className="justify-content-end">
-                        <Nav.Link href="#" ></Nav.Link>
-                        <Nav.Link href="#" ></Nav.Link>
+                        <Nav.Link href="" ></Nav.Link>
+                        <Nav.Link href="" ></Nav.Link>
                     </Nav>
                 )
                     :

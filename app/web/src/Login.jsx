@@ -43,20 +43,19 @@ const Login = (props) => {
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(loginData)
             })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                if (data.status === "ok") {
+            .then(async (res) => {
+                let data = await res.json()
+                if (res.status === 200) {
                     let key = "uid";
                     let value = data.data.id;
                     document.cookie = `${key}=${value};path=/;`;
                     history.push("/");
-                }
-                else {
-                    setLoginError("Invalid Email/Password");
+
+                } else {
+                    setLoginError('Invalid email/password');
                 }
             })
+
 
     };
 
