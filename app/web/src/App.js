@@ -18,7 +18,7 @@ function App() {
         <Route path="/" exact={true} component={Home} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
-        <Route path="/project/submit" component={CreateProject} />
+        <Route path="/projects/submit" component={CreateProject} />
         <Route path="/project/:id" component={Project} />
         <Route path="*" render={() => <div className="text-center p-4"><h1>Oops Wrong page</h1></div>} />
 

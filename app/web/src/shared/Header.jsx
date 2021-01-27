@@ -61,7 +61,7 @@ export default () => {
 
                 <Nav>
                     <Nav.Link href="/project">Projects</Nav.Link>
-                    <Nav.Link href="/project/submit">Submit</Nav.Link>
+                    <Nav.Link href="/projects/submit">Submit</Nav.Link>
                 </Nav>
 
             </Nav>
