@@ -6,14 +6,13 @@ import { useHistory } from 'react-router-dom';
 export default () => {
 
     let history = useHistory();
-    var home = window.location.href.split("3000")[1];
+    var home;
     const usersUri = "/api/users";
     var uid;
     const [welcome, setWelcome] = useState("");
     var project;
-    var projectPage = window.location.href.split("3000")[1];
 
-    if (projectPage.includes("/projects")) {
+    if (window.location.href.split("3000")[1].includes("/projects")) {
         project = "projectPages";
     }
 
@@ -22,8 +21,8 @@ export default () => {
         history.push("/");
     }
 
-    if (home === "/") {
-
+    if (window.location.href.split("3000")[1] === "/") {
+        home =  "/";
         useEffect(() => {
 
             if (document.cookie != "") {
