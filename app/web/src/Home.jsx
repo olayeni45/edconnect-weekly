@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './shared/Layout'
-import { Jumbotron, Button, Container, Row, Card, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { Jumbotron, Button, Row, Card, Col } from 'react-bootstrap'
 
 const Home = (props) => {
 
-    const [apiResponse, setApiResponse] = useState("");
     const createProjectUri = "/api/projects";
+    const [project, setProject] = useState([]);
+
+    useEffect(() => {
+
+        fetch(createProjectUri,
+            {
+                method: "GET",
+                headers: { 'Content-type': 'application/json' }
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+
+                setProject(data);
+
+            })
+            .catch((error) => {
+                console.log("Error: ", error);
+            });
+
+    }, [])
+
 
     return (
 
@@ -25,10 +48,38 @@ const Home = (props) => {
                     </p>
                 </Jumbotron>
 
-                <Container className="cardContainer mx-auto">
+                <div className="cardContainer mx-auto">
+
+                    <div>
+
+                        <Row className="showcase">
+
+                            {project.slice(0, 4).map((projects) => (
+                                <Col key={projects.name}>
+                                    <Card className="indexCard">
+                                        <Card.Body>
+                                            <h5>
+                                                <Link to={`/projects/${projects.id}`}>{projects.name}</Link></h5>
+                                            <Card.Subtitle className="mb-2 text-muted">{projects.authors}</Card.Subtitle>
+                                            <Card.Text>
+                                                {projects.abstract}</Card.Text>
+                                            <Card.Link href="#">{projects.tags}</Card.Link>
+
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            ))}
 
 
-                </Container>
+
+
+                        </Row>
+
+
+
+                    </div>
+
+                </div>
 
 
 

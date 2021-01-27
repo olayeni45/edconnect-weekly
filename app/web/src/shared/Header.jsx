@@ -10,6 +10,12 @@ export default () => {
     const usersUri = "/api/users";
     var uid;
     const [welcome, setWelcome] = useState("");
+    var project;
+    var projectPage = window.location.href.split("3000")[1];
+
+    if (projectPage.includes("/projects")) {
+        project = "projectPages";
+    }
 
     const handleLogout = () => {
         document.cookie = "uid=; expires= Thu, 21 Aug 2014 20:00:00 UTC; path=/";
@@ -21,12 +27,8 @@ export default () => {
         useEffect(() => {
 
             if (document.cookie != "") {
-                console.log(document.cookie);
                 uid = document.cookie.split(';').find(row => row.startsWith('uid')).split('=')[1];
-                console.log(uid);
-
                 let personalCookieUri = usersUri + "/" + uid;
-                console.log(personalCookieUri);
 
                 fetch(personalCookieUri,
                     {
@@ -34,7 +36,7 @@ export default () => {
                     })
                     .then(async (response) => {
                         var data = await response.json();
-                        console.log(data)
+                        console.table(data)
                         setWelcome(data.firstname);
                     })
                     .catch((error) => {
@@ -66,16 +68,24 @@ export default () => {
             </Nav>
 
 
-            {(document.cookie != "") ? (
+            {(home === "/" && (document.cookie != "")) ? (
                 <Nav className="justify-content-end">
                     <Nav.Link href="#" name="logout" onClick={handleLogout}>Logout</Nav.Link>
                     <Nav.Link href="#" name="welcome">Hi, {welcome}</Nav.Link>
                 </Nav>
-            ) :
-                (<Nav className="justify-content-end">
-                    <Nav.Link href="/signup" name="signup">Sign Up</Nav.Link>
-                    <Nav.Link href="/login" name="login">Login</Nav.Link>
-                </Nav>)}
+            )
+                : (project == "projectPages") ? (
+                    <Nav className="justify-content-end">
+                        <Nav.Link href="#" ></Nav.Link>
+                        <Nav.Link href="#" ></Nav.Link>
+                    </Nav>
+                )
+                    :
+                    (<Nav className="justify-content-end">
+                        <Nav.Link href="/signup" name="signup">Sign Up</Nav.Link>
+                        <Nav.Link href="/login" name="login">Login</Nav.Link>
+                    </Nav>)}
+
 
         </Navbar>
 
