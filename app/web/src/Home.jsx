@@ -19,7 +19,7 @@ const Home = (props) => {
                 return response.json();
             })
             .then((data) => {
-
+                console.log(data);
                 setProject(data);
 
             })
@@ -59,7 +59,7 @@ const Home = (props) => {
                                     <Card className="indexCard">
                                         <Card.Body>
                                             <h5>
-                                                <Link to={`/projects/${projects.id}`}>{projects.name}</Link></h5>
+                                                <Link to={`/project/${projects.id}`}>{projects.name}</Link></h5>
                                             <Card.Subtitle className="mb-2 text-muted">{projects.authors}</Card.Subtitle>
                                             <Card.Text>
                                                 {projects.abstract}</Card.Text>

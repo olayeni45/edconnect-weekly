@@ -66,7 +66,7 @@ const CreateProject = (props) => {
             .then((data) => {
                 if (data.status === "ok") {
                     console.log(data);
-                    console.log(createProjectData);
+                    console.table(createProjectData);
                     history.push("/");
                 }
                 else {

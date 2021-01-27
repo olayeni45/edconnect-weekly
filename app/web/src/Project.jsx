@@ -5,7 +5,7 @@ import { Row, Form } from 'react-bootstrap'
 
 const Project = (props) => {
 
-    var projectId = window.location.href.split("/projects/")[1];
+    var projectId = window.location.href.split("/project/")[1];
     const projectUri = "/api/projects" + "/" + projectId;
 
     var usersApi;
@@ -63,11 +63,6 @@ const Project = (props) => {
 
 
     }, [])
-
-
-
-
-
 
 
     return (
