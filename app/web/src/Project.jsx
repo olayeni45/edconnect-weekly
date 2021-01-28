@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
-
 import { Row, Form } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
 
 const Project = (props) => {
-
-    var projectId = window.location.href.split("/project/")[1];
+    const params = useParams();
+    var projectId = params.id;
     const projectUri = "/api/projects" + "/" + projectId;
 
     var usersApi;
