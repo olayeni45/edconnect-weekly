@@ -58,10 +58,6 @@ const Project = (props) => {
                 console.log("Error", error);
             })
 
-
-
-
-
     }, [])
 
 
@@ -146,7 +142,7 @@ const Project = (props) => {
                                     <div className="card-body authorsName" id="project_authors">
 
                                         {(projectAuthor.map((auth) => (
-                                            <div key="{auth}">
+                                            <div key={auth}>
                                                 <p>{auth}</p>
 
                                             </div>
@@ -155,7 +151,7 @@ const Project = (props) => {
                                     </div>
                                     <div className="card-footer" id="project_tags">
                                         {projectTag.map((tag) => (
-                                            <div key="{tag}">
+                                            <div key={tag}>
                                                 <p>{tag}</p>
 
                                             </div>
