@@ -1,7 +1,5 @@
 import React from "react";
-
 import { Document, Head, Main } from "@react-ssr/express";
-
 
 export default class extends Document {
 
@@ -12,15 +10,11 @@ export default class extends Document {
             <html lang="en">
 
                 <Head>
-
                     <title>Edconnect - Project Explorer</title>
-
                 </Head>
 
                 <body>
-
                     <Main />
-
                 </body>
 
             </html>

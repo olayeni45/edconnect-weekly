@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
 
-
 const Signup = (props) => {
 
     const [programs, setPrograms] = useState([]);
@@ -17,8 +16,6 @@ const Signup = (props) => {
     const [matricNumber, setMatricNumber] = useState("");
     const [graduationYear, setGraduationYear] = useState("");
 
-
-
     useEffect(() => {
         if (programs == "" && graduation == "") {
             setPrograms(props.programList);
@@ -31,9 +28,6 @@ const Signup = (props) => {
         }
 
     }, [])
-
-
-
 
     const handleInputChange = event => {
         const { name, value } = event.target;

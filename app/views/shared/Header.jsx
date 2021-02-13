@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import { FormControl, Button, Form, Nav } from 'react-bootstrap'
-
 
 export default (props) => {
 
@@ -30,7 +29,6 @@ export default (props) => {
                 </Nav>
 
             </Nav>
-
 
             { (firstname != undefined) ? (
                 <Nav className="justify-content-end">

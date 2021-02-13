@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap'
-
+import { Form, Button, Col, Alert } from 'react-bootstrap'
 
 const CreateProject = (props) => {
 

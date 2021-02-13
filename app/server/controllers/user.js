@@ -4,7 +4,6 @@ const programList = require('../services/school').getPrograms();
 const gradYears = require('../services/school').getGradYears();
 const user = require('../services/user');
 
-
 router.get('/login', (req, res) => {
     const user = req.session.user;
     const logError = req.flash('logError')
