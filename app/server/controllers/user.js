@@ -6,8 +6,9 @@ const user = require('../services/user');
 
 
 router.get('/login', (req, res) => {
+    const user = req.session.user;
     const logError = req.flash('logError')
-    res.render('Login', { logError });
+    res.render('Login', { logError, user });
     console.log(logError);
 })
 
@@ -32,8 +33,9 @@ router.post('/login', (req, res) => {
 })
 
 router.get('/signup', (req, res) => {
+    const user = req.session.user;
     const error = req.flash("error");
-    res.render('Signup', { programList, gradYears, error });
+    res.render('Signup', { programList, gradYears, error, user });
 
 })
 

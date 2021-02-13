@@ -5,8 +5,6 @@ import { Jumbotron, Button, Row, Card, Col } from 'react-bootstrap'
 
 const Home = (props) => {
 
-    const [project, setProject] = useState([]);
-
     return (
 
         <Layout {...props.user}>

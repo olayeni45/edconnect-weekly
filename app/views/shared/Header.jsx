@@ -5,14 +5,11 @@ import { FormControl, Button, Form, Nav } from 'react-bootstrap'
 
 export default (props) => {
 
-
     const [firstname, setFirstname] = useState("");
-
-    console.log(props);
-
-
-    const handleLogout = () => {
-
+    console.log(props.firstname);
+    if (firstname == "") {
+        setFirstname(props.firstname);
+        console.log(firstname);
     }
 
     return (
@@ -35,9 +32,9 @@ export default (props) => {
             </Nav>
 
 
-            { (firstname != "") ? (
+            { (firstname != undefined) ? (
                 <Nav className="justify-content-end">
-                    <Nav.Link href="/logout" name="logout" onClick={handleLogout}>Logout</Nav.Link>
+                    <Nav.Link href="/logout" name="logout" >Logout</Nav.Link>
                     <Nav.Link href="" name="firstname" id="username">Hi, {firstname}</Nav.Link>
                 </Nav>
             )

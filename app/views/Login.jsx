@@ -4,7 +4,6 @@ import { Form, Button, Alert, Col } from 'react-bootstrap'
 
 const Login = (props) => {
 
-    const loginUri = "/api/login";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");
@@ -14,8 +13,6 @@ const Login = (props) => {
             setLoginError(props.logError);
         }
     }, [])
-
-
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -32,14 +29,9 @@ const Login = (props) => {
         }
     }
 
-
-
-
-
-
     return (
 
-        <Layout>
+        <Layout {...props.user}>
             <>
 
                 <div className="mx-auto loginCenterDiv">

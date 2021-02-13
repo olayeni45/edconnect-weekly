@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const project = require('../services/project');
-const user = require('../services/user');
+const userService = require('../services/user');
 
 router.get('/projects/submit', (req, res) => {
+    const user = req.session.user;
     const createErr = req.flash('createErr')
-    res.render('CreateProject', { createErr });
-    console.log(req.session.user);
-    if (req.session.user == undefined) {
+    res.render('CreateProject', { createErr, user });
+    if (user == undefined) {
         res.redirect('/login');
     }
 })
@@ -40,10 +40,11 @@ router.post('/projects/submit', (req, res) => {
 })
 
 router.get('/project/:id', (req, res) => {
+    const user = req.session.user;
     const id = req.params.id;
     const projectsOfId = project.getById(id);
-    const userOfId = user.getById(projectsOfId.createdBy);
-    res.render('Project', { projectsOfId, userOfId, id });
+    const userOfId = userService.getById(projectsOfId.createdBy);
+    res.render('Project', { projectsOfId, userOfId, id, user });
 })
 
 module.exports = router; 

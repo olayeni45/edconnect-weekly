@@ -6,14 +6,15 @@ router.get('/', (req, res) => {
 
     // add code to render the Home Component, and pass in the projects  
     // as a props
-    var user;
-    const userObject = req.session.user;
-    if (userObject != undefined) {
-        const firstname = userObject.firstname;
-        user = firstname;
-    }
-    console.log("home.js: " + user);
+    const user = req.session.user;
+    console.log(user);
     res.render('Home', { projects, user })
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/')
+    })
 });
 
 module.exports = router;

@@ -42,7 +42,7 @@ const CreateProject = (props) => {
 
     return (
 
-        <Layout>
+        <Layout {...props.user}>
             <>
 
                 <div className="mx-auto loginCenterDiv">

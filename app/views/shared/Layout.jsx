@@ -3,14 +3,14 @@ import Footer from './Footer'
 import Header from './Header'
 
 export default (props) => {
-
+    const { children, ...rest } = props;
     return (
         <>
-            <Header {...props} />
+            <Header {...rest} />
 
             <main className="mx-auto">
 
-                {props.children}
+                {children}
 
             </main>
 

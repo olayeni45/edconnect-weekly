@@ -20,7 +20,7 @@ const Project = (props) => {
 
     return (
 
-        <Layout>
+        <Layout {...props.user}>
 
             <>
 

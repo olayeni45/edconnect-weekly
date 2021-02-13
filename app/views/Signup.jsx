@@ -3,11 +3,7 @@ import Layout from './shared/Layout'
 import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
 
 
-const Signup = ({ programList, gradYears, error }) => {
-
-    const programListUri = "/api/programs";
-    const gradYearsUri = "/api/graduationYears";
-    const registerUri = "/api/register";
+const Signup = (props) => {
 
     const [programs, setPrograms] = useState([]);
     const [graduation, setGraduation] = useState([]);
@@ -25,12 +21,12 @@ const Signup = ({ programList, gradYears, error }) => {
 
     useEffect(() => {
         if (programs == "" && graduation == "") {
-            setPrograms(programList);
-            setGraduation(gradYears);
+            setPrograms(props.programList);
+            setGraduation(props.gradYears);
         }
 
         if (signupErrors.length < 1) {
-            setSignupErrors(error);
+            setSignupErrors(props.error);
             console.log(signupErrors);
         }
 
@@ -74,14 +70,9 @@ const Signup = ({ programList, gradYears, error }) => {
         }
     }
 
-
-
-
-
-
     return (
 
-        <Layout>
+        <Layout {...props.user}>
             <>
 
                 <Container>
@@ -96,7 +87,7 @@ const Signup = ({ programList, gradYears, error }) => {
                             </Alert>
                         ) : null}
 
-                        <Form id="signUpForm" noValidate method="POST" action="signup">
+                        <Form id="signupForm" noValidate method="POST" action="signup">
 
                             <Form.Row>
                                 <Form.Group as={Col} >
