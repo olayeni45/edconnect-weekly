@@ -14,7 +14,7 @@ const Signup = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [program, setProgram] = useState("");
-    const [matric, setMatric] = useState("");
+    const [matricNumber, setMatricNumber] = useState("");
     const [graduationYear, setGraduationYear] = useState("");
 
 
@@ -60,8 +60,8 @@ const Signup = (props) => {
                 setProgram(value);
                 break;
 
-            case 'matric':
-                setMatric(value);
+            case 'matricNumber':
+                setMatricNumber(value);
                 break;
 
             case 'graduationYear':
@@ -135,7 +135,7 @@ const Signup = (props) => {
                                     <Form.Group >
                                         <Form.Label>Matric Number</Form.Label>
                                         <Form.Control placeholder="e.g 16/2016" type="text"
-                                            name="matric" value={matric} onChange={handleInputChange} />
+                                            name="matricNumber" value={matricNumber} onChange={handleInputChange} />
                                     </Form.Group>
                                 </Col>
 
