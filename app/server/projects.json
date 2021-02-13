@@ -58,6 +58,89 @@
                 ]
             ],
             "createdBy": "mrvkeoj2hfi"
+        },
+        {
+            "id": "68vr7ca636k",
+            "name": "Financial Analysis",
+            "abstract": "This is an article about financial analysis",
+            "authors": [
+                "Anifowose Olayeni, Anifowose Olatilewa"
+            ],
+            "tags": [
+                "#financialAnalysis"
+            ],
+            "createdBy": "mrvkeoj2hfi"
+        },
+        {
+            "id": "8cz8kbhglcc",
+            "name": "Risk Analysis",
+            "abstract": "Risk analysis project",
+            "authors": [
+                "AbdulFalil"
+            ],
+            "tags": [
+                "#risk"
+            ],
+            "createdBy": "mrvkeoj2hfi"
+        },
+        {
+            "id": "jututpq7f3",
+            "name": "Cancer",
+            "abstract": "Lymphoma",
+            "authors": [
+                "Dr. Andre"
+            ],
+            "tags": [
+                "#cancer"
+            ],
+            "createdBy": "mrvkeoj2hfi"
+        },
+        {
+            "id": "k7cdgmfl5dg",
+            "name": "React",
+            "abstract": "A project about react",
+            "authors": [
+                "Olayeni"
+            ],
+            "tags": [
+                "#react"
+            ],
+            "createdBy": "81pu5noxlql"
+        },
+        {
+            "id": "achxd7gxzh",
+            "name": "Vuejs",
+            "abstract": "THis is a project about vuejs",
+            "authors": [
+                "Ade"
+            ],
+            "tags": [
+                "#vue"
+            ],
+            "createdBy": "81pu5noxlql"
+        },
+        {
+            "id": "zmamfeyu49",
+            "name": "Random",
+            "abstract": "Test project",
+            "authors": [
+                "Test"
+            ],
+            "tags": [
+                "#test"
+            ],
+            "createdBy": "iwc4lx8gqsb"
+        },
+        {
+            "id": "mns4oiljfwr",
+            "name": "Week 8 Project",
+            "abstract": "Week 8",
+            "authors": [
+                "Derinsola Fatimah"
+            ],
+            "tags": [
+                "#week8"
+            ]
         }
     ]
 }
