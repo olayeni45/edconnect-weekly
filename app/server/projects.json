@@ -1,17 +1,6 @@
 {
     "data": [
         {
-            "id": "mns4oiljfwr",
-            "name": "Week 8 Project",
-            "abstract": "Week 8",
-            "authors": [
-                "Derinsola Fatimah"
-            ],
-            "tags": [
-                "#week8"
-            ]
-        },
-        {
             "id": "3c1uwzedmds",
             "name": "Doctor-Patient Portal",
             "abstract": "This is my final Year project",
