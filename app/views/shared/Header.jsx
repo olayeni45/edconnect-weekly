@@ -2,14 +2,8 @@ import React, { useState } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import { FormControl, Button, Form, Nav } from 'react-bootstrap'
 
-export default (props) => {
+export default ({ firstname }) => {
 
-    const [firstname, setFirstname] = useState("");
-    console.log(props.firstname);
-    if (firstname == "") {
-        setFirstname(props.firstname);
-        console.log(firstname);
-    }
 
     return (
 
