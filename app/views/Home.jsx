@@ -28,7 +28,7 @@ const Home = (props) => {
 
                         <Row className="showcase">
 
-                            {props.projects.sort().reverse().slice(0, 4).map((projects) => (
+                            {props.projects.slice(0, 4).map((projects) => (
                                 <Col key={projects.name}>
                                     <Card className="indexCard">
                                         <Card.Body>
