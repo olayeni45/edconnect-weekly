@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
     // add code to render the Home Component, and pass in the projects  
     // as a props
     const user = req.session.user;
-    console.log(user);
     res.render('Home', { projects, user })
 });
 

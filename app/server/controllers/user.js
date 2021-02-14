@@ -8,16 +8,13 @@ router.get('/login', (req, res) => {
     const user = req.session.user;
     const logError = req.flash('logError')
     res.render('Login', { logError, user });
-    console.log(logError);
 })
 
 router.post('/login', (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;
-
     const loginData = user.authenticate(email, password);
-    console.log(loginData[0], loginData[1]);
 
     if (loginData[0] == true) {
         req.session.user = loginData[1];
@@ -25,8 +22,6 @@ router.post('/login', (req, res) => {
     }
     else {
         req.flash("logError", loginData[1]);
-        console.log(loginData[1]);
-        console.log(loginData[0]);
         res.redirect('/login');
     }
 })
@@ -58,19 +53,13 @@ router.post('/signup', (req, res) => {
         graduationYear,
     })
 
-    console.log(formData);
-
     if (formData[0] == true) {
         req.session.user = formData[1];
         res.redirect('/');
     }
     else {
         req.flash("error", formData[1]);
-        console.log(formData[1]);
-        console.log(formData[0]);
         res.redirect('/signup');
     }
-
-
 })
 module.exports = router; 

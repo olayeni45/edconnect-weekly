@@ -32,8 +32,6 @@ router.post('/projects/submit', (req, res) => {
     }
     else {
         req.flash("createErr", createData[1]);
-        console.log(createData[1]);
-        console.log(createData[0]);
         res.redirect('/projects/submit');
     }
 
