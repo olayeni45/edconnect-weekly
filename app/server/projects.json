@@ -1,17 +1,1 @@
-{
-    "data": [
-        {
-            "id": "qqg8jtk5iso",
-            "name": "edconnect",
-            "abstract": "hello this is an abstract",
-            "authors": [
-                "efe",
-                "john"
-            ],
-            "tags": [
-                "e-learning"
-            ],
-            "createdBy": "uqdecg701wb"
-        }
-    ]
-}
+{"data":[{"id":"qqg8jtk5iso","name":"edconnect","abstract":"hello this is an abstract","authors":["efe","john"],"tags":["e-learning"],"createdBy":"uqdecg701wb"},{"id":"4do9x4yid9i","name":"Week 8 Project","abstract":"Project","authors":["Olayeni"],"tags":["#week8"]},{"id":"cngp6ycrvg9","name":"Okibe","abstract":"Okibs","authors":["Okibe Attah"],"tags":["#okibe"]}]}

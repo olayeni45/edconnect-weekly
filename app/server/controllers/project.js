@@ -19,12 +19,14 @@ router.post('/projects/submit', (req, res) => {
     const authors = authArr.split(",");
     const tagArr = req.body.tags;
     const tags = tagArr.split(",");
+    const createdBy = req.session.user.id;
 
     const createData = project.create({
         name,
         abstract,
         authors,
         tags,
+        createdBy
     });
 
     if (createData[0] == true) {
