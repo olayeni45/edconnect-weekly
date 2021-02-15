@@ -37,7 +37,7 @@ const Login = (props) => {
                 <div className="mx-auto loginCenterDiv">
                     <h3>Login</h3>
 
-                    {loginError.length > 1 ? (<Alert className="alert alert-danger">{loginError} </Alert>) : null}
+                    {loginError != "" ? (<Alert className="alert alert-danger">{loginError} </Alert>) : null}
 
                     <Form id="loginForm" noValidate method="POST" action="login" >
 
