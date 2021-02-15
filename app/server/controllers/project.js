@@ -5,6 +5,7 @@ const userService = require('../services/user');
 
 router.get('/projects/submit', (req, res) => {
     const user = req.session.user;
+    console.log(user);
     const createErr = req.flash('createErr')
     res.render('CreateProject', { createErr, user });
     if (user == undefined) {
@@ -13,13 +14,13 @@ router.get('/projects/submit', (req, res) => {
 })
 
 router.post('/projects/submit', (req, res) => {
+    const createdBy = req.session.user.id;
     const name = req.body.name;
     const abstract = req.body.abstract;
     const authArr = req.body.authors;
     const authors = authArr.split(",");
     const tagArr = req.body.tags;
     const tags = tagArr.split(",");
-    const createdBy = req.session.user.id;
 
     const createData = project.create({
         name,
@@ -46,6 +47,7 @@ router.get('/project/:id', (req, res) => {
     console.log(id);
     const projectsOfId = project.getById(id);
     console.log(projectsOfId);
+    console.log(projectsOfId.createdBy);
     const userOfId = userService.getById(projectsOfId.createdBy);
     console.log(userOfId);
     res.render('Project', { projectsOfId, userOfId, id, user });
