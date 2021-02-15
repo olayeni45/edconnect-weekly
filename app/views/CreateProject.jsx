@@ -47,7 +47,7 @@ const CreateProject = (props) => {
                 <div className="mx-auto loginCenterDiv">
                     <h3>Submit Project</h3>
 
-                    {error[0] != "" ? (
+                    {error.length > 0 ? (
                         <Alert className="alert alert-danger"> {error.map((err) => (<p key={err}>{err}</p>))}</Alert>
                     ) : null}
 
