@@ -21,9 +21,7 @@ const Project = (props) => {
     return (
 
         <Layout {...props.user}>
-
             <>
-
                 <div className="viewCenterContainer">
 
                     <h3 id="project_name">{projectName}</h3>
@@ -132,17 +130,11 @@ const Project = (props) => {
                                     </div>
                                 </div>
 
-
-
-
-
                             </div>
 
                         </Row>
 
                     </div>
-
-
 
                 </div>
 

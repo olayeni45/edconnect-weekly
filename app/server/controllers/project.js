@@ -42,14 +42,10 @@ router.post('/projects/submit', (req, res) => {
 
 router.get('/project/:id', (req, res) => {
     const user = req.session.user;
-    console.log(user);
     const id = req.params.id;
-    console.log(id);
     const projectsOfId = project.getById(id);
-    console.log(projectsOfId);
     console.log(projectsOfId.createdBy);
     const userOfId = userService.getById(projectsOfId.createdBy);
-    console.log(userOfId);
     res.render('Project', { projectsOfId, userOfId, id, user });
 })
 
