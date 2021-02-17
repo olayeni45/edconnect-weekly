@@ -48,8 +48,8 @@ const getAll = () => {
   // populate projects with data from file.
   const projects = new Projects();
   projects.data = getFileAsJson(projectsFile).data;
-
-  return projects.getAll();
+  console.log(projects.getAll())
+  return projects.getAll().reverse();
 };
 
 module.exports = {

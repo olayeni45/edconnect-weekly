@@ -112,7 +112,7 @@ api.get("/users/:id", (req, res) => {
 api.get("/projects", (req, res) => {
   const projects = new Projects();
   projects.data = getFileAsJson(projectsFile).data;
-  res.json(projects.getAll());
+  res.json(projects.getAll().reverse());
 });
 
 api.get("/projects/:id", (req, res) => {
