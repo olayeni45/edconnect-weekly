@@ -10,20 +10,26 @@ router.get('/login', (req, res) => {
     res.render('Login', { logError, user });
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;
-    const loginData = user.authenticate(email, password);
+    const loginData = await user
+        .authenticate(email, password)
+        .then((loginData) => {
+            if (loginData[0] == true) {
+                req.session.user = loginData[1];
+                res.redirect('/');
+            }
+            else {
+                req.flash("logError", loginData[1]);
+                res.redirect('/login');
+            }
+        });
 
-    if (loginData[0] == true) {
-        req.session.user = loginData[1];
-        res.redirect('/');
-    }
-    else {
-        req.flash("logError", loginData[1]);
-        res.redirect('/login');
-    }
+    console.log(loginData);
+
+
 })
 
 router.get('/signup', (req, res) => {
@@ -33,7 +39,7 @@ router.get('/signup', (req, res) => {
 
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
 
     const firstname = req.body.firstName;
     const lastname = req.body.lastName;
@@ -43,23 +49,29 @@ router.post('/signup', (req, res) => {
     const program = req.body.program;
     const graduationYear = req.body.graduationYear;
 
-    const formData = user.create({
-        firstname,
-        lastname,
-        email,
-        password,
-        matricNumber,
-        program,
-        graduationYear,
-    })
+    const formData = await user
+        .create({
+            firstname,
+            lastname,
+            email,
+            password,
+            matricNumber,
+            program,
+            graduationYear
+        })
+        .then((formData) => {
+            console.log(formData);
+            if (formData[0] == true) {
+                req.session.user = formData[1];
+                res.redirect('/');
+            }
+            else {
+                req.flash("error", formData[1]);
+                res.redirect('/signup');
+            }
+        })
 
-    if (formData[0] == true) {
-        req.session.user = formData[1];
-        res.redirect('/');
-    }
-    else {
-        req.flash("error", formData[1]);
-        res.redirect('/signup');
-    }
+    console.log("Form data", formData);
+
 })
-module.exports = router; 
+module.exports = router;

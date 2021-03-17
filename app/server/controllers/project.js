@@ -13,8 +13,9 @@ router.get('/projects/submit', (req, res) => {
     }
 })
 
-router.post('/projects/submit', (req, res) => {
-    const createdBy = req.session.user.id;
+router.post('/projects/submit', async (req, res) => {
+    const createdBy = req.session.user._id;
+    console.log(createdBy);
     const name = req.body.name;
     const abstract = req.body.abstract;
     const authArr = req.body.authors;
@@ -22,31 +23,33 @@ router.post('/projects/submit', (req, res) => {
     const tagArr = req.body.tags;
     const tags = tagArr.split(",");
 
-    const createData = project.create({
+    const createData = await project.create({
         name,
         abstract,
         authors,
         tags,
         createdBy
+    }).then((createdData) => {
+        if (createdData[0] == true) {
+            res.redirect('/');
+        }
+        else {
+            req.flash("createErr", createdData[1]);
+            res.redirect('/projects/submit');
+        }
     });
+    console.log(createData);
 
-    if (createData[0] == true) {
-        res.redirect('/');
-    }
-    else {
-        req.flash("createErr", createData[1]);
-        res.redirect('/projects/submit');
-    }
 
 })
 
-router.get('/project/:id', (req, res) => {
+router.get('/project/:id', async (req, res) => {
     const user = req.session.user;
     const id = req.params.id;
-    const projectsOfId = project.getById(id);
-    console.log(projectsOfId.createdBy);
-    const userOfId = userService.getById(projectsOfId.createdBy);
+    const projectsOfId = await project.getById(id);
+    const userOfId = await userService.getById(projectsOfId.createdBy);
+
     res.render('Project', { projectsOfId, userOfId, id, user });
 })
 
-module.exports = router; 
+module.exports = router;

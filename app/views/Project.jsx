@@ -10,6 +10,9 @@ const Project = (props) => {
     const [projectTag, setProjectTag] = useState([""]);
     const [createdBy, setCreatedBy] = useState("");
 
+    const created = new Date(props.projectsOfId.createdAt).toLocaleDateString();
+    const updated = new Date(props.projectsOfId.updatedAt).toLocaleDateString();
+
     useEffect(() => {
         setProjectName(props.projectsOfId.name);
         setProjectAbstract(props.projectsOfId.abstract);
@@ -41,12 +44,12 @@ const Project = (props) => {
 
                                 <div className="columnFlex">
                                     <p>Date Created</p>
-                                    <p className="bold">2020-09-04</p>
+                                    <p className="bold">{created}</p>
                                 </div>
 
                                 <div className="columnFlex">
                                     <p>Last Updated</p>
-                                    <p className="bold">2020-09-04</p>
+                                    <p className="bold">{updated}</p>
                                 </div>
 
                             </div>
