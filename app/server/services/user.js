@@ -38,7 +38,6 @@ const authenticate = async (email, password) => {
     try {
       const authenticated = await user.validPassword(password);
       if (authenticated) {
-        console.log("2");
         console.log(user);
         return [true, user];
       }
