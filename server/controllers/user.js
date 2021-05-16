@@ -74,4 +74,17 @@ router.post('/signup', async (req, res) => {
     console.log("Form data", formData);
 
 })
+
+//Profile page
+router.get('/profile', (req, res) => {
+    const user = req.session.user;
+    res.render('Profile', { user, programList, gradYears });
+});
+
+router.put('/profile', (req, res) => {
+    console.log(req.body);
+})
+
+
+
 module.exports = router;

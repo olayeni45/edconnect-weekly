@@ -12,7 +12,8 @@ const UserSchema = new Schema(
         salt: { type: String, required: true },
         matricNumber: { type: String, required: true },
         program: { type: String, required: false },
-        graduationYear: { type: String, required: true }
+        graduationYear: { type: String, required: true },
+        image: { data: Buffer, contentType: String, required: false }
     },
     { timestamps: true }
 )

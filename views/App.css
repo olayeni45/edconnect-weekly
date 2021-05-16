@@ -515,6 +515,62 @@ font-weight: 500;
     outline:none;
 }
 
+/*Profile.JSx*/
+.profileContainer{
+    width:85%;
+    height:900px;
+    margin:40px auto;
+}
+
+.userDetails{
+    display: flex;
+    width:100%;
+    height:40px;
+}
+
+.emailDiv{
+    position:relative;
+    top:8px;
+    left:12px;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.marginTop{
+    margin-top:30px;
+}
+
+.formMiddle{
+    margin:10px auto;
+    width:700px;
+    height:410px;
+}
+
+.passwordForm{
+    margin:10px auto;
+    width:700px;
+    height:200px;
+}
+
+.profileUpdate{
+    width:100%;
+    height:50px;
+    display: flex;
+    align-items: center;
+}
+
+.profileBtn{
+    position: relative;
+    top:5px;
+}
+/*Header.jsx*/
+.profilePictureCircle{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid grey;
+}
+
 /*React CSS*/
 .pushFooter{
     width:100%;
@@ -554,7 +610,7 @@ width:100%;
 }
 
 #titleMargin{
-    margin-bottom:15px;
+    margin-bottom:13px;
 }
 
 .viewCol{

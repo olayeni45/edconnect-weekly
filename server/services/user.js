@@ -71,6 +71,9 @@ const getAll = async () => {
   return user;
 };
 
+/*Updates information of a user*/
+
+
 module.exports = {
   create,
   authenticate,

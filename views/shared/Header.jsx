@@ -27,7 +27,8 @@ export default ({ firstname }) => {
             { (firstname != undefined) ? (
                 <Nav className="justify-content-end">
                     <Nav.Link href="/logout" name="logout" >Logout</Nav.Link>
-                    <Nav.Link href="" name="firstname" id="username">Hi, {firstname}</Nav.Link>
+                    <Nav.Link href="/profile" name="firstname" id="username">Hi, {firstname}</Nav.Link>
+                    <div className="profilePictureCircle"></div>
                 </Nav>
             )
                 :
