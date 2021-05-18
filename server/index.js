@@ -8,6 +8,23 @@ const session = require('express-session');
 const app = express();
 const flash = require('express-flash');
 const SERVER_PORT = process.env.PORT || 80;
+const methodOverride = require('method-override')
+
+const fs = require('fs');
+const path = require('path');
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+const upload = multer({ storage: storage });
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 const store = new MongoDBStore({
@@ -41,6 +58,7 @@ register(app).then(() => {
     }));
 
     app.use(flash());
+    app.use(methodOverride('_method'));
 
     app.use('/api', require('./routes/api'));
     app.use("/", require("./controllers/home"));

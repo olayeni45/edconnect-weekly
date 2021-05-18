@@ -315,8 +315,40 @@ label{
 /*Register.html */
 .registerCenterContainer{
     width:55%;
-    height:380px;
+    height:480px;
     margin:50px auto;
+}
+
+.signUpLinks{
+    width:242px;
+    height:100px;
+    margin:10px auto;
+}
+
+
+.facebook{
+    width:100%;
+    height: 40px;
+    display:flex;
+    border:1px solid #4285F4;
+    position:relative;
+    top:20px;
+}
+
+.icon{
+    width:20%;
+    height:100%;
+    color: #4267B2;
+    font-size:31px;
+    text-align: center;
+    position: relative;
+    top:-10px;
+}
+
+.linkText{
+    width:80%;
+    height:100%;
+    background-color: #4285F4;
 }
 
 /*Search.html */

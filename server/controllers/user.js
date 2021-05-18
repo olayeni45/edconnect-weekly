@@ -3,6 +3,7 @@ const router = express.Router();
 const programList = require('../services/school').getPrograms();
 const gradYears = require('../services/school').getGradYears();
 const user = require('../services/user');
+const userModel = require('../models/user');
 
 router.get('/login', (req, res) => {
     const user = req.session.user;
@@ -76,15 +77,85 @@ router.post('/signup', async (req, res) => {
 })
 
 //Profile page
-router.get('/profile', (req, res) => {
-    const user = req.session.user;
-    res.render('Profile', { user, programList, gradYears });
+router.get('/profile', async (req, res) => {
+
+    const modifyError = req.flash('modifyError')
+    const success = req.flash('success');
+    req.session.reload(function (err) {
+        const userDetails = req.session.user;
+        res.render('Profile', { userDetails, programList, gradYears, modifyError, success });
+    });
+
 });
 
-router.put('/profile', (req, res) => {
+
+//Modify personal details
+router.put('/profile', async (req, res) => {
     console.log(req.body);
+
+    const email = req.body.email;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const program = req.body.program;
+    const matricNumber = req.body.matricNumber;
+    const graduationYear = req.body.graduationYear;
+
+    const userUpdate = await user
+        .editFunction(email, firstName, lastName, matricNumber, program, graduationYear)
+        .then((userUpdate) => {
+            if (userUpdate[0] == true) {
+                req.flash("success", userUpdate[1]);
+                res.redirect("/profile");
+            }
+        });
+
+    console.log("Updated user", userUpdate);
+
 })
 
 
+/*Modify password
+router.put('/profile', async (req, res) => {
+    console.log(req.body);
 
+    const currentPassword = req.body.currentPassword;
+    const newPassword = req.body.newPassword;
+    const confirmPassword = req.body.confirmPassword;
+    const email = req.session.user.email;
+
+    const update = await user.passwordAuthenticate(email, currentPassword, newPassword, confirmPassword);
+    console.log("Update or errors", update);
+
+    if (update != "") {
+        req.flash("modifyError", update);
+        res.redirect('/profile');
+    }
+
+})
+
+*/
+
+
+/* 
+router.put('/profile', upload.single('image'), async(req, res, next) => {
+
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    imgModel.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/');
+        }
+    });
+});
+ */
 module.exports = router;

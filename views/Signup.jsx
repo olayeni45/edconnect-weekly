@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
+import { Link } from "react-router-dom";
+import { FaFacebookSquare } from "react-icons/fa";
+import GoogleButton from 'react-google-button';
 
 const Signup = (props) => {
 
@@ -151,6 +154,13 @@ const Signup = (props) => {
 
                             <div className="form-group">
                                 <Button variant="primary" type="submit" >Sign Up </Button>
+
+                            </div>
+
+                            <div className="signUpLinks">
+                                <GoogleButton />
+
+
 
                             </div>
 

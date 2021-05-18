@@ -29,9 +29,6 @@ UserSchema.methods.setPassword = function (password) {
     if (password.length >= 7) {
         this.salt = crypto.randomBytes(16).toString('hex');
         this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
-        //this.password = hash(password, this.salt);
-        console.log("If password", password);
-        console.log("This password", this.password);
     }
     else {
         throw new Error("Password should have at least 7 characters")
