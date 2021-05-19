@@ -77,56 +77,6 @@ const getUser = async (email) => {
   return user;
 }
 
-/*Update password 
-const passwordAuthenticate = async (email, currentPassword, newPassword, confirmPassword) => {
-
-  const user = await User.findOne({ email: email });
-  const errors = new Array();
-
-  try {
-    const checkCurrent = await user.validPassword(currentPassword);
-    console.log("2");
-
-    if (checkCurrent) {
-
-      if (newPassword === confirmPassword) {
-        console.log("3");
-
-        //await user.setPassword(newPassword);
-        const passwordToBeSet = confirmPassword;
-
-        console.log("3.1");
-        const user = await User.updateOne(
-          { email: email },
-          { $set: { password: await this.setPassword(passwordToBeSet) } }
-        )
-        console.log("4");
-
-        const savedUser = await user.save();
-        if (savedUser) {
-          console.log("Saved");
-          console.log(savedUser);
-          console.log(user);
-          return user;
-        }
-      }
-      else {
-        errors.push("The passwords do not match");
-      }
-    }
-    else {
-      errors.push("The current password is invalid");
-    }
-    return errors;
-  }
-  catch (error) {
-    console.log(error);
-  }
-
-}
-
-*/
-
 /*Edit details of the user*/
 const editFunction = async (email, firstname, lastname, matric, program, graduationYear) => {
 
@@ -151,6 +101,56 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
 
 }
 
+//Update password 
+const passwordChange = async (email, currentPassword, newPassword, confirmPassword) => {
+
+  var user = await User.findOne({ email: email });
+
+  try {
+    const checkCurrent = await user.validPassword(currentPassword);
+    console.log("2");
+
+    if (checkCurrent) {
+
+      if (newPassword === confirmPassword) {
+        const userChange = await User.findOne({ email: email });
+        const passwordChanges = await userChange.updatePassword(confirmPassword);
+        const salt = passwordChanges[0];
+        const passwd = passwordChanges[1];
+        console.log("Changed password is", passwd);
+        console.log("3");
+
+        if (passwd == undefined) {
+          console.log("Undefined password");
+        }
+        else {
+          var user = await User.findOneAndUpdate(
+            { email: email },
+            { $set: { salt: salt, password: passwd } }
+          )
+          console.log("4");
+
+          const savedUser = await user.save();
+          if (savedUser) {
+            console.log("Saved");
+            return [true, "Password Updated"];
+          }
+        }
+      }
+      else {
+        return [false, "The passwords do not match"];
+      }
+    }
+    else {
+      return [false, "The current password is invalid"];
+    }
+  }
+  catch (error) {
+    console.log(error);
+  }
+
+}
+
 
 module.exports = {
   create,
@@ -158,5 +158,6 @@ module.exports = {
   getById,
   getAll,
   getUser,
-  editFunction
+  editFunction,
+  passwordChange
 };

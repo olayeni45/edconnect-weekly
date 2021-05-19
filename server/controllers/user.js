@@ -81,8 +81,12 @@ router.get('/profile', async (req, res) => {
 
     const modifyError = req.flash('modifyError')
     const success = req.flash('success');
+    const emailSession = req.session.user.email;
+    const dbUser = await user.getUser(emailSession);
+    /* const userDetails = dbUser;
+    res.render('Profile', { userDetails, programList, gradYears, modifyError, success }); */
     req.session.reload(function (err) {
-        const userDetails = req.session.user;
+        const userDetails = dbUser;
         res.render('Profile', { userDetails, programList, gradYears, modifyError, success });
     });
 
@@ -90,7 +94,7 @@ router.get('/profile', async (req, res) => {
 
 
 //Modify personal details
-router.put('/profile', async (req, res) => {
+router.put('/profileUser', async (req, res) => {
     console.log(req.body);
 
     const email = req.body.email;
@@ -105,17 +109,16 @@ router.put('/profile', async (req, res) => {
         .then((userUpdate) => {
             if (userUpdate[0] == true) {
                 req.flash("success", userUpdate[1]);
+                console.log(userUpdate[1]);
                 res.redirect("/profile");
             }
         });
 
-    console.log("Updated user", userUpdate);
-
 })
 
 
-/*Modify password
-router.put('/profile', async (req, res) => {
+//Modify password
+router.put('/profilePassword', async (req, res) => {
     console.log(req.body);
 
     const currentPassword = req.body.currentPassword;
@@ -123,18 +126,22 @@ router.put('/profile', async (req, res) => {
     const confirmPassword = req.body.confirmPassword;
     const email = req.session.user.email;
 
-    const update = await user.passwordAuthenticate(email, currentPassword, newPassword, confirmPassword);
-    console.log("Update or errors", update);
-
-    if (update != "") {
-        req.flash("modifyError", update);
-        res.redirect('/profile');
-    }
+    const update = await user
+        .passwordChange(email, currentPassword, newPassword, confirmPassword)
+        .then((update) => {
+            if (update[0] == true) {
+                console.log(update[1]);
+                req.flash("modifyError", update[1]);
+                res.redirect("/profile");
+            }
+            else {
+                req.flash("modifyError", update[1]);
+                console.log(update[1]);
+                res.redirect("/profile");
+            }
+        });
 
 })
-
-*/
-
 
 /* 
 router.put('/profile', upload.single('image'), async(req, res, next) => {

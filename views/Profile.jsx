@@ -144,7 +144,7 @@ const Profile = (props) => {
                         {success != "" ? (<Alert className="alert alert-success">{success} </Alert>) : null}
                         <div className="formMiddle">
 
-                            <Form noValidate method="POST" action="profile?_method=PUT" >
+                            <Form noValidate method="POST" action="/profileUser?_method=PUT" >
 
                                 <Form.Row>
 
@@ -215,16 +215,16 @@ const Profile = (props) => {
                         <h4 className="marginTop">Change Password</h4>
                         <hr />
 
-                        {profileError != "" ? (<Alert className="alert alert-danger">{profileError} </Alert>) : null}
+                        {profileError != "" ? (profileError == "Password Updated" ? (<Alert className="alert alert-success">{profileError} </Alert>) : (<Alert className="alert alert-danger">{profileError} </Alert>)) : null}
                         <div className="passwordForm">
 
-                            <Form noValidate method="POST" action="profile?_method=PUT">
+                            <Form method="POST" action="/profilePassword?_method=PUT">
 
                                 <Form.Row>
 
                                     <Form.Group as={Col} >
                                         <Form.Label >Current Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Current Password"
+                                        <Form.Control type="password" placeholder="Current Password" required
                                             onChange={handlePasswordChange} name="currentPassword" value={currentPassword} />
                                     </Form.Group>
 

@@ -40,6 +40,21 @@ UserSchema.methods.validPassword = function (password) {
     //return this.password === hash(password, this.salt);
 }
 
+//Update password method
+UserSchema.methods.updatePassword = function (password) {
+    if (password.length >= 7) {
+        this.salt = crypto.randomBytes(16).toString('hex');
+        this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
+        const Salt = this.salt;
+        const Password = this.password;
+        const updateDetails = [Salt, Password];
+        return updateDetails;
+    }
+    else {
+        throw new Error("Password should have at least 7 characters")
+    }
+}
+
 //Mongoose User model
 const User = mongoose.model("users", UserSchema);
 
