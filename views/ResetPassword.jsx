@@ -3,18 +3,12 @@ import Layout from './shared/Layout'
 import { Form, Button, Alert, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-
-const Login = (props) => {
+const ResetPassword = (props) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loginError, setLoginError] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    useEffect(() => {
-        if (loginError == "") {
-            setLoginError(props.logError);
-        }
-    }, [])
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -27,7 +21,10 @@ const Login = (props) => {
 
             case 'password':
                 setPassword(value);
-                break;
+
+            case 'confirmPassword':
+                setConfirmPassword(value);
+
         }
     }
 
@@ -37,34 +34,37 @@ const Login = (props) => {
             <>
 
                 <div className="mx-auto loginCenterDiv">
-                    <h3>Login</h3>
+                    <h3>Reset Password</h3>
 
-                    {loginError != "" ? (<Alert className="alert alert-danger">{loginError} </Alert>) : null}
 
-                    <Form id="loginForm" noValidate method="POST" action="login" >
+                    <Form id="loginForm" noValidate method="POST" action="resetPassword" >
 
                         <Form.Row>
-
                             <Form.Group as={Col}>
                                 <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="Your Email Address"
+                                <Form.Control type="email" placeholder="Enter Email"
                                     name="email" onChange={handleInputChange} value={email} />
                             </Form.Group>
-
                         </Form.Row>
 
                         <Form.Row>
-
-                            <Form.Group as={Col} >
+                            <Form.Group as={Col}>
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Your Password"
+                                <Form.Control type="password" placeholder="Enter Password"
                                     name="password" onChange={handleInputChange} value={password} />
                             </Form.Group>
                         </Form.Row>
 
-                        <div className="form-group">
-                            <Button variant="primary" type="submit">Login </Button>
+                        <Form.Row>
+                            <Form.Group as={Col}>
+                                <Form.Label>Confirm Password</Form.Label>
+                                <Form.Control type="password" placeholder="Confirm Password"
+                                    name="confirmPassword" onChange={handleInputChange} value={confirmPassword} />
+                            </Form.Group>
+                        </Form.Row>
 
+                        <div className="form-group">
+                            <Button variant="primary" type="submit">Submit </Button>
                         </div>
 
                     </Form>
@@ -81,4 +81,4 @@ const Login = (props) => {
 
 }
 
-export default Login;
+export default ResetPassword;

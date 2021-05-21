@@ -3,18 +3,15 @@ import Layout from './shared/Layout'
 import { Form, Button, Alert, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+const ForgotPassword = (props) => {
 
-const Login = (props) => {
 
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loginError, setLoginError] = useState("");
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        if (loginError == "") {
-            setLoginError(props.logError);
-        }
-    }, [])
+        setError(props.forgotError);
+    })
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -25,9 +22,6 @@ const Login = (props) => {
                 setEmail(value);
                 break;
 
-            case 'password':
-                setPassword(value);
-                break;
         }
     }
 
@@ -37,37 +31,29 @@ const Login = (props) => {
             <>
 
                 <div className="mx-auto loginCenterDiv">
-                    <h3>Login</h3>
+                    <h3>Forgot Password?</h3>
 
-                    {loginError != "" ? (<Alert className="alert alert-danger">{loginError} </Alert>) : null}
 
-                    <Form id="loginForm" noValidate method="POST" action="login" >
+                    {error != "" ? (error != "Invalid Email address" || error != "An error occured, please refresh" ? (<Alert className="alert alert-success">{error} </Alert>) : (<Alert className="alert alert-danger">{error} </Alert>)) : (<Alert className="alert alert-primary">Enter the email address associated with your account </Alert>)}
+                    <Form id="loginForm" noValidate method="POST" action="forgotPassword" >
 
                         <Form.Row>
 
                             <Form.Group as={Col}>
                                 <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="Your Email Address"
+                                <Form.Control type="email" placeholder="Enter Email"
                                     name="email" onChange={handleInputChange} value={email} />
                             </Form.Group>
 
                         </Form.Row>
 
-                        <Form.Row>
-
-                            <Form.Group as={Col} >
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Your Password"
-                                    name="password" onChange={handleInputChange} value={password} />
-                            </Form.Group>
-                        </Form.Row>
-
                         <div className="form-group">
-                            <Button variant="primary" type="submit">Login </Button>
+                            <Button variant="primary" type="submit">Submit </Button>
 
                         </div>
 
                     </Form>
+
 
                 </div>
 
@@ -81,4 +67,4 @@ const Login = (props) => {
 
 }
 
-export default Login;
+export default ForgotPassword;

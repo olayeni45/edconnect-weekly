@@ -92,7 +92,6 @@ router.get('/profile', async (req, res) => {
 
 });
 
-
 //Modify personal details
 router.put('/profileUser', async (req, res) => {
     console.log(req.body);
@@ -165,4 +164,46 @@ router.put('/profile', upload.single('image'), async(req, res, next) => {
     });
 });
  */
+
+
+//Forgot Password Page
+router.get('/forgotPassword', (req, res) => {
+    const forgotError = req.flash("forgotError");
+    res.render('ForgotPassword', { forgotError });
+
+});
+
+router.post('/forgotPassword', async (req, res) => {
+
+    console.log(req.body);
+    const email = req.body.email;
+    const resetForgottenPassword = await user
+        .resetLink(email)
+        .then((result) => {
+            if (result == true) {
+                console.log(update[1]);
+                req.flash("forgotError", result[1]);
+                res.redirect("/forgotPassword");
+            }
+            else {
+                req.flash("forgotError", result[1]);
+                res.redirect("/forgotPassword");
+            }
+        })
+
+});
+
+//Reset Password Page
+router.get('/resetPassword', (req, res) => {
+
+    res.render('ResetPassword');
+
+});
+
+router.post('/resetPassword', (req, res) => {
+
+    res.render('ResetPassword');
+
+});
+
 module.exports = router;

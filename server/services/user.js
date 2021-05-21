@@ -1,5 +1,10 @@
 const User = require('../models/user');
 const helper = require('../models/mongo_helper');
+const mailjet = require('node-mailjet')
+  .connect('14b9dbe21f84c52ce5155b8f54201eb2', '3f727c913ae4754d982a71778cea4c0a')
+const mailgun = require("mailgun-js");
+const DOMAIN = "sandbox1f53ebc0ff9e447a9c6730cff0132a02.mailgun.org";
+
 /* Creates new user */
 const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear }) => {
   try {
@@ -26,6 +31,7 @@ const create = async ({ firstname, lastname, email, password, matricNumber, prog
     return [false, helper.translateError(error)];
   }
 }
+
 
 /* Authenticate a user */
 const authenticate = async (email, password) => {
@@ -63,6 +69,7 @@ const getById = async (id) => {
   const user = await User.findOne({ _id: id })
   return user;
 };
+
 
 /* Return all users */
 const getAll = async () => {
@@ -151,6 +158,62 @@ const passwordChange = async (email, currentPassword, newPassword, confirmPasswo
 
 }
 
+//Reset password link from token
+const resetLink = async (email) => {
+
+  try {
+    console.log("1");
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      const request = mailjet
+        .post("send", { 'version': 'v3.1' })
+        .request({
+          "Messages": [
+            {
+              "From": {
+                "Email": "mobolajianney@gmail.com",
+                "Name": "Anifowose"
+              },
+              "To": [
+                {
+                  "Email": user.email,
+                  "Name": user.firstname
+                }
+              ],
+              "Subject": "Password Reset Link",
+              "TextPart": "Reset Link Details",
+              "HTMLPart": `<p>Please click on the link below to reset your password </p>
+                  <a href="http://localhost/resetPassword">Password Reset Link</a>`,
+              "CustomID": "AppGettingStartedTest"
+            }
+          ]
+        })
+      request
+        .then((result) => {
+          console.log(result.body)
+        })
+        .catch((err) => {
+          console.log(err.statusCode)
+        })
+      if (request) {
+        console.log("4");
+        return [true, "Kindly check your mail for the password reset link"];
+      }
+      else {
+        return [false, "An error occured, please refresh"]
+      }
+
+    }
+    return [false, "Invalid Email address"];
+
+  }
+  catch (error) {
+    console.log(error);
+  }
+
+}
+
 
 module.exports = {
   create,
@@ -159,5 +222,6 @@ module.exports = {
   getAll,
   getUser,
   editFunction,
-  passwordChange
+  passwordChange,
+  resetLink
 };
