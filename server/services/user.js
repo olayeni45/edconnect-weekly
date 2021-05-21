@@ -147,6 +147,7 @@ const passwordChange = async (email, currentPassword, newPassword, confirmPasswo
       else {
         return [false, "The passwords do not match"];
       }
+
     }
     else {
       return [false, "The current password is invalid"];
@@ -214,6 +215,55 @@ const resetLink = async (email) => {
 
 }
 
+//Reset password from db
+const resetPasswordDB = async (email, newPassword, confirmPassword) => {
+
+  try {
+    var user = await User.findOne({ email: email });
+
+    if (user) {
+
+      if (newPassword === confirmPassword) {
+        const userChange = await User.findOne({ email: email });
+        const passwordChanges = await userChange.updatePassword(confirmPassword);
+        const salt = passwordChanges[0];
+        const passwd = passwordChanges[1];
+        console.log("Changed password is", passwd);
+        console.log("3");
+
+        if (passwd == undefined) {
+          console.log("Undefined password");
+        }
+        else {
+          user = await User.findOneAndUpdate(
+            { email: email },
+            { $set: { salt: salt, password: passwd } }
+          )
+          console.log("4");
+
+          const savedUser = await user.save();
+          if (savedUser) {
+            console.log("Saved");
+            return [true, "New Password set, You can now login."];
+          }
+        }
+      }
+      else {
+        return [false, "The passwords do not match"];
+      }
+
+    }
+    else {
+      return [false, "Email not found"];
+    }
+  }
+
+  catch (error) {
+    console.log(error);
+  }
+
+}
+
 
 module.exports = {
   create,
@@ -223,5 +273,6 @@ module.exports = {
   getUser,
   editFunction,
   passwordChange,
-  resetLink
+  resetLink,
+  resetPasswordDB
 };

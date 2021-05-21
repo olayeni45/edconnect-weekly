@@ -196,13 +196,32 @@ router.post('/forgotPassword', async (req, res) => {
 //Reset Password Page
 router.get('/resetPassword', (req, res) => {
 
-    res.render('ResetPassword');
+    const resetPasswordError = req.flash('resetPasswordError')
+    res.render('ResetPassword', { resetPasswordError });
 
 });
 
-router.post('/resetPassword', (req, res) => {
+router.post('/resetPassword', async (req, res) => {
 
-    res.render('ResetPassword');
+    console.log(req.body);
+    const email = req.body.email;
+    const newPassword = req.body.newPassword;
+    const confirmPassword = req.body.confirmPassword;
+
+    const update = await user
+        .resetPasswordDB(email, newPassword, confirmPassword)
+        .then((update) => {
+            if (update[0] == true) {
+                console.log(update[1]);
+                req.flash("resetPasswordError", update[1]);
+                res.redirect("/resetPassword");
+            }
+            else {
+                req.flash("resetPasswordError", update[1]);
+                console.log(update[1]);
+                res.redirect("/resetPassword");
+            }
+        });
 
 });
 
