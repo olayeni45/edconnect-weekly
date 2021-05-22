@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
+import { Nav } from 'react-bootstrap'
 
 const Login = (props) => {
 
@@ -62,10 +62,15 @@ const Login = (props) => {
                             </Form.Group>
                         </Form.Row>
 
-                        <div className="form-group">
+                        <div className="LogFunctions">
+
                             <Button variant="primary" type="submit">Login </Button>
+                            <Nav >
+                                <Nav.Link href="/forgotPassword" className="forgotNav" >Forgot Password?</Nav.Link>
+                            </Nav>
 
                         </div>
+
 
                     </Form>
 

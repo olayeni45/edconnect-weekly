@@ -16,12 +16,12 @@ const Profile = (props) => {
     useEffect(() => {
         setProgramList(props.programList);
         setGraduationYears(props.gradYears);
-        setFirstName(props.userDetails.firstname);
-        setLastName(props.userDetails.lastname);
-        setEmail(props.userDetails.email);
-        setMatric(props.userDetails.matricNumber);
-        setProgram(props.userDetails.program);
-        setYear(props.userDetails.graduationYear);
+        setFirstName(props.user.firstname);
+        setLastName(props.user.lastname);
+        setEmail(props.user.email);
+        setMatric(props.user.matricNumber);
+        setProgram(props.user.program);
+        setYear(props.user.graduationYear);
     }, [])
 
 
@@ -91,16 +91,16 @@ const Profile = (props) => {
 
     return (
 
-        <Layout {...props.userDetails} >
+        <Layout {...props.user} >
             <>
-                {console.log(props.userDetails)}
+                {console.log("Profile", props.user)}
                 <Container>
 
                     <div className="profileContainer">
 
                         <div className="userDetails">
-                            <h3>{props.userDetails.firstname} {props.userDetails.lastname}</h3>
-                            <p className="text-secondary emailDiv">{props.userDetails.email}</p>
+                            <h3>{props.user.firstname} {props.user.lastname}</h3>
+                            <p className="text-secondary emailDiv">{props.user.email}</p>
                         </div>
 
                         <div id="titleMargin"></div>
@@ -113,21 +113,21 @@ const Profile = (props) => {
 
                                     <div className="columnFlex">
                                         <p className="bold">Program</p>
-                                        <p>{props.userDetails.program}</p>
+                                        <p>{props.user.program}</p>
                                     </div>
 
 
 
                                     <div className="columnFlex">
                                         <p className="bold">Matriculation Number</p>
-                                        <p>{props.userDetails.matricNumber}</p>
+                                        <p>{props.user.matricNumber}</p>
                                     </div>
 
 
 
                                     <div className="columnFlex">
                                         <p className="bold">Graduation Year</p>
-                                        <p>{props.userDetails.graduationYear}</p>
+                                        <p>{props.user.graduationYear}</p>
                                     </div>
 
                                 </div>

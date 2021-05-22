@@ -86,8 +86,9 @@ router.get('/profile', async (req, res) => {
     /* const userDetails = dbUser;
     res.render('Profile', { userDetails, programList, gradYears, modifyError, success }); */
     req.session.reload(function (err) {
-        const userDetails = dbUser;
-        res.render('Profile', { userDetails, programList, gradYears, modifyError, success });
+        const user = dbUser;
+        console.log("user from Get /profile from controllers: ", user);
+        res.render('Profile', { user, programList, gradYears, modifyError, success });
     });
 
 });

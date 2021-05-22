@@ -21,8 +21,8 @@ nav{
     font-size:23px;
 }
 
-a.nav-link{
-    color:rgb(231, 230, 230) !important;
+.headerNav{
+    color:rgb(238, 237, 237) !important;
 }
 
 .btn-outline-success{
@@ -247,6 +247,16 @@ input[type="file" i]{
     position:relative;
     top:350px;
     width:100%;
+}
+
+.LogFunctions{
+    display:flex;
+    width:45%;
+}
+.forgotNav{
+   position: relative;
+   left:-9px;
+    font-weight: 500;
 }
 /*Profile.html*/
 /*centerContainer CSS*/

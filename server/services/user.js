@@ -167,7 +167,7 @@ const resetLink = async (email) => {
     const user = await User.findOne({ email: email });
 
     if (user) {
-      const request = mailjet
+      const request = await mailjet
         .post("send", { 'version': 'v3.1' })
         .request({
           "Messages": [
@@ -184,22 +184,23 @@ const resetLink = async (email) => {
               ],
               "Subject": "Password Reset Link",
               "TextPart": "Reset Link Details",
-              "HTMLPart": `<p>Please click on the link below to reset your password </p>
+              "HTMLPart": ` <p>Forgot your password? Don't worry it happens!</p>
+              <p>To create a new password, click on the link below. </p>
                   <a href="http://localhost/resetPassword">Password Reset Link</a>`,
               "CustomID": "AppGettingStartedTest"
             }
           ]
         })
-      request
+      /* request
         .then((result) => {
           console.log(result.body)
         })
         .catch((err) => {
           console.log(err.statusCode)
-        })
+        }) */
       if (request) {
         console.log("4");
-        return [true, "Kindly check your mail for the password reset link"];
+        return [true, "An email with instructions for creating a new password has been sent to you."];
       }
       else {
         return [false, "An error occured, please refresh"]
