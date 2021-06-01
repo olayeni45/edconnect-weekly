@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import { Nav } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
 
 const Login = (props) => {
-
+    let history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");
@@ -29,6 +31,14 @@ const Login = (props) => {
                 setPassword(value);
                 break;
         }
+    }
+
+    const facebookRedirect = () => {
+        history.push('/auth/facebook');
+    }
+
+    const responseFacebook = (response) => {
+        console.log(response);
     }
 
     return (
@@ -63,16 +73,21 @@ const Login = (props) => {
                         </Form.Row>
 
                         <div className="LogFunctions">
-
                             <Button variant="primary" type="submit">Login </Button>
                             <Nav >
                                 <Nav.Link href="/forgotPassword" className="forgotNav" >Forgot Password?</Nav.Link>
                             </Nav>
-
                         </div>
 
-
                     </Form>
+
+                    <div className="customLogin">
+                        <Nav >
+                            <Nav.Link href="/auth/facebook" >Facebook</Nav.Link>
+                        </Nav>
+                        <GoogleLoginButton onClick={() => { history.push('/auth/google') }} />
+                        <FacebookLoginButton onClick={facebookRedirect} />
+                    </div>
 
                 </div>
 

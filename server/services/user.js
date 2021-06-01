@@ -1,9 +1,8 @@
 const User = require('../models/user');
 const helper = require('../models/mongo_helper');
 const mailjet = require('node-mailjet')
-  .connect('14b9dbe21f84c52ce5155b8f54201eb2', '3f727c913ae4754d982a71778cea4c0a')
-const mailgun = require("mailgun-js");
-const DOMAIN = "sandbox1f53ebc0ff9e447a9c6730cff0132a02.mailgun.org";
+  .connect(process.env.MAILJET_FIRST, process.env.MAILJET_SECOND);
+const multer = require('multer');
 
 /* Creates new user */
 const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear }) => {
@@ -84,13 +83,15 @@ const getUser = async (email) => {
   return user;
 }
 
+
 /*Edit details of the user*/
-const editFunction = async (email, firstname, lastname, matric, program, graduationYear) => {
+const editFunction = async (email, firstname, lastname, matric, program, graduationYear, profilePicture) => {
 
   try {
     const user = await User.findOneAndUpdate(
       { email: email },
-      { $set: { firstname: firstname, lastname: lastname, matricNumber: matric, program: program, graduationYear: graduationYear } }
+      { $set: { firstname: firstname, lastname: lastname, matricNumber: matric, program: program, graduationYear: graduationYear, image: profilePicture } },
+      {useFindAndModify: false}
     );
 
     const savedUser = await user.save();
@@ -100,12 +101,23 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
       console.log(user);
       return [true, "Update successful"];
     }
+    else{
+      console.log("Error occured");
+      return [false, "An error has occured, please try again."];
+    }
   }
 
   catch (error) {
     console.log(error);
   }
 
+}
+
+//Get profile picture
+const getPicture = async (email) => {
+  const user = await User.findOne({ email: email })
+  const image = user.image;
+  return image;
 }
 
 //Update password 
@@ -265,6 +277,11 @@ const resetPasswordDB = async (email, newPassword, confirmPassword) => {
 
 }
 
+//Passport facebook login 
+const passportFacebook = async () => {
+
+}
+
 
 module.exports = {
   create,
@@ -275,5 +292,6 @@ module.exports = {
   editFunction,
   passwordChange,
   resetLink,
-  resetPasswordDB
+  resetPasswordDB,
+  getPicture
 };

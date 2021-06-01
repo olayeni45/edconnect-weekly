@@ -223,9 +223,11 @@ input[type="file" i]{
 /*Login.html */
 .loginCenterDiv{
     width:42%;
-    height:300px;
+    height:460px;
     box-sizing: border-box;
-    margin:50px auto;
+    margin: 0 auto;
+    position: relative;
+    top:35px;
 }
 
 #email{
@@ -258,6 +260,16 @@ input[type="file" i]{
    left:-9px;
     font-weight: 500;
 }
+
+.customLogin{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin:13px auto;
+    width:250px;
+    height:127px;
+}
+
 /*Profile.html*/
 /*centerContainer CSS*/
 .profileCenterContainer{

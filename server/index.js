@@ -10,6 +10,8 @@ const flash = require('express-flash');
 const SERVER_PORT = process.env.PORT || 80;
 const methodOverride = require('method-override')
 
+const passport = require('passport');
+
 
 
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -32,6 +34,9 @@ register(app).then(() => {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(session({
         secret: 'secret',
@@ -56,6 +61,7 @@ register(app).then(() => {
     app.listen(SERVER_PORT, () => console.log('Server listening on port ' + SERVER_PORT));
 
     mongoose.set("bufferCommands", false);
+    mongoose.set('useFindAndModify', false);
 
     mongoose.connect(
 
@@ -68,6 +74,8 @@ register(app).then(() => {
             useUnifiedTopology: true,
 
             useCreateIndex: true,
+
+            useFindAndModify: false 
 
         },
 

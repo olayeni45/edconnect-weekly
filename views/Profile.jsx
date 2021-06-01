@@ -12,6 +12,7 @@ const Profile = (props) => {
     const [matric, setMatric] = useState("");
     const [program, setProgram] = useState("");
     const [year, setYear] = useState("");
+    
 
     useEffect(() => {
         setProgramList(props.programList);
@@ -49,16 +50,29 @@ const Profile = (props) => {
             case 'graduationYear':
                 setYear(value);
                 break;
+            
+        }
+    }
+
+    const [picture, setPicture] = useState();
+    const handlePicture = event => {
+        const { name, files } = event.target;
+
+        switch (name) {
+           
+            case 'picture':
+                setPicture(files[0]);
 
         }
     }
+
 
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const handlePasswordChange = event => {
-        const { name, value } = event.target;
+        const { name, value, files} = event.target;
 
         switch (name) {
 
@@ -71,7 +85,7 @@ const Profile = (props) => {
                 break;
 
             case 'confirmPassword':
-                setConfirmPassword(value);
+                setConfirmPassword(files);
                 break;
 
         }
@@ -141,10 +155,10 @@ const Profile = (props) => {
                         <h4 className="marginTop">Update Profile</h4>
                         <hr />
 
-                        {success != "" ? (<Alert className="alert alert-success">{success} </Alert>) : null}
+                        {success != "" ? (success == "An error has occured, please try again." ? (<Alert className="alert alert-danger">{success} </Alert>) : (<Alert className="alert alert-success">{success} </Alert>)) : null}
                         <div className="formMiddle">
 
-                            <Form noValidate method="POST" action="/profileUser?_method=PUT" >
+                            <Form noValidate method="POST" action="/profileUser?_method=PUT" encType="multipart/form-data" >
 
                                 <Form.Row>
 
@@ -200,7 +214,7 @@ const Profile = (props) => {
                                     <Form.Group as={Col}>
                                         <Form.Label>Profile Picture</Form.Label>
                                         <div className="profileUpdate form-control">
-                                            <Form.File />
+                                            <input type="file" name="picture" accept=".png, .jpg, .jpeg" onChange={handlePicture}/>
                                         </div>
 
                                     </Form.Group>

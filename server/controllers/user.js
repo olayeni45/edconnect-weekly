@@ -3,7 +3,9 @@ const router = express.Router();
 const programList = require('../services/school').getPrograms();
 const gradYears = require('../services/school').getGradYears();
 const user = require('../services/user');
-const userModel = require('../models/user');
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 
 router.get('/login', (req, res) => {
     const user = req.session.user;
@@ -28,10 +30,31 @@ router.post('/login', async (req, res) => {
             }
         });
 
-    console.log(loginData);
-
-
 })
+
+//Passport Facebook Login
+passport.use(new FacebookStrategy({
+    clientID: process.env.CLIENT_ID_FB,
+    clientSecret: process.env.CLIENT_SECRET_FB,
+    callbackURL: "http://localhost/auth/facebook/edconnect",
+    profileFields: ['id', 'displayName', 'name', 'picture.type(small)', 'email']
+},
+    function (accessToken, refreshToken, profile, cb) {
+        console.log(profile);
+        /*  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+             return cb(err, user);
+         }); */
+    }
+));
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+
+router.get('/auth/facebook/edconnect',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    function (req, res) {
+        console.log(res);
+        // Successful authentication, redirect home.
+        res.redirect('/');
+    });
 
 router.get('/signup', (req, res) => {
     const user = req.session.user;
@@ -61,7 +84,6 @@ router.post('/signup', async (req, res) => {
             graduationYear
         })
         .then((formData) => {
-            console.log(formData);
             if (formData[0] == true) {
                 req.session.user = formData[1];
                 res.redirect('/');
@@ -72,8 +94,6 @@ router.post('/signup', async (req, res) => {
             }
         })
 
-    console.log("Form data", formData);
-
 })
 
 //Profile page
@@ -81,21 +101,42 @@ router.get('/profile', async (req, res) => {
 
     const modifyError = req.flash('modifyError')
     const success = req.flash('success');
+
     const emailSession = req.session.user.email;
     const dbUser = await user.getUser(emailSession);
-    /* const userDetails = dbUser;
-    res.render('Profile', { userDetails, programList, gradYears, modifyError, success }); */
+
+    const image = await user.getPicture(emailSession);
+    console.log("Image from get /profile", image);
+
     req.session.reload(function (err) {
         const user = dbUser;
-        console.log("user from Get /profile from controllers: ", user);
-        res.render('Profile', { user, programList, gradYears, modifyError, success });
+        res.render('Profile', { user, programList, gradYears, modifyError, success, image });
     });
 
 });
 
 //Modify personal details
-router.put('/profileUser', async (req, res) => {
-    console.log(req.body);
+const multer = require('multer');
+
+//Configuration for Multer
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, file.fieldname + '-' + Date.now() + '-' + ext);
+  }
+});
+
+//Calling the "multer" Function
+const upload = multer({
+  storage: multerStorage
+});
+
+router.put('/profileUser', upload.single('picture') ,async (req, res) => {
+    console.log("Picture", req.file);
+    console.log("File Name", req.file.path);
 
     const email = req.body.email;
     const firstName = req.body.firstName;
@@ -104,12 +145,18 @@ router.put('/profileUser', async (req, res) => {
     const matricNumber = req.body.matricNumber;
     const graduationYear = req.body.graduationYear;
 
+    const profilePicture = req.file.filename;
+    console.log(profilePicture);
+
     const userUpdate = await user
-        .editFunction(email, firstName, lastName, matricNumber, program, graduationYear)
+        .editFunction(email, firstName, lastName, matricNumber, program, graduationYear, profilePicture)
         .then((userUpdate) => {
             if (userUpdate[0] == true) {
                 req.flash("success", userUpdate[1]);
-                console.log(userUpdate[1]);
+                res.redirect("/profile");
+            }
+            else{
+                req.flash("success", userUpdate[1]);
                 res.redirect("/profile");
             }
         });
@@ -117,9 +164,13 @@ router.put('/profileUser', async (req, res) => {
 })
 
 
+/* router.put('/profileUser', upload.single('image'), async(req, res, next) => {
+});
+ */
+
 //Modify password
 router.put('/profilePassword', async (req, res) => {
-    console.log(req.body);
+
 
     const currentPassword = req.body.currentPassword;
     const newPassword = req.body.newPassword;
@@ -130,41 +181,18 @@ router.put('/profilePassword', async (req, res) => {
         .passwordChange(email, currentPassword, newPassword, confirmPassword)
         .then((update) => {
             if (update[0] == true) {
-                console.log(update[1]);
                 req.flash("modifyError", update[1]);
                 res.redirect("/profile");
             }
             else {
                 req.flash("modifyError", update[1]);
-                console.log(update[1]);
                 res.redirect("/profile");
             }
         });
 
 })
 
-/* 
-router.put('/profile', upload.single('image'), async(req, res, next) => {
 
-    var obj = {
-        name: req.body.name,
-        desc: req.body.desc,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
-    imgModel.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
-            res.redirect('/');
-        }
-    });
-});
- */
 
 
 //Forgot Password Page
@@ -176,13 +204,11 @@ router.get('/forgotPassword', (req, res) => {
 
 router.post('/forgotPassword', async (req, res) => {
 
-    console.log(req.body);
     const email = req.body.email;
     const resetForgottenPassword = await user
         .resetLink(email)
         .then((result) => {
             if (result == true) {
-                console.log(update[1]);
                 req.flash("forgotError", result[1]);
                 res.redirect("/forgotPassword");
             }
@@ -203,8 +229,6 @@ router.get('/resetPassword', (req, res) => {
 });
 
 router.post('/resetPassword', async (req, res) => {
-
-    console.log(req.body);
     const email = req.body.email;
     const newPassword = req.body.newPassword;
     const confirmPassword = req.body.confirmPassword;
@@ -213,13 +237,11 @@ router.post('/resetPassword', async (req, res) => {
         .resetPasswordDB(email, newPassword, confirmPassword)
         .then((update) => {
             if (update[0] == true) {
-                console.log(update[1]);
                 req.flash("resetPasswordError", update[1]);
                 res.redirect("/resetPassword");
             }
             else {
                 req.flash("resetPasswordError", update[1]);
-                console.log(update[1]);
                 res.redirect("/resetPassword");
             }
         });

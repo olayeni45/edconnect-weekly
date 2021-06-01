@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import { FormControl, Button, Form, Nav } from 'react-bootstrap'
 
-export default ({ firstname }) => {
+export default (props) => {
+
+    const [firstname, setFirstname] = useState("");
+    const [picture, setPicture] = useState();
+
+    useEffect( () => {
+        setFirstname(props.firstname);
+        setPicture(props.image);
+    }, [] )
+
+    {console.log("HEader:", picture)}
 
     return (
 

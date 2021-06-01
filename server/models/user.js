@@ -13,6 +13,7 @@ const UserSchema = new Schema(
         matricNumber: { type: String, required: true },
         program: { type: String, required: false },
         graduationYear: { type: String, required: true },
+        facebookId: { type: String },
         image: { data: Buffer, contentType: String, required: false }
     },
     { timestamps: true }
