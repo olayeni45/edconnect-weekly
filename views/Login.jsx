@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Col } from 'react-bootstrap'
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import { Nav } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
+
 
 const Login = (props) => {
     let history = useHistory();
@@ -81,13 +80,7 @@ const Login = (props) => {
 
                     </Form>
 
-                    <div className="customLogin">
-                        <Nav >
-                            <Nav.Link href="/auth/facebook" >Facebook</Nav.Link>
-                        </Nav>
-                        <GoogleLoginButton onClick={() => { history.push('/auth/google') }} />
-                        <FacebookLoginButton onClick={facebookRedirect} />
-                    </div>
+
 
                 </div>
 

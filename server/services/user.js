@@ -2,7 +2,6 @@ const User = require('../models/user');
 const helper = require('../models/mongo_helper');
 const mailjet = require('node-mailjet')
   .connect(process.env.MAILJET_FIRST, process.env.MAILJET_SECOND);
-const multer = require('multer');
 
 /* Creates new user */
 const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear }) => {
@@ -31,14 +30,11 @@ const create = async ({ firstname, lastname, email, password, matricNumber, prog
   }
 }
 
-
 /* Authenticate a user */
 const authenticate = async (email, password) => {
 
   const user = await User.findOne({ email: email });
-
   if (user != null) {
-    console.log("1");
 
     try {
       const authenticated = await user.validPassword(password);
@@ -59,16 +55,13 @@ const authenticate = async (email, password) => {
     return [false, ["Invalid email/password"]]
   }
 
-
 }
-
 
 /* Return user with specified id */
 const getById = async (id) => {
   const user = await User.findOne({ _id: id })
   return user;
 };
-
 
 /* Return all users */
 const getAll = async () => {
@@ -83,15 +76,19 @@ const getUser = async (email) => {
   return user;
 }
 
-
 /*Edit details of the user*/
-const editFunction = async (email, firstname, lastname, matric, program, graduationYear, profilePicture) => {
+const editFunction = async (email, firstname, lastname, matric, program, graduationYear, imageName) => {
 
   try {
+    if (imageName == "") {
+      const imageDB = await User.findOne({ email: email }).image;
+      console.log("ImageDB", imageDB);
+      imageName = imageDB;
+    }
     const user = await User.findOneAndUpdate(
       { email: email },
-      { $set: { firstname: firstname, lastname: lastname, matricNumber: matric, program: program, graduationYear: graduationYear, image: profilePicture } },
-      {useFindAndModify: false}
+      { $set: { firstname: firstname, lastname: lastname, matricNumber: matric, program: program, graduationYear: graduationYear, image: imageName } },
+      { useFindAndModify: false }
     );
 
     const savedUser = await user.save();
@@ -101,7 +98,7 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
       console.log(user);
       return [true, "Update successful"];
     }
-    else{
+    else {
       console.log("Error occured");
       return [false, "An error has occured, please try again."];
     }
@@ -118,6 +115,13 @@ const getPicture = async (email) => {
   const user = await User.findOne({ email: email })
   const image = user.image;
   return image;
+  /* if (image == null){
+
+  }
+  else{
+    return image;
+  } */
+
 }
 
 //Update password 

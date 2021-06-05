@@ -28,7 +28,6 @@ const Home = (props) => {
 
                         <Row className="showcase">
 
-                            {console.log(props.projects)}
                             {props.projects.slice(0, 4).map((projects) => (
                                 <Col key={projects.name}>
                                     <Card className="indexCard">

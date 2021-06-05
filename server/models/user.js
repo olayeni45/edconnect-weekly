@@ -26,7 +26,6 @@ const hash = (password, salt) => {
 };
 //Methods of the UserSchema
 UserSchema.methods.setPassword = function (password) {
-    console.log("Password", password);
     if (password.length >= 7) {
         this.salt = crypto.randomBytes(16).toString('hex');
         this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");

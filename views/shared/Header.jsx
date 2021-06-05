@@ -2,21 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import { FormControl, Button, Form, Nav } from 'react-bootstrap'
 
-export default (props) => {
+export default ({ firstname }) => {
 
-    const [firstname, setFirstname] = useState("");
-    const [picture, setPicture] = useState();
+    // {console.log("Header's image",image)}
 
-    useEffect( () => {
-        setFirstname(props.firstname);
-        setPicture(props.image);
-    }, [] )
-
-    {console.log("HEader:", picture)}
 
     return (
 
-        < Navbar bg="primary" variant="dark" className="justify-content-between" >
+        <Navbar bg="primary" variant="dark" className="justify-content-between" >
 
             <Nav className=" ">
                 <Navbar.Brand href="/">Project Explorer</Navbar.Brand>
@@ -37,7 +30,9 @@ export default (props) => {
                     <Nav className="justify-content-end">
                         <Nav.Link href="/logout" name="logout" className="headerNav" >Logout</Nav.Link>
                         <Nav.Link href="/profile" name="firstname" id="username" className="headerNav">Hi, {firstname}</Nav.Link>
-                        <div className="profilePictureCircle"></div>
+                        <div className="profilePictureCircle">
+
+                        </div>
                     </Nav>
                 )
                     :
@@ -48,7 +43,7 @@ export default (props) => {
             }
 
 
-        </Navbar >
+        </Navbar>
 
     )
 

@@ -12,7 +12,7 @@ const Profile = (props) => {
     const [matric, setMatric] = useState("");
     const [program, setProgram] = useState("");
     const [year, setYear] = useState("");
-    
+
 
     useEffect(() => {
         setProgramList(props.programList);
@@ -50,19 +50,21 @@ const Profile = (props) => {
             case 'graduationYear':
                 setYear(value);
                 break;
-            
+
         }
     }
 
     const [picture, setPicture] = useState();
+    const [imagepath, setImagepath] = useState("");
+
     const handlePicture = event => {
         const { name, files } = event.target;
 
         switch (name) {
-           
+
             case 'picture':
                 setPicture(files[0]);
-
+                setImagepath(value);
         }
     }
 
@@ -72,7 +74,7 @@ const Profile = (props) => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const handlePasswordChange = event => {
-        const { name, value, files} = event.target;
+        const { name, value, files } = event.target;
 
         switch (name) {
 
@@ -107,7 +109,7 @@ const Profile = (props) => {
 
         <Layout {...props.user} >
             <>
-                {console.log("Profile", props.user)}
+                {console.log(props.image)}
                 <Container>
 
                     <div className="profileContainer">
@@ -214,7 +216,7 @@ const Profile = (props) => {
                                     <Form.Group as={Col}>
                                         <Form.Label>Profile Picture</Form.Label>
                                         <div className="profileUpdate form-control">
-                                            <input type="file" name="picture" accept=".png, .jpg, .jpeg" onChange={handlePicture}/>
+                                            <input type="file" name="picture" accept=".png, .jpg, .jpeg" onChange={handlePicture} />
                                         </div>
 
                                     </Form.Group>
