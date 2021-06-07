@@ -14,8 +14,8 @@ const UserSchema = new Schema(
         program: { type: String, required: false },
         graduationYear: { type: String, required: true },
         facebookId: { type: String },
-        image: { data: Buffer, contentType: String, required: false },
-        url: { type: String, required: false }
+        image: { type: String, required: true },
+        url: { type: String, required: true }
     },
     { timestamps: true }
 )

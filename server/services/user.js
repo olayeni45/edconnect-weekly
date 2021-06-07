@@ -4,7 +4,7 @@ const mailjet = require('node-mailjet')
   .connect(process.env.MAILJET_FIRST, process.env.MAILJET_SECOND);
 
 /* Creates new user */
-const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear, image }) => {
+const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear, image, url }) => {
   try {
     //create a new user
     const user = new User({
@@ -15,7 +15,8 @@ const create = async ({ firstname, lastname, email, password, matricNumber, prog
       matricNumber,
       program,
       graduationYear,
-      image
+      image,
+      url
     });
     user.setPassword(password);
 
@@ -111,18 +112,13 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
 
 }
 
-//Get profile picture
-const getPicture = async (email) => {
-  const user = await User.findOne({ email: email })
+//Get default image name and url
+const getDefault = async (email) => {
+  const user = await User.findOne({ email: email });
   const image = user.image;
-  return image;
-  /* if (image == null){
-
-  }
-  else{
-    return image;
-  } */
-
+  const url = user.url;
+  const details = [image, url];
+  return details;
 }
 
 //Update password 
@@ -298,5 +294,5 @@ module.exports = {
   passwordChange,
   resetLink,
   resetPasswordDB,
-  getPicture
+  getDefault
 };

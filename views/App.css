@@ -146,6 +146,15 @@ label{
     justify-content: space-between;
 }
 
+.pictureFlex{
+    display: flex;
+}
+
+.projectCircle{
+    position: relative;
+    left:-5px;
+}
+
 .columnFlex{
     display: flex;
     flex-direction: column;

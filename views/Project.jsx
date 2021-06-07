@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Transformation, Image } from 'cloudinary-react'
 import Layout from './shared/Layout'
 import { Row, Form } from 'react-bootstrap'
 
@@ -13,12 +14,14 @@ const Project = (props) => {
     const created = new Date(props.projectsOfId.createdAt).toLocaleDateString();
     const updated = new Date(props.projectsOfId.updatedAt).toLocaleDateString();
 
+    const [url, setUrl] = useState("");
     useEffect(() => {
         setProjectName(props.projectsOfId.name);
         setProjectAbstract(props.projectsOfId.abstract);
         setProjectAuthor(props.projectsOfId.authors);
         setProjectTag(props.projectsOfId.tags);
         setCreatedBy(props.userOfId.firstname + " " + props.userOfId.lastname);
+        setUrl(props.userOfId.url);
     }, [])
 
     return (
@@ -37,10 +40,20 @@ const Project = (props) => {
 
                             <div className="statusFlex">
 
-                                <div className="columnFlex">
-                                    <p>Created By</p>
-                                    <p className="bold createdBy" id="project_author">{createdBy}</p>
+                                <div className="pictureFlex">
+
+                                    <div className="projectCircle">
+                                        <Image cloudName="edconnect" publicId={url} type="fetch">
+                                            <Transformation width="50" height="50" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
+                                        </Image>
+                                    </div>
+
+                                    <div className="columnFlex">
+                                        <p>Created By</p>
+                                        <p className="bold createdBy" id="project_author">{createdBy}</p>
+                                    </div>
                                 </div>
+
 
                                 <div className="columnFlex">
                                     <p>Date Created</p>

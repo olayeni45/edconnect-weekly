@@ -138,28 +138,31 @@ router.put('/profileUser', upload.single('picture'), async (req, res) => {
     const matricNumber = req.body.matricNumber;
     const graduationYear = req.body.graduationYear;
 
-    const imageName = req.file.filename;
-    const filePath = req.file.path;
-    var urlArray = new Array();
+    var imageName;
+    var imageUrl;
 
-    console.log("File path", filePath);
+    if (req.file == undefined || null) {
+        const defaultDetails = await user.getDefault(email);
+        imageName = defaultDetails[0];
+        imageUrl = defaultDetails[1];
+    }
+    else {
+        const filePath = req.file.path;
+        imageName = req.file.filename;
+        var urlArray = new Array();
 
-    const imageUpload = await cloudinary.uploader.upload(filePath, { folder: "Project Explorer" })
-        .then((result) => {
-            console.log("Success");
-            console.log("Image uploaded", result.url);
+        const imageUpload = await cloudinary.uploader.upload(filePath, { folder: "Project Explorer" })
+            .then((result) => {
+                const image = result.url;
+                urlArray.push(image);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
-            const image = result.url;
-            console.log("Image uploaded", image);
-            urlArray.push(image);
-            console.log(urlArray);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-    const imageUrl = urlArray[0];
-    console.log("Image URL from array[0]", imageUrl);
+        imageUrl = urlArray[0];
+        console.log("Image URL from array[0]", imageUrl);
+    }
 
     const userUpdate = await user
         .editFunction(email, firstName, lastName, matricNumber, program, graduationYear, imageName, imageUrl)
@@ -173,7 +176,6 @@ router.put('/profileUser', upload.single('picture'), async (req, res) => {
                 res.redirect("/profile");
             }
         });
-
 
 })
 

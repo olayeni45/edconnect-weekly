@@ -44,7 +44,7 @@ router.post('/projects/submit', async (req, res) => {
 })
 
 router.get('/project/:id', async (req, res) => {
-    const user = req.session.user;
+    const user = await req.session.user;
     const id = req.params.id;
     const projectsOfId = await project.getById(id);
     const userOfId = await userService.getById(projectsOfId.createdBy);

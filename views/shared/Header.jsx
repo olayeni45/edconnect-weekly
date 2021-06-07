@@ -3,9 +3,18 @@ import { Transformation, Image } from 'cloudinary-react'
 import Navbar from 'react-bootstrap/Navbar'
 import { FormControl, Button, Form, Nav } from 'react-bootstrap'
 
+export default (props) => {
 
-export default ({ firstname, url }) => {
+    const [url, setUrl] = useState("");
+    const [firstname, setFirstName] = useState("");
 
+    useEffect(() => {
+        async function getUserData() {
+            await setUrl(props.url);
+            await setFirstName(props.firstname);
+        }
+        getUserData()
+    }, []);
 
     return (
 
@@ -31,10 +40,11 @@ export default ({ firstname, url }) => {
                         <Nav.Link href="/logout" name="logout" className="headerNav" >Logout</Nav.Link>
                         <Nav.Link href="/profile" name="firstname" id="username" className="headerNav">Hi, {firstname}</Nav.Link>
                         <div className="profilePictureCircle">
-
                             <Image cloudName="edconnect" publicId={url} type="fetch">
                                 <Transformation width="43" height="43" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
                             </Image>
+
+                            {console.log("URL", url)}
                         </div>
                     </Nav>
                 )
