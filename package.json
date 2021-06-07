@@ -15,6 +15,7 @@
 		"body-parser": "^1.19.0",
 		"bootstrap": "^4.6.0",
 		"cloudinary": "^1.25.2",
+		"cloudinary-react": "^1.7.0",
 		"connect-mongodb-session": "^2.4.1",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",

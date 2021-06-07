@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { Transformation, Image } from 'cloudinary-react'
 import Navbar from 'react-bootstrap/Navbar'
 import { FormControl, Button, Form, Nav } from 'react-bootstrap'
 
-export default ({ firstname }) => {
 
-    // {console.log("Header's image",image)}
+export default ({ firstname, url }) => {
 
 
     return (
@@ -32,6 +32,9 @@ export default ({ firstname }) => {
                         <Nav.Link href="/profile" name="firstname" id="username" className="headerNav">Hi, {firstname}</Nav.Link>
                         <div className="profilePictureCircle">
 
+                            <Image cloudName="edconnect" publicId={url} type="fetch">
+                                <Transformation width="43" height="43" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
+                            </Image>
                         </div>
                     </Nav>
                 )

@@ -4,7 +4,7 @@ const mailjet = require('node-mailjet')
   .connect(process.env.MAILJET_FIRST, process.env.MAILJET_SECOND);
 
 /* Creates new user */
-const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear }) => {
+const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear, image }) => {
   try {
     //create a new user
     const user = new User({
@@ -14,7 +14,8 @@ const create = async ({ firstname, lastname, email, password, matricNumber, prog
       password,
       matricNumber,
       program,
-      graduationYear
+      graduationYear,
+      image
     });
     user.setPassword(password);
 
@@ -77,7 +78,7 @@ const getUser = async (email) => {
 }
 
 /*Edit details of the user*/
-const editFunction = async (email, firstname, lastname, matric, program, graduationYear, imageName) => {
+const editFunction = async (email, firstname, lastname, matric, program, graduationYear, imageName, imageUrl) => {
 
   try {
     if (imageName == "") {
@@ -87,7 +88,7 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
     }
     const user = await User.findOneAndUpdate(
       { email: email },
-      { $set: { firstname: firstname, lastname: lastname, matricNumber: matric, program: program, graduationYear: graduationYear, image: imageName } },
+      { $set: { firstname: firstname, lastname: lastname, matricNumber: matric, program: program, graduationYear: graduationYear, image: imageName, url: imageUrl } },
       { useFindAndModify: false }
     );
 

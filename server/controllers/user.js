@@ -81,6 +81,9 @@ router.post('/signup', async (req, res) => {
     const program = req.body.program;
     const graduationYear = req.body.graduationYear;
 
+    const image = "Default.jpg";
+    const url = process.env.DEFAULT_IMAGE;
+
     const formData = await user
         .create({
             firstname,
@@ -89,7 +92,9 @@ router.post('/signup', async (req, res) => {
             password,
             matricNumber,
             program,
-            graduationYear
+            graduationYear,
+            image,
+            url
         })
         .then((formData) => {
             if (formData[0] == true) {
@@ -102,9 +107,9 @@ router.post('/signup', async (req, res) => {
             }
         })
 
-    //Cropping of default image
-    // const image = cloudinary.image(process.env.DEFAULT_IMAGE, { width: 42, height: 42, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
-    // console.log("Default Image Cropped from signup", image);
+    // Cropping of default image
+    const croppedImage = cloudinary.image(process.env.DEFAULT_IMAGE, { width: 42, height: 42, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
+    console.log("Default Image Cropped from signup", croppedImage);
 
 })
 
@@ -133,12 +138,31 @@ router.put('/profileUser', upload.single('picture'), async (req, res) => {
     const matricNumber = req.body.matricNumber;
     const graduationYear = req.body.graduationYear;
 
-
     const imageName = req.file.filename;
-    console.log("Image name", imageName);
+    const filePath = req.file.path;
+    var urlArray = new Array();
+
+    console.log("File path", filePath);
+
+    const imageUpload = await cloudinary.uploader.upload(filePath, { folder: "Project Explorer" })
+        .then((result) => {
+            console.log("Success");
+            console.log("Image uploaded", result.url);
+
+            const image = result.url;
+            console.log("Image uploaded", image);
+            urlArray.push(image);
+            console.log(urlArray);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    const imageUrl = urlArray[0];
+    console.log("Image URL from array[0]", imageUrl);
 
     const userUpdate = await user
-        .editFunction(email, firstName, lastName, matricNumber, program, graduationYear, imageName)
+        .editFunction(email, firstName, lastName, matricNumber, program, graduationYear, imageName, imageUrl)
         .then((userUpdate) => {
             if (userUpdate[0] == true) {
                 req.flash("success", userUpdate[1]);
@@ -150,19 +174,6 @@ router.put('/profileUser', upload.single('picture'), async (req, res) => {
             }
         });
 
-    const filePath = req.file.path;
-    console.log("File path", filePath);
-    const imageUpload = await cloudinary.uploader.upload(filePath)
-        .then((result) => {
-            console.log("Success");
-            console.log("Image uploaded", result.url);
-            const image = cloudinary.image(result.url, { width: 42, height: 42, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
-            console.log("Image Cropped", image);
-            urlArray.push(image);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
 
 })
 

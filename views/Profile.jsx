@@ -109,7 +109,6 @@ const Profile = (props) => {
 
         <Layout {...props.user} >
             <>
-                {console.log(props.image)}
                 <Container>
 
                     <div className="profileContainer">
