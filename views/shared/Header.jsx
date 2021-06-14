@@ -9,11 +9,9 @@ export default (props) => {
     const [firstname, setFirstName] = useState("");
 
     useEffect(() => {
-        async function getUserData() {
-            await setUrl(props.url);
-            await setFirstName(props.firstname);
-        }
-        getUserData()
+        setUrl(props.url);
+        setFirstName(props.firstname);
+
     }, []);
 
     return (
@@ -44,7 +42,6 @@ export default (props) => {
                                 <Transformation width="43" height="43" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
                             </Image>
 
-                            {console.log("URL", url)}
                         </div>
                     </Nav>
                 )

@@ -1,13 +1,22 @@
 const express = require('express');
 const projectLink = require('../services/project')
+const userService = require('../services/user');
 const router = express.Router();
 router.get('/', async (req, res) => {
 
-    // add code to render the Home Component, and pass in the projects  
-    // as a props
-
+    //const user = req.session.user;
+    var user;
     const projects = await projectLink.getAll();
-    const user = req.session.user;
+
+    if (req.session.user != undefined || null) {
+        const email = req.session.user.email;
+        const dbUser = await userService.getUser(email);
+        user = dbUser;
+    }
+    else {
+        user = req.session.user
+    }
+
     res.render('Home', { projects, user })
 });
 

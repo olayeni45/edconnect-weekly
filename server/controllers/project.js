@@ -3,11 +3,22 @@ const router = express.Router();
 const project = require('../services/project');
 const userService = require('../services/user');
 
-router.get('/projects/submit', (req, res) => {
-    const user = req.session.user;
-    console.log(user);
-    const createErr = req.flash('createErr')
+router.get('/projects/submit', async (req, res) => {
+
+    const createErr = req.flash('createErr');
+
+    var user;
+    if (req.session.user != undefined || null) {
+        const email = req.session.user.email;
+        const dbUser = await userService.getUser(email);
+        user = dbUser;
+    }
+    else {
+        user = req.session.user;
+    }
+
     res.render('CreateProject', { createErr, user });
+
     if (user == undefined) {
         res.redirect('/login');
     }
@@ -44,7 +55,18 @@ router.post('/projects/submit', async (req, res) => {
 })
 
 router.get('/project/:id', async (req, res) => {
-    const user = await req.session.user;
+
+    var user;
+    if (req.session.user != undefined || null) {
+        const email = req.session.user.email;
+        const dbUser = await userService.getUser(email);
+        user = dbUser;
+    }
+    else {
+        user = req.session.user;
+    }
+    //const user = await req.session.user;
+
     const id = req.params.id;
     const projectsOfId = await project.getById(id);
     const userOfId = await userService.getById(projectsOfId.createdBy);
