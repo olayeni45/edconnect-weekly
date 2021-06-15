@@ -278,23 +278,37 @@ const resetPasswordDB = async (email, newPassword, confirmPassword) => {
 
 }
 
-//Google Signup 
-const googleSignup = async (firstname, lastname, email, url) => {
+
+//Creates a new user from google and sets password
+const googleCreate = async (firstname, lastname, email, matricNumber, program, graduationYear, password, confirmPassword, image, url) => {
   try {
     //create a new user
     const user = new User({
       firstname,
       lastname,
       email,
+      password,
+      matricNumber,
+      program,
+      graduationYear,
+      image,
       url
     });
 
-    const savedUser = await user.save();
+    if (password === confirmPassword) {
+      user.setPassword(password);
 
-    if (savedUser) {
-      console.log("Saved");
-      return [true, user];
+      const savedUser = await user.save();
+      if (savedUser) {
+        console.log("Saved");
+        return [true, user];
+      }
     }
+
+    else {
+      return [false, "Passwords do not match"]
+    }
+
   }
   catch (error) {
     return [false, helper.translateError(error)];
@@ -313,5 +327,5 @@ module.exports = {
   resetLink,
   resetPasswordDB,
   getDefault,
-  googleSignup
+  googleCreate
 };

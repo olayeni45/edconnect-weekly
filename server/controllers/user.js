@@ -253,12 +253,21 @@ router.post('/resetPassword', async (req, res) => {
 });
 
 
-//Continue Signup Page
-router.get('/continueSignup', async (req, res) => {
-    res.render('ContinueSignup');
-})
+//GET Google Authentication API
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get("/auth/google/callback",
+    passport.authenticate("google", { successRedirect: '/continueSignup', failureRedirect: "/signup", session: false }),
+    function (req, res) {
+        res.redirect("http://localhost");
+    }
+);
+
 
 //Passport Google Login
+var googleArray = new Array();
+
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
@@ -282,42 +291,7 @@ passport.use(
             const email = profile.emails[0].value;
             const url = profile.photos[0].value;
 
-            const matricNumber = "null";
-            const program = "null";
-            const graduationYear = "null";
-            const image = "Google Profile";
-            const password = "null";
-
-            console.log("Data from Google", firstname, lastname, email, url)
-
-            const googleData = await user
-                .create({
-                    firstname,
-                    lastname,
-                    email,
-                    password,
-                    matricNumber,
-                    program,
-                    graduationYear,
-                    image,
-                    url
-                })
-                .then((googleData) => {
-                    if (googleData[0] == true) {
-                        console.log("User created from google");
-                        req.session.user = googleData[1];
-                        res.redirect('/');
-                    }
-                })
-
-            // const googleUser = await user
-            //     .googleSignup(firstname, lastname, email, url)
-            //     .then((create) => {
-            //         if (create[0] == true) {
-            //             req.session.user = create[1];
-            //             res.redirect("/");
-            //         }
-            //     });
+            console.log("Data from Google", firstname, lastname, email, url);
 
             const userData = {
                 firstname: firstname,
@@ -326,21 +300,70 @@ passport.use(
                 url: url
             }
 
+            googleArray.push(userData);
+
             done(null, userData);
+
         }
     )
 );
 
-/* GET Google Authentication API. */
-router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] })
-);
 
-router.get("/auth/google/callback",
-    passport.authenticate("google", { successRedirect: '/continueSignup', failureRedirect: "/signup", session: false }),
-    function (req, res) {
-        res.redirect("http://localhost");
-    }
-);
+
+//Continue Signup Page
+router.get('/continueSignup', async (req, res) => {
+
+    const details = googleArray;
+    const error = req.flash("error");
+    console.log("Google data from /continueSignup", details);
+
+    res.render('ContinueSignup', { details, programList, gradYears, error });
+})
+
+//Post signup page
+router.post('/continue', async (req, res) => {
+
+    const details = googleArray;
+
+    const firstname = req.body.firstName;
+    const lastname = req.body.lastName;
+    const email = req.body.email;
+    const matricNumber = req.body.matric;
+    const program = req.body.program;
+    const graduationYear = req.body.year;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+    const image = "Google Profile picture";
+    const url = details[0].url;
+
+    console.log("URL from post /continue", url);
+
+    const createAccount = await user
+        .googleCreate(firstname, lastname, email, matricNumber, program, graduationYear, password, confirmPassword, image, url)
+        .then((create) => {
+            if (create[0] == true) {
+                req.session.user = create[1];
+                res.redirect('/');
+            }
+            else {
+                req.flash("error", create[1]);
+                res.redirect('/continueSignup');
+            }
+
+        })
+
+    const imageUpload = await cloudinary.uploader.upload(url, { folder: "Project Explorer" })
+        .then((result) => {
+            console.log("Image upload from /continueSignup", result.url)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+
+
+})
+
 
 
 module.exports = router;

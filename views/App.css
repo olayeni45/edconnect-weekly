@@ -699,8 +699,14 @@ width:100%;
 
 
 
+.updateDetails{
+    margin:30px auto 20px;
+    width:60%;
+}
 
-
+#createAccount{
+    margin-top:25px;
+}
 
 
 
