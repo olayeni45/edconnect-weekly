@@ -16,7 +16,7 @@ const ContinueSignup = (props) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [error, setError] = useState("");
+    const [error, setError] = useState([]);
 
     useEffect(() => {
         setProgramList(props.programList);
@@ -26,7 +26,10 @@ const ContinueSignup = (props) => {
         setLastName(props.details[0].lastname);
         setEmail(props.details[0].email);
 
-        setError(props.error);
+        if (error.length < 1) {
+            setError(props.error);
+            console.log("Error from continue signup", error);
+        }
     }, [])
 
     const handleInputChange = event => {
@@ -76,7 +79,11 @@ const ContinueSignup = (props) => {
 
                         <h4>Update your personal details</h4>
 
-                        {error != "" ? (<Alert className="alert alert-danger">{error} </Alert>) : null}
+                        {error != "" ? (
+                            <Alert className="alert alert-danger">
+                                {error.map(error => (<p key={error}>{error}</p>))}
+                            </Alert>
+                        ) : null}
 
                         <Form noValidate method="POST" action="/continue" id="createAccount">
 

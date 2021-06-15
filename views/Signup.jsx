@@ -162,7 +162,7 @@ const Signup = (props) => {
                             <div className="signUpLinks">
 
                                 <a href="/auth/google" className="google">
-                                    <GoogleButton onClick={() => history.push("/auth/google")} />
+                                    <GoogleButton />
                                 </a>
 
                             </div>

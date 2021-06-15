@@ -109,7 +109,7 @@ router.post('/signup', async (req, res) => {
         })
 
     // Cropping of default image
-    const croppedImage = cloudinary.image(process.env.DEFAULT_IMAGE, { width: 42, height: 42, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
+    const croppedImage = cloudinary.image(process.env.DEFAULT_IMAGE, { width: 43, height: 43, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
     console.log("Default Image Cropped from signup", croppedImage);
 
 })
@@ -315,6 +315,7 @@ router.get('/continueSignup', async (req, res) => {
 
     const details = googleArray;
     const error = req.flash("error");
+    console.log("Error from get", error);
     console.log("Google data from /continueSignup", details);
 
     res.render('ContinueSignup', { details, programList, gradYears, error });
@@ -336,31 +337,38 @@ router.post('/continue', async (req, res) => {
     const image = "Google Profile picture";
     const url = details[0].url;
 
-    console.log("URL from post /continue", url);
+    var createdAccount;
 
     const createAccount = await user
         .googleCreate(firstname, lastname, email, matricNumber, program, graduationYear, password, confirmPassword, image, url)
         .then((create) => {
             if (create[0] == true) {
                 req.session.user = create[1];
-                res.redirect('/');
+                console.log("req.session.user", create[1]);
+                createdAccount = create[0];
+
             }
             else {
+                console.log("Error from post", create[1]);
                 req.flash("error", create[1]);
                 res.redirect('/continueSignup');
             }
 
         })
 
-    const imageUpload = await cloudinary.uploader.upload(url, { folder: "Project Explorer" })
-        .then((result) => {
-            console.log("Image upload from /continueSignup", result.url)
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    console.log("Created account", createdAccount);
+    if (createdAccount === true) {
+        const imageUpload = await cloudinary.uploader.upload(url, { folder: "Project Explorer" })
+            .then((result) => {
+                console.log("Image upload from /continueSignup", result.url)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
+        res.redirect('/');
 
+    }
 
 })
 
