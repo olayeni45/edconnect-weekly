@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
-import { Link } from "react-router-dom";
-import { FaFacebookSquare } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 import GoogleButton from 'react-google-button';
 
 const Signup = (props) => {
@@ -66,6 +65,9 @@ const Signup = (props) => {
                 break;
         }
     }
+
+    const history = useHistory();
+
 
     return (
 
@@ -158,9 +160,10 @@ const Signup = (props) => {
                             </div>
 
                             <div className="signUpLinks">
-                                <GoogleButton />
 
-
+                                <a href="/auth/google" className="google">
+                                    <GoogleButton onClick={() => history.push("/auth/google")} />
+                                </a>
 
                             </div>
 

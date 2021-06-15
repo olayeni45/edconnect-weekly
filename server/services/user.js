@@ -278,9 +278,27 @@ const resetPasswordDB = async (email, newPassword, confirmPassword) => {
 
 }
 
-//Passport facebook login 
-const passportFacebook = async () => {
+//Google Signup 
+const googleSignup = async (firstname, lastname, email, url) => {
+  try {
+    //create a new user
+    const user = new User({
+      firstname,
+      lastname,
+      email,
+      url
+    });
 
+    const savedUser = await user.save();
+
+    if (savedUser) {
+      console.log("Saved");
+      return [true, user];
+    }
+  }
+  catch (error) {
+    return [false, helper.translateError(error)];
+  }
 }
 
 
@@ -294,5 +312,6 @@ module.exports = {
   passwordChange,
   resetLink,
   resetPasswordDB,
-  getDefault
+  getDefault,
+  googleSignup
 };

@@ -4,6 +4,7 @@ const programList = require('../services/school').getPrograms();
 const gradYears = require('../services/school').getGradYears();
 const user = require('../services/user');
 const passport = require('passport');
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
@@ -250,6 +251,97 @@ router.post('/resetPassword', async (req, res) => {
         });
 
 });
+
+
+//Continue Signup Page
+router.get('/continueSignup', async (req, res) => {
+    res.render('ContinueSignup');
+})
+
+//Passport Google Login
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: "http://localhost/auth/google/callback"
+        },
+        async function (accessToken, refreshToken, profile, done) {
+            console.log("Google profile", profile);
+
+            const firstname = profile.name.familyName;
+            const lastname = profile.name.givenName;
+            const email = profile.emails[0].value;
+            const url = profile.photos[0].value;
+
+            const matricNumber = "null";
+            const program = "null";
+            const graduationYear = "null";
+            const image = "Google Profile";
+            const password = "null";
+
+            console.log("Data from Google", firstname, lastname, email, url)
+
+            const googleData = await user
+                .create({
+                    firstname,
+                    lastname,
+                    email,
+                    password,
+                    matricNumber,
+                    program,
+                    graduationYear,
+                    image,
+                    url
+                })
+                .then((googleData) => {
+                    if (googleData[0] == true) {
+                        console.log("User created from google");
+                        req.session.user = googleData[1];
+                        res.redirect('/');
+                    }
+                })
+
+            // const googleUser = await user
+            //     .googleSignup(firstname, lastname, email, url)
+            //     .then((create) => {
+            //         if (create[0] == true) {
+            //             req.session.user = create[1];
+            //             res.redirect("/");
+            //         }
+            //     });
+
+            const userData = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                url: url
+            }
+
+            done(null, userData);
+        }
+    )
+);
+
+/* GET Google Authentication API. */
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get("/auth/google/callback",
+    passport.authenticate("google", { successRedirect: '/continueSignup', failureRedirect: "/signup", session: false }),
+    function (req, res) {
+        res.redirect("http://localhost");
+    }
+);
+
 
 module.exports = router;
 

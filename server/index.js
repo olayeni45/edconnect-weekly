@@ -12,8 +12,6 @@ const methodOverride = require('method-override')
 
 const passport = require('passport');
 
-
-
 const MongoDBStore = require('connect-mongodb-session')(session);
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI,
@@ -75,7 +73,7 @@ register(app).then(() => {
 
             useCreateIndex: true,
 
-            useFindAndModify: false 
+            useFindAndModify: false
 
         },
 
