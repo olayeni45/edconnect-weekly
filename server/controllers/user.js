@@ -112,7 +112,6 @@ router.post('/signup', async (req, res) => {
     // Cropping of default image
     const croppedImage = cloudinary.image(process.env.DEFAULT_IMAGE, { width: 43, height: 43, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
     console.log("Default Image Cropped from signup", croppedImage);
-
 })
 
 //Profile page
@@ -299,6 +298,8 @@ passport.use(
 
 
 //Passport Facebook Login
+var facebookArray = new Array();
+
 passport.use(
     new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -308,7 +309,25 @@ passport.use(
     },
         function (accessToken, refreshToken, profile, done) {
             console.log("FACEBOOK", profile);
-            done(null, profile);
+
+            const firstname = profile.name.givenName;
+            const lastname = profile.name.familyName;
+            const email = profile.emails[0].value;
+            const url = profile.photos[0].value;
+
+            console.log("Details from facebook: ", firstname, lastname, email, url);
+
+            const userData = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                url: url
+            }
+
+            facebookArray.push(userData);
+            console.log(facebookArray);
+
+            done(null, userData);
         }
     ));
 
@@ -325,7 +344,7 @@ router.get("/auth/google/callback",
 
 
 //GET Facebook Authentication API
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'profile'] }));
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 
 router.get('/auth/facebook/edconnect',
     passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/signup', session: false }),
