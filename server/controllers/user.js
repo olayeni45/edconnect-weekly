@@ -9,6 +9,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 
+const https = require('https').globalAgent.options.rejectUnauthorized = false;
 //Configurations for Multer
 const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -253,18 +254,6 @@ router.post('/resetPassword', async (req, res) => {
 });
 
 
-//GET Google Authentication API
-router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-router.get("/auth/google/callback",
-    passport.authenticate("google", { successRedirect: '/continueSignup', failureRedirect: "/signup", session: false }),
-    function (req, res) {
-        res.redirect("http://localhost");
-    }
-);
-
-
 //Passport Google Login
 var googleArray = new Array();
 
@@ -307,6 +296,44 @@ passport.use(
         }
     )
 );
+
+
+//Passport Facebook Login
+passport.use(
+    new FacebookStrategy({
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: "http://localhost/auth/facebook/edconnect",
+        profileFields: ['id', 'displayName', 'name', 'photos', 'email']
+    },
+        function (accessToken, refreshToken, profile, done) {
+            console.log("FACEBOOK", profile);
+            done(null, profile);
+        }
+    ));
+
+
+//GET Google Authentication API
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+router.get("/auth/google/callback",
+    passport.authenticate("google", { successRedirect: '/continueSignup', failureRedirect: "/signup", session: false }),
+    function (req, res) {
+        res.redirect("http://localhost");
+    }
+);
+
+
+//GET Facebook Authentication API
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'profile'] }));
+
+router.get('/auth/facebook/edconnect',
+    passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/signup', session: false }),
+    function (req, res) {
+        console.log(res);
+        // Successful authentication, redirect home.
+        res.redirect("http://localhost");
+    });
 
 
 
@@ -373,34 +400,4 @@ router.post('/continue', async (req, res) => {
 })
 
 
-
 module.exports = router;
-
-
-/*
-//Passport Facebook Login
-passport.use(new FacebookStrategy({
-    clientID: process.env.CLIENT_ID_FB,
-    clientSecret: process.env.CLIENT_SECRET_FB,
-    callbackURL: "http://localhost/auth/facebook/edconnect",
-    profileFields: ['id', 'displayName', 'name', 'picture.type(small)', 'email']
-},
-    function (accessToken, refreshToken, profile, cb) {
-
-        console.log(profile);
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-             return cb(err, user);
-         });
-    }
-));
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
-
-router.get('/auth/facebook/edconnect',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    function (req, res) {
-        console.log(res);
-        // Successful authentication, redirect home.
-        res.redirect('/');
-    });
-
-*/

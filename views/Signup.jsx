@@ -3,6 +3,8 @@ import Layout from './shared/Layout'
 import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 import GoogleButton from 'react-google-button';
+import FacebookLogin from 'react-facebook-login';
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 
 const Signup = (props) => {
 
@@ -163,6 +165,11 @@ const Signup = (props) => {
 
                                 <a href="/auth/google" className="google">
                                     <GoogleButton />
+                                </a>
+
+                                <a href="/auth/facebook" className="facebook">
+                                    <FacebookLogin />
+
                                 </a>
 
                             </div>
