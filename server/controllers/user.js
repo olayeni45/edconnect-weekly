@@ -10,6 +10,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 
 const https = require('https').globalAgent.options.rejectUnauthorized = false;
+
 //Configurations for Multer
 const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -255,6 +256,7 @@ router.post('/resetPassword', async (req, res) => {
 
 //Passport Google Login
 var googleArray = new Array();
+var socialDetails = new Array();
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -285,10 +287,14 @@ passport.use(
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
-                url: url
+                url: url,
+                social: "Google"
             }
 
             googleArray.push(userData);
+            socialDetails.push(userData);
+            console.log("Social Data", socialDetails);
+            console.log("Google array", googleArray);
 
             done(null, userData);
 
@@ -308,7 +314,6 @@ passport.use(
         profileFields: ['id', 'displayName', 'name', 'photos', 'email']
     },
         function (accessToken, refreshToken, profile, done) {
-            console.log("FACEBOOK", profile);
 
             const firstname = profile.name.givenName;
             const lastname = profile.name.familyName;
@@ -321,11 +326,14 @@ passport.use(
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
-                url: url
+                url: url,
+                social: "Facebook"
             }
 
             facebookArray.push(userData);
-            console.log(facebookArray);
+            socialDetails.push(userData);
+            console.log("Social Data", socialDetails);
+            console.log("Facebook array", facebookArray);
 
             done(null, userData);
         }
@@ -336,7 +344,7 @@ passport.use(
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get("/auth/google/callback",
-    passport.authenticate("google", { successRedirect: '/continueSignup', failureRedirect: "/signup", session: false }),
+    passport.authenticate("google", { successRedirect: '/Social', failureRedirect: "/signup", session: false }),
     function (req, res) {
         res.redirect("http://localhost");
     }
@@ -346,31 +354,32 @@ router.get("/auth/google/callback",
 //GET Facebook Authentication API
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 
+// router.get('/auth/facebook/edconnect',
+//     passport.authenticate('facebook', { successRedirect: '/Social', failureRedirect: '/signup' }));
+
 router.get('/auth/facebook/edconnect',
-    passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/signup', session: false }),
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
     function (req, res) {
-        console.log(res);
         // Successful authentication, redirect home.
-        res.redirect("http://localhost");
+        res.redirect('/Social');
     });
 
-
-
 //Continue Signup Page
-router.get('/continueSignup', async (req, res) => {
+router.get('/Social', async (req, res) => {
 
-    const details = googleArray;
+    var details = socialDetails;
     const error = req.flash("error");
     console.log("Error from get", error);
-    console.log("Google data from /continueSignup", details);
+    console.log("Google data from /Social", details);
 
-    res.render('ContinueSignup', { details, programList, gradYears, error });
+    res.render('Social', { details, programList, gradYears, error });
 })
 
 //Post signup page
 router.post('/continue', async (req, res) => {
 
-    const details = googleArray;
+    // const details = googleArray;
+    // const facebookDetails = facebookArray;
 
     const firstname = req.body.firstName;
     const lastname = req.body.lastName;
@@ -380,41 +389,46 @@ router.post('/continue', async (req, res) => {
     const graduationYear = req.body.year;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
-    const image = "Google Profile picture";
-    const url = details[0].url;
 
-    var createdAccount;
+    var image, url;
+    var details = socialDetails;
 
+    console.log("Details from post button", details);
+    if (details[0].social == "Facebook") {
+        image = "Facebook Profile Picture";
+    }
+    else {
+        image = "Google Profile Picture";
+    }
+    url = details[0].url;
+
+    var createdAccount, sessionUser;
     const createAccount = await user
         .googleCreate(firstname, lastname, email, matricNumber, program, graduationYear, password, confirmPassword, image, url)
         .then((create) => {
             if (create[0] == true) {
+                createdAccount = true;
                 req.session.user = create[1];
-                console.log("req.session.user", create[1]);
-                createdAccount = create[0];
-
             }
             else {
                 console.log("Error from post", create[1]);
                 req.flash("error", create[1]);
-                res.redirect('/continueSignup');
+                res.redirect('/Social');
             }
-
         })
 
-    console.log("Created account", createdAccount);
-    if (createdAccount === true) {
+    if (createdAccount == true) {
         const imageUpload = await cloudinary.uploader.upload(url, { folder: "Project Explorer" })
             .then((result) => {
-                console.log("Image upload from /continueSignup", result.url)
+                console.log("Image upload from /Social", result.url);
+                res.redirect('/');
             })
             .catch((error) => {
                 console.log(error);
             });
-
-        res.redirect('/');
-
     }
+
+
 
 })
 

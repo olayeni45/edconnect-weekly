@@ -11,7 +11,6 @@ export default (props) => {
     useEffect(() => {
         setUrl(props.url);
         setFirstName(props.firstname);
-
     }, []);
 
     return (

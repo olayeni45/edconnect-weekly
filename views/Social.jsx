@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Col, Container, Row } from 'react-bootstrap'
 
-const ContinueSignup = (props) => {
+const Social = (props) => {
 
     const [programList, setProgramList] = useState([]);
     const [gradYears, setGradYears] = useState([]);
@@ -16,7 +16,7 @@ const ContinueSignup = (props) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [error, setError] = useState([]);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         setProgramList(props.programList);
@@ -26,10 +26,8 @@ const ContinueSignup = (props) => {
         setLastName(props.details[0].lastname);
         setEmail(props.details[0].email);
 
-        if (error.length < 1) {
-            setError(props.error);
-            console.log("Error from continue signup", error);
-        }
+        setError(props.error);
+        console.log("Error from continue signup", error);
     }, [])
 
     const handleInputChange = event => {
@@ -81,7 +79,7 @@ const ContinueSignup = (props) => {
 
                         {error != "" ? (
                             <Alert className="alert alert-danger">
-                                {error.map(error => (<p key={error}>{error}</p>))}
+                                {error} <br />
                             </Alert>
                         ) : null}
 
@@ -168,4 +166,4 @@ const ContinueSignup = (props) => {
 
 }
 
-export default ContinueSignup;
+export default Social;
