@@ -25,10 +25,11 @@ const Social = (props) => {
         setFirstName(props.details[0].firstname);
         setLastName(props.details[0].lastname);
         setEmail(props.details[0].email);
-
-        setError(props.error);
-        console.log("Error from continue signup", error);
     }, [])
+
+    useEffect(() => {
+        setError(props.error);
+    })
 
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -77,11 +78,7 @@ const Social = (props) => {
 
                         <h4>Update your personal details</h4>
 
-                        {error != "" ? (
-                            <Alert className="alert alert-danger">
-                                {error} <br />
-                            </Alert>
-                        ) : null}
+                        {error != "" ? (<Alert className="alert alert-danger">{error} <br /> </Alert>) : null}
 
                         <Form noValidate method="POST" action="/continue" id="createAccount">
 

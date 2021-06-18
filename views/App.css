@@ -8,10 +8,10 @@
 
 
 /*Index.html CSS*/
-/*NavBar CSS for all Projects*/
-nav{
-    width:100;
+body{
+    overflow-x: hidden;
 }
+/*NavBar CSS for all Projects*/
 .navbar-light .navbar-nav .nav-link {
     color: white;
 }
@@ -37,8 +37,12 @@ nav{
     width:70%;
 }
 
-#navSearchPos{
-    margin-right:8px;
+.NamePicture{
+    display: flex;
+}
+
+.Hi{
+    margin-right:5px;
 }
 
 /*Center Container CSS*/
@@ -55,15 +59,6 @@ nav{
     position: relative;
     top:15px;
     height: 320px;
-}
-
-.jumbotronHeading{
-    font-size:41px;
-}
-
-.textBelow{
-    font-size:18px;
-    font-weight: 500;
 }
 
 .cardContainer{
@@ -102,11 +97,8 @@ footer{
 
 /*CreateProject.html */
 .createProjcenterDiv{
-    width:42%;
-    height:600px;
-    margin:50px auto;
+    margin:40px auto;
 }
-
 textarea.form-control{
     height:180px !important;
 }
@@ -130,16 +122,13 @@ label{
     position: relative;
     left:30px;
 }
-
-.projectStatusContainer{
-   background-color:rgba(241, 241, 241, 0.884);
-   height:70px;
-   width:100%;
-   display: flex;
+.projectStatus{
+     background-color:rgba(241, 241, 241, 0.884);
+     height:80px;
+     display: flex;
    align-items: center;
    justify-content: space-between;
 }
-
 
 .statusFlex{
     display:flex;
@@ -160,10 +149,10 @@ label{
     flex-direction: column;
 }
 
-.columnFlex >p{
+.columnFlex > p{
     margin:0;
     color:rgb(12, 11, 11);
-    font-size:17px;
+    font-size:16px;
 }
 
 .bold{
@@ -228,6 +217,24 @@ input[type="file" i]{
     width:450px;
 }
 
+/*Forgot Password */
+.forgotPassword{
+    margin:0 auto;
+}
+
+.rowC{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:50px 0 230px;
+}
+
+.rowLogin{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:40px 0 100px;
+}
 
 /*Login.html */
 .loginCenterDiv{
@@ -262,7 +269,7 @@ input[type="file" i]{
 
 .LogFunctions{
     display:flex;
-    width:45%;
+    width:90%;
 }
 .forgotNav{
    position: relative;
@@ -285,6 +292,13 @@ input[type="file" i]{
     width:68%;
     height:800px;
     margin:45px auto;
+}
+
+.rowProfile{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:30px 0 20px;
 }
 
 #ade{
@@ -353,7 +367,15 @@ label{
 .signUpLinks{
     width:270px;
     margin:10px auto;
+}
 
+.loginLinks{
+    width:240px;
+    margin:20px auto 0px;
+}
+
+.loginLinks a{
+    text-decoration: none;
 }
 
 .signUpLinks a{
@@ -465,10 +487,22 @@ label{
 
 
 /*ViewProject.html*/
-.viewCenterContainer{
-    width:75%;
-    height:730px;
-    margin:40px auto;
+.topProjectRow{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:40px;
+}
+
+.projectRow{
+    background-color:rgba(241, 241, 241, 0.884);
+    width:100%;
+    position: relative;
+    left:15px;
+    height:70px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
 .project{
@@ -580,10 +614,19 @@ font-weight: 500;
     margin:40px auto;
 }
 
-.userDetails{
+.rowProfileName{
     display: flex;
-    width:100%;
-    height:40px;
+    flex-direction: column;
+
+}
+
+.userDetails{
+    display: flex;  
+    width:170%;
+}
+
+.profileName{
+    margin-right:4px;
 }
 
 .emailDiv{
@@ -598,10 +641,23 @@ font-weight: 500;
     margin-top:30px;
 }
 
+.profileRow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .formMiddle{
     margin:10px auto;
     width:700px;
     height:410px;
+}
+
+.changePasswordRow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom:10px;
 }
 
 .passwordForm{
@@ -617,9 +673,9 @@ font-weight: 500;
     align-items: center;
 }
 
-.profileBtn{
+.changeBtn{
     position: relative;
-    top:5px;
+    left:12px;
 }
 /*Header.jsx*/
 .profilePictureCircle{
@@ -632,6 +688,12 @@ font-weight: 500;
     width:100%;
     height:40px;
     margin-bottom:90px;
+}
+
+.loginFooter{
+    width:100%;
+    height:40px;
+    margin-bottom:25px;
 }
 
 .errorFooter{
@@ -656,13 +718,12 @@ width:100%;
 }
 
 .cardContainer{
-    width:79%;
-    height:350px;
-
+    margin-bottom:10px;
 }
 .indexCard{
     width:240px;
-    height:280px;
+    height:240px;
+    margin-bottom:15px;
 }
 
 #titleMargin{
@@ -700,13 +761,161 @@ width:100%;
 }
 
 
-
-
-
-
-
-
-
-
-
 /*Media Queries*/
+@media (max-width: 575px){
+
+    /*NavBar*/
+    .searchButton{
+        margin-top:5px;
+    }
+    .searchForm{
+        width:50%;
+    }
+
+    /*CreateProject.jsx*/
+    .createProjcenterDiv{
+    width:500px;
+    }
+    
+}
+
+@media (max-width: 520px){
+    /*CreateProject.jsx*/
+    .createProjcenterDiv{
+    width:400px;
+    }
+}
+
+@media (max-width: 400px){
+    /*CreateProject.jsx*/
+    .createProjcenterDiv{
+    width:350px;
+    }
+}
+
+@media (max-width: 645px){
+
+    /*Home.jsx*/
+    .homeJumbotron{
+        font-size:30px;
+    }
+    
+}
+
+@media (max-width: 992px){
+
+    .projectStatus{
+        height:90px;
+    }
+
+}
+
+@media (max-width: 991px){
+
+    .topProjectRow{
+        margin-bottom:380px;
+    }
+
+    
+.firstProjectColumn{
+    margin-bottom:100px;
+}
+}
+
+@media (max-width: 768px){
+
+    /*Profile.jsx*/
+    .profileName{
+        font-size: 22px;
+        position: relative;
+        top:4px;
+    }
+    .emailDiv{
+        font-size:16px;
+       
+    }
+
+    .userDetails{
+        width:160%;
+        position: relative;
+        left:-10px;
+    }
+}
+
+@media (max-width: 530px){
+
+    /*Profile.jsx*/
+    .profileName{
+        font-size: 19px;
+        position: relative;
+        top:7px;
+    }
+    .emailDiv{
+        font-size:14px;
+       position: relative;
+        top:10px;
+    }
+
+    .userDetails{
+        width:170%;
+        position: relative;
+        left:-10px;
+    }
+}
+
+@media (max-width: 467px){
+
+    /*Profile.jsx*/
+    .columnFlex > p{
+    font-size:14px;
+    }
+}
+
+
+@media (max-width: 451px){
+
+    /*Profile.jsx*/
+    .columnFlex > p{
+    font-size:13px;
+    }
+    .profileName{
+        font-size: 14px;
+        position: relative;
+        top:10px;
+    }
+    .emailDiv{
+        font-size:12px;
+       position: relative;
+        top:10px;
+    }
+
+    .userDetails{
+        width:170%;
+        position: relative;
+        left:-10px;
+    }
+}
+
+@media (max-width: 390px){
+
+    /*Profile.jsx*/
+    .columnFlex > p{
+    font-size:11px;
+    }
+    .profileName{
+        font-size: 13px;
+        position: relative;
+        top:10px;
+    }
+    .emailDiv{
+        font-size:12px;
+       position: relative;
+        top:10px;
+    }
+
+    .userDetails{
+        width:187%;
+        position: relative;
+        left:-10px;
+    }
+}

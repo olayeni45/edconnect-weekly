@@ -161,21 +161,26 @@ const Signup = (props) => {
 
                             </div>
 
-                            <div className="signUpLinks">
 
-                                <a href="/auth/google" className="google">
-                                    <GoogleButton />
-                                </a>
-
-                                <a href="/auth/facebook" className="facebook">
-                                    <FacebookLogin />
-
-                                </a>
-
-                            </div>
 
                         </Form>
 
+                        <div className="signUpLinks">
+
+                            <a href="/auth/google" className="google">
+                                <GoogleLoginButton>
+                                    <span>Sign up with Google</span>
+                                </GoogleLoginButton>
+                            </a>
+
+                            <a href="/auth/facebook" className="facebook">
+                                <FacebookLoginButton>
+                                    <span>Sign up with Facebook</span>
+                                </FacebookLoginButton>
+
+                            </a>
+
+                        </div>
 
                     </div>
 

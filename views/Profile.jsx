@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
-import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
+import { Form, Button, Alert, Container, Col, Row } from 'react-bootstrap'
 
 const Profile = (props) => {
 
@@ -111,160 +111,200 @@ const Profile = (props) => {
             <>
                 <Container>
 
-                    <div className="profileContainer">
+                    <Row className="rowProfile">
 
-                        <div className="userDetails">
-                            <h3>{props.user.firstname} {props.user.lastname}</h3>
-                            <p className="text-secondary emailDiv">{props.user.email}</p>
-                        </div>
+                        <Col xl={10} lg={10} md={10} sm={10} xs={10}>
 
-                        <div id="titleMargin"></div>
+                            <Row className="rowProfileName">
 
-                        <div className="projectStatusContainer">
-
-                            <div className="project">
-
-                                <div className="statusFlex">
-
-                                    <div className="columnFlex">
-                                        <p className="bold">Program</p>
-                                        <p>{props.user.program}</p>
+                                <Col xl={8} lg={8} md={8} sm={8} xs={8}>
+                                    <div className="userDetails">
+                                        <h3 className="profileName">{props.user.firstname} {props.user.lastname}</h3>
+                                        <p className="text-secondary emailDiv">{props.user.email}</p>
                                     </div>
+                                </Col>
+
+                            </Row>
 
 
+                            <div id="titleMargin"></div>
 
-                                    <div className="columnFlex">
-                                        <p className="bold">Matriculation Number</p>
-                                        <p>{props.user.matricNumber}</p>
-                                    </div>
+                            <Row className="projectStatus">
+                                <Col className="columnFlex">
+                                    <p className="bold">Program</p>
+                                    <p className="boldP">{props.user.program}</p>
+                                </Col>
+
+                                <Col className="columnFlex">
+                                    <p className="bold">Matriculation Number</p>
+                                    <p className="boldP">{props.user.matricNumber}</p>
+                                </Col>
+
+                                <Col className="columnFlex">
+                                    <p className="bold">Graduation Year</p>
+                                    <p className="boldP">{props.user.graduationYear}</p>
+                                </Col>
 
 
+                            </Row>
 
-                                    <div className="columnFlex">
-                                        <p className="bold">Graduation Year</p>
-                                        <p>{props.user.graduationYear}</p>
-                                    </div>
 
-                                </div>
+                            <h4 className="marginTop">Update Profile</h4>
+                            <hr />
+
+                            {success != "" ? (success == "An error has occured, please try again." ? (<Alert className="alert alert-danger">{success} </Alert>) : (<Alert className="alert alert-success">{success} </Alert>)) : null}
+
+                            <div className="profileForm">
+
+                                <Row className="profileRow">
+
+                                    <Col xl={10} lg={10} md={10} sm={10} xs={10}>
+
+                                        <Form noValidate method="POST" action="/profileUser?_method=PUT" encType="multipart/form-data" >
+
+                                            <Row className="profileFormRow">
+                                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label >First Name</Form.Label>
+                                                        <Form.Control type="text" value={firstName}
+                                                            onChange={handleInputChange} name="firstName" />
+                                                    </Form.Group>
+                                                </Col>
+
+                                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>Last Name</Form.Label>
+                                                        <Form.Control type="text" value={lastName}
+                                                            onChange={handleInputChange} name="lastName" />
+                                                    </Form.Group>
+                                                </Col>
+
+                                            </Row>
+
+                                            <Row className="profileFormRow">
+
+                                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>Email Address</Form.Label>
+                                                        <Form.Control type="email" value={email}
+                                                            readOnly name="email" />
+                                                    </Form.Group>
+                                                </Col>
+
+                                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>Program</Form.Label>
+                                                        <Form.Control as="select" name="program" value={program} onChange={handleInputChange} >
+                                                            {programList.map(program => (<option key={program}>{program}</option>))}
+
+                                                        </Form.Control>
+                                                    </Form.Group>
+                                                </Col>
+
+                                            </Row>
+
+                                            <Row className="profileFormRow">
+
+                                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>Matric Number</Form.Label>
+                                                        <Form.Control type="text" value={matric}
+                                                            onChange={handleInputChange} name="matricNumber" />
+                                                    </Form.Group>
+                                                </Col>
+
+                                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>Graduation Year</Form.Label>
+                                                        <Form.Control as="select" name="graduationYear" value={year} onChange={handleInputChange}>
+                                                            {graduationYears.map(grad => (<option key={grad}>{grad}</option>))}
+                                                        </Form.Control>
+                                                    </Form.Group>
+                                                </Col>
+
+                                            </Row>
+
+                                            <Row className="profileFormRow">
+
+                                                <Col>
+                                                    <Form.Group>
+                                                        <Form.Label>Profile Picture</Form.Label>
+                                                        <div className="profileUpdate form-control">
+                                                            <input type="file" name="picture" accept=".png, .jpg, .jpeg" onChange={handlePicture} />
+                                                        </div>
+
+                                                    </Form.Group>
+                                                </Col>
+
+                                            </Row>
+
+                                            <button type="submit" className="btn btn-primary profileBtn">Update Profile</button>
+
+                                        </Form>
+
+
+                                    </Col>
+
+
+                                </Row>
 
                             </div>
 
-                        </div>
+                            <h4 className="marginTop">Change Password</h4>
+                            <hr />
 
+                            {profileError != "" ? (profileError == "Password Updated" ? (<Alert className="alert alert-success">{profileError} </Alert>) : (<Alert className="alert alert-danger">{profileError} </Alert>)) : null}
 
+                            <div className="changePasswordForm">
 
-                        <h4 className="marginTop">Update Profile</h4>
-                        <hr />
+                                <Row className="changePasswordRow">
 
-                        {success != "" ? (success == "An error has occured, please try again." ? (<Alert className="alert alert-danger">{success} </Alert>) : (<Alert className="alert alert-success">{success} </Alert>)) : null}
-                        <div className="formMiddle">
+                                    <Col xl={10} lg={10} md={10} sm={10} xs={10}>
 
-                            <Form noValidate method="POST" action="/profileUser?_method=PUT" encType="multipart/form-data" >
+                                        <Form method="POST" action="/profilePassword?_method=PUT">
 
-                                <Form.Row>
+                                            <Row>
+                                                <Col xl={4} lg={4} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label >Current Password</Form.Label>
+                                                        <Form.Control type="password" placeholder="Current Password" required
+                                                            onChange={handlePasswordChange} name="currentPassword" value={currentPassword} />
+                                                    </Form.Group>
+                                                </Col>
 
-                                    <Form.Group as={Col} >
-                                        <Form.Label >First Name</Form.Label>
-                                        <Form.Control type="text" value={firstName}
-                                            onChange={handleInputChange} name="firstName" />
-                                    </Form.Group>
+                                                <Col xl={4} lg={4} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>New Password</Form.Label>
+                                                        <Form.Control type="password" placeholder="New Password" value={newPassword}
+                                                            onChange={handlePasswordChange} name="newPassword" required />
+                                                    </Form.Group>
+                                                </Col>
 
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Last Name</Form.Label>
-                                        <Form.Control type="text" value={lastName}
-                                            onChange={handleInputChange} name="lastName" />
-                                    </Form.Group>
+                                                <Col xl={4} lg={4} md={12} sm={12} xs={12}>
+                                                    <Form.Group>
+                                                        <Form.Label>Confirm Password</Form.Label>
+                                                        <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword}
+                                                            onChange={handlePasswordChange} name="confirmPassword" required />
+                                                    </Form.Group>
+                                                </Col>
 
-                                </Form.Row>
+                                                <button type="submit" className="btn btn-primary changeBtn">Change Password</button>
 
-                                <Form.Row>
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Email Address</Form.Label>
-                                        <Form.Control type="email" value={email}
-                                            readOnly name="email" />
-                                    </Form.Group>
+                                            </Row>
 
-                                    <Form.Group as={Col} >
+                                        </Form>
 
-                                        <Form.Label>Program</Form.Label>
-                                        <Form.Control as="select" name="program" value={program} onChange={handleInputChange} >
-                                            {programList.map(program => (<option key={program}>{program}</option>))}
+                                    </Col>
 
-                                        </Form.Control>
-                                    </Form.Group>
-                                </Form.Row>
+                                    <Col></Col>
 
+                                </Row>
 
-                                <Form.Row>
-                                    <Form.Group as={Col}>
-                                        <Form.Label>Matric Number</Form.Label>
-                                        <Form.Control type="text" value={matric}
-                                            onChange={handleInputChange} name="matricNumber" />
-                                    </Form.Group>
+                            </div>
 
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Graduation Year</Form.Label>
-                                        <Form.Control as="select" name="graduationYear" value={year} onChange={handleInputChange}>
-                                            {graduationYears.map(grad => (<option key={grad}>{grad}</option>))}
-                                        </Form.Control>
-                                    </Form.Group>
-                                </Form.Row>
+                        </Col>
 
-                                <Form.Row>
-
-                                    <Form.Group as={Col}>
-                                        <Form.Label>Profile Picture</Form.Label>
-                                        <div className="profileUpdate form-control">
-                                            <input type="file" name="picture" accept=".png, .jpg, .jpeg" onChange={handlePicture} />
-                                        </div>
-
-                                    </Form.Group>
-                                </Form.Row>
-
-                                <button type="submit" className="btn btn-primary profileBtn">Update Profile</button>
-
-                            </Form>
-                        </div>
-
-
-                        <h4 className="marginTop">Change Password</h4>
-                        <hr />
-
-                        {profileError != "" ? (profileError == "Password Updated" ? (<Alert className="alert alert-success">{profileError} </Alert>) : (<Alert className="alert alert-danger">{profileError} </Alert>)) : null}
-                        <div className="passwordForm">
-
-                            <Form method="POST" action="/profilePassword?_method=PUT">
-
-                                <Form.Row>
-
-                                    <Form.Group as={Col} >
-                                        <Form.Label >Current Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Current Password" required
-                                            onChange={handlePasswordChange} name="currentPassword" value={currentPassword} />
-                                    </Form.Group>
-
-                                    <Form.Group as={Col} >
-                                        <Form.Label>New Password</Form.Label>
-                                        <Form.Control type="password" placeholder="New Password" value={newPassword}
-                                            onChange={handlePasswordChange} name="newPassword" required />
-                                    </Form.Group>
-
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Confirm Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword}
-                                            onChange={handlePasswordChange} name="confirmPassword" required />
-                                    </Form.Group>
-
-                                </Form.Row>
-
-                                <button type="submit" className="btn btn-primary profileBtn">Change Password</button>
-
-                            </Form>
-                        </div>
-
-
-                    </div>
-
+                    </Row>
 
                 </Container>
 

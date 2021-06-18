@@ -15,42 +15,52 @@ export default (props) => {
 
     return (
 
-        <Navbar bg="primary" variant="dark" className="justify-content-between" >
+        <Navbar bg="primary" variant="dark" expand="lg">
 
-            <Nav className=" ">
-                <Navbar.Brand href="/">Project Explorer</Navbar.Brand>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search Projects" className="mr-2" />
-                    <Button variant="outline-light" type="submit">Search</Button>
-                </Form>
+            <Navbar.Brand href="/">Project Explorer</Navbar.Brand>
+
+            <Navbar.Toggle aria-controls="collapse-navbar" />
+
+            <Navbar.Collapse id="collapse-navbar">
 
                 <Nav>
-                    <Nav.Link href="/project" className="headerNav">Projects</Nav.Link>
-                    <Nav.Link href="/projects/submit" className="headerNav">Submit</Nav.Link>
+
+                    <Form inline>
+                        <FormControl type="text" placeholder="Search Projects" className="mr-2 searchForm" />
+                        <Button variant="outline-light" type="submit" className="mr-2 searchButton">Search</Button>
+                    </Form>
+
+                    <Nav.Link href="/projects/submit" className="headerNav">Create Project</Nav.Link>
+
                 </Nav>
 
-            </Nav>
+                {
+                    (firstname != undefined) ? (
 
-            {
-                (firstname != undefined) ? (
-                    <Nav className="justify-content-end">
-                        <Nav.Link href="/logout" name="logout" className="headerNav" >Logout</Nav.Link>
-                        <Nav.Link href="/profile" name="firstname" id="username" className="headerNav">Hi, {firstname}</Nav.Link>
-                        <div className="profilePictureCircle">
-                            <Image cloudName="edconnect" publicId={url} type="fetch">
-                                <Transformation width="43" height="43" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
-                            </Image>
+                        <Nav className="ml-auto">
 
-                        </div>
-                    </Nav>
-                )
-                    :
-                    (<Nav className="justify-content-end">
-                        <Nav.Link href="/signup" name="signup" className="headerNav">Sign Up</Nav.Link>
-                        <Nav.Link href="/login" name="login" className="headerNav">Login</Nav.Link>
-                    </Nav>)
-            }
+                            <Nav.Link href="/logout" name="logout" className="headerNav" >Logout</Nav.Link>
 
+                            <div className="NamePicture">
+                                <Nav.Link href="/profile" name="firstname" id="username" className="headerNav Hi">Hi, {firstname}</Nav.Link>
+                                <div className="profilePictureCircle">
+                                    <Image cloudName="edconnect" publicId={url} type="fetch">
+                                        <Transformation width="43" height="43" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
+                                    </Image>
+                                </div>
+                            </div>
+
+                        </Nav>
+                    )
+                        :
+                        (<Nav className="ml-auto">
+                            <Nav.Link href="/signup" name="signup" className="headerNav">Sign Up</Nav.Link>
+                            <Nav.Link href="/login" name="login" className="headerNav">Login</Nav.Link>
+                        </Nav>)
+                }
+
+
+            </Navbar.Collapse>
 
         </Navbar>
 

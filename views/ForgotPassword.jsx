@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
-import { Form, Button, Alert, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Form, Button, Alert, Col, Row } from 'react-bootstrap'
 
 const ForgotPassword = (props) => {
-
 
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -30,37 +28,41 @@ const ForgotPassword = (props) => {
         <Layout {...props.user}>
             <>
 
-                <div className="mx-auto loginCenterDiv">
-                    <h3>Forgot Password?</h3>
+                <Row className="rowC">
 
+                    <Col xl={6} lg={7} md={8} sm={10} xs={10}>
 
-                    {error != "" ? (error != "Invalid Email address" || error != "An error occured, please refresh" ? (<Alert className="alert alert-success">{error} </Alert>) : (<Alert className="alert alert-danger">{error} </Alert>)) : (<Alert className="alert alert-primary">Enter the email address associated with your account </Alert>)}
-                    <Form id="loginForm" noValidate method="POST" action="forgotPassword" >
+                        <div className="forgotPassword">
+                            <h3>Forgot Password?</h3>
 
-                        <Form.Row>
+                            {error != "" ? (error != "Invalid Email address" || error != "An error occured, please refresh" ? (<Alert className="alert alert-success">{error} </Alert>) : (<Alert className="alert alert-danger">{error} </Alert>)) : (<Alert className="alert alert-primary">Enter the email address associated with your account </Alert>)}
+                            <Form id="loginForm" noValidate method="POST" action="forgotPassword" >
 
-                            <Form.Group as={Col}>
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter Email"
-                                    name="email" onChange={handleInputChange} value={email} />
-                            </Form.Group>
+                                <Form.Row>
 
-                        </Form.Row>
+                                    <Form.Group as={Col}>
+                                        <Form.Label>Email Address</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter Email"
+                                            name="email" onChange={handleInputChange} value={email} />
+                                    </Form.Group>
 
-                        <div className="form-group">
-                            <Button variant="primary" type="submit">Submit </Button>
+                                </Form.Row>
+
+                                <div className="form-group">
+                                    <Button variant="primary" type="submit">Submit </Button>
+
+                                </div>
+
+                            </Form>
 
                         </div>
 
-                    </Form>
+                    </Col>
 
-
-                </div>
-
-                <div className="pushFooter">
-                </div>
+                </Row>
 
             </>
+
         </Layout>
 
     )

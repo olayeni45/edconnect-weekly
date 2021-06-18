@@ -9,7 +9,6 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 
-const https = require('https').globalAgent.options.rejectUnauthorized = false;
 
 //Configurations for Multer
 const multerStorage = multer.diskStorage({
@@ -354,13 +353,10 @@ router.get("/auth/google/callback",
 //GET Facebook Authentication API
 router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 
-// router.get('/auth/facebook/edconnect',
-//     passport.authenticate('facebook', { successRedirect: '/Social', failureRedirect: '/signup' }));
-
 router.get('/auth/facebook/edconnect',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    passport.authenticate('facebook', { failureRedirect: '/signup' }),
     function (req, res) {
-        // Successful authentication, redirect home.
+        // Successful authentication, redirect to Social.jsx
         res.redirect('/Social');
     });
 
@@ -377,9 +373,6 @@ router.get('/Social', async (req, res) => {
 
 //Post signup page
 router.post('/continue', async (req, res) => {
-
-    // const details = googleArray;
-    // const facebookDetails = facebookArray;
 
     const firstname = req.body.firstName;
     const lastname = req.body.lastName;
@@ -402,13 +395,14 @@ router.post('/continue', async (req, res) => {
     }
     url = details[0].url;
 
-    var createdAccount, sessionUser;
+    var account, sessionUser;
     const createAccount = await user
         .googleCreate(firstname, lastname, email, matricNumber, program, graduationYear, password, confirmPassword, image, url)
         .then((create) => {
             if (create[0] == true) {
-                createdAccount = true;
-                req.session.user = create[1];
+                account = true;
+                sessionUser = create[1];
+                req.session.user = sessionUser;
             }
             else {
                 console.log("Error from post", create[1]);
@@ -417,20 +411,19 @@ router.post('/continue', async (req, res) => {
             }
         })
 
-    if (createdAccount == true) {
+    if (account == true) {
         const imageUpload = await cloudinary.uploader.upload(url, { folder: "Project Explorer" })
             .then((result) => {
                 console.log("Image upload from /Social", result.url);
                 res.redirect('/');
+                details.pop();
             })
             .catch((error) => {
                 console.log(error);
             });
     }
 
-
-
-})
+});
 
 
 module.exports = router;

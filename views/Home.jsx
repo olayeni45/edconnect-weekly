@@ -8,14 +8,13 @@ const Home = (props) => {
 
         <Layout {...props.user}>
             <>
-
                 <Jumbotron className="mx-auto" >
-                    <h1>Welcome to Project Explorer</h1>
+                    <h1 className="homeJumbotron">Welcome to Project Explorer</h1>
                     <p>
                         Project Explorer is a repository for final year projects across
                         all departments at your institution. You can submit your projects
                         and search for other projects submitted by others to learn from.
-                </p>
+                    </p>
                     <p>
                         <Button href="/signup" variant="primary" className="mr-2">Get Started</Button>
                         <Button href="/login" variant="secondary">Login</Button>
@@ -28,7 +27,7 @@ const Home = (props) => {
 
                         <Row className="showcase">
 
-                            {props.projects.slice(0, 4).map((projects) => (
+                            {props.projects.map((projects) => (
                                 <Col key={projects.name}>
                                     <Card className="indexCard">
                                         <Card.Body>
@@ -45,18 +44,11 @@ const Home = (props) => {
                                 </Col>
                             ))}
 
-
-
-
                         </Row>
-
-
 
                     </div>
 
                 </div>
-
-
 
             </>
         </Layout>

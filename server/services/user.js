@@ -279,7 +279,7 @@ const resetPasswordDB = async (email, newPassword, confirmPassword) => {
 }
 
 
-//Creates a new user from google and sets password
+//Creates a new user from google and facebook and sets password
 const googleCreate = async (firstname, lastname, email, matricNumber, program, graduationYear, password, confirmPassword, image, url) => {
 
   try {
@@ -316,6 +316,27 @@ const googleCreate = async (firstname, lastname, email, matricNumber, program, g
   }
 }
 
+//Login with facebook and google
+const socialLogin = async (email) => {
+
+  const user = await User.findOne({ email: email });
+  if (user != null) {
+
+    try {
+      console.log(user);
+      return [true, user];
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  else {
+    return [false, ["Account not found. Kindly Signup to gain access."]]
+  }
+
+}
+
 
 module.exports = {
   create,
@@ -328,5 +349,6 @@ module.exports = {
   resetLink,
   resetPasswordDB,
   getDefault,
-  googleCreate
+  googleCreate,
+  socialLogin,
 };

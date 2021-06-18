@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Transformation, Image } from 'cloudinary-react'
 import Layout from './shared/Layout'
-import { Row, Form } from 'react-bootstrap'
+import { Row, Form, Container, Col } from 'react-bootstrap'
 
 const Project = (props) => {
 
@@ -27,24 +27,24 @@ const Project = (props) => {
     return (
 
         <Layout {...props.user}>
+
             <>
-                <div className="viewCenterContainer">
 
-                    <h3 id="project_name">{projectName}</h3>
+                <Row className="topProjectRow">
 
-                    <div id="titleMargin"></div>
+                    <Col xl={9} lg={9} md={9} sm={9} xs={9}>
+                        <h3 id="project_name">{projectName}</h3>
 
-                    <div className="projectStatusContainer">
+                        <div id="titleMargin"></div>
 
-                        <div className="project">
+                        <Row className="projectRow">
 
-                            <div className="statusFlex">
+                            <Col>
 
                                 <div className="pictureFlex">
-
                                     <div className="projectCircle">
                                         <Image cloudName="edconnect" publicId={url} type="fetch">
-                                            <Transformation width="50" height="50" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
+                                            <Transformation width="45" height="45" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
                                         </Image>
                                     </div>
 
@@ -54,105 +54,111 @@ const Project = (props) => {
                                     </div>
                                 </div>
 
+                            </Col>
+
+                            <Col>
 
                                 <div className="columnFlex">
                                     <p>Date Created</p>
                                     <p className="bold">{created}</p>
                                 </div>
 
+                            </Col>
+
+                            <Col>
+
                                 <div className="columnFlex">
                                     <p>Last Updated</p>
                                     <p className="bold">{updated}</p>
                                 </div>
 
-                            </div>
+                            </Col>
 
-                        </div>
-
-                        <div id="btnFlex">
-                            <a className="btn btn-primary" href="#" role="button">Edit Project</a>
-                        </div>
-
-                    </div>
-
-                    <div id="margin"></div>
-
-                    <div className="content">
-
-                        <Row>
-
-                            <div className="viewCol">
-
-                                <h4>Project Abstract</h4>
-                                <hr />
-
-                                <div className="abstractDiv" id="project_abstract">
-                                    {projectAbstract}</div>
-
-                                <div className="positioning">
-
-                                    <Form.Group >
-                                        <Form.Label>Comments</Form.Label>
-                                        <Form.Control as="textarea"
-                                            name="projectAbstract" />
-                                    </Form.Group>
-
-                                    <button type="button" className="btn btn-primary pushButton">Submit</button>
-                                </div>
-
-                            </div>
-
-                            <div className="viewCol">
-
-                                <h4>Project Details</h4>
-                                <hr />
-
-                                <div className="card firstCard">
-                                    <div className="card-header">
-                                        Author(s)</div>
-                                    <div className="card-body authorsName" id="project_authors">
-
-                                        {(projectAuthor.map((auth) => (
-                                            <div key={auth}>
-                                                <p>{auth}</p>
-
-                                            </div>
-                                        )))}
-
-                                    </div>
-                                    <div className="card-footer" id="project_tags">
-                                        {projectTag.map((tag) => (
-                                            <div key={tag}>
-                                                <p>{tag}</p>
-
-                                            </div>
-
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <br />
-
-                                <div id="viewmarginBottom"></div>
-
-                                <div className="card">
-                                    <div className="card-header bold">
-                                        Project Files
-                            </div>
-                                    <div className="card-body">
-
-                                        <p className="card-text centerText">No file uploaded yet</p>
-
-                                    </div>
-                                </div>
-
-                            </div>
+                            <a href="#"> <button class="btn btn-primary">Edit Project</button></a>
 
                         </Row>
 
-                    </div>
+                        <div id="margin"></div>
 
-                </div>
+                        <div className="content">
+
+                            <Row>
+
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12} className="firstProjectColumn">
+
+                                    <h4>Project Abstract</h4>
+                                    <hr />
+
+                                    <div className="abstractDiv" id="project_abstract">
+                                        {projectAbstract}</div>
+
+                                    <div className="positioning">
+
+                                        <Form.Group>
+                                            <Form.Label>Comments</Form.Label>
+                                            <Form.Control as="textarea"
+                                                name="projectAbstract" />
+                                        </Form.Group>
+
+                                        <button type="button" className="btn btn-primary pushButton">Submit</button>
+                                    </div>
+
+                                </Col>
+
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+
+                                    <h4>Project Details</h4>
+                                    <hr />
+
+                                    <div className="card firstCard">
+                                        <div className="card-header">
+                                            Author(s)</div>
+                                        <div className="card-body authorsName" id="project_authors">
+
+                                            {(projectAuthor.map((auth) => (
+                                                <div key={auth}>
+                                                    <p>{auth}</p>
+
+                                                </div>
+                                            )))}
+
+                                        </div>
+                                        <div className="card-footer" id="project_tags">
+                                            {projectTag.map((tag) => (
+                                                <div key={tag}>
+                                                    <p>{tag}</p>
+
+                                                </div>
+
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div id="viewmarginBottom"></div>
+
+                                    <div className="card">
+                                        <div className="card-header bold">
+                                            Project Files
+                                        </div>
+                                        <div className="card-body">
+
+                                            <p className="card-text centerText">No file uploaded yet</p>
+
+                                        </div>
+                                    </div>
+
+                                </Col>
+
+                            </Row>
+
+                        </div>
+                    </Col>
+
+                    <Col></Col>
+
+                </Row>
 
             </>
 
