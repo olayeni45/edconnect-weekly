@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './shared/Layout'
-import { Form, Button, Alert, Container, Col } from 'react-bootstrap'
+import { Form, Button, Alert, Container, Col, Row } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
-import GoogleButton from 'react-google-button';
-import FacebookLogin from 'react-facebook-login';
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 
 const Signup = (props) => {
@@ -74,13 +72,14 @@ const Signup = (props) => {
     return (
 
         <Layout {...props.user}>
+
             <>
 
-                <Container>
+                <Row className="signupRow">
 
-                    <div className="mx-auto registerCenterContainer">
+                    <Col xl={7} lg={7} md={7} sm={9} xs={9}>
+
                         <h3>Sign up</h3>
-
 
                         {signupErrors != "" ? (
                             <Alert className="alert alert-danger">
@@ -90,39 +89,50 @@ const Signup = (props) => {
 
                         <Form id="signupForm" noValidate method="POST" action="signup">
 
-                            <Form.Row>
-                                <Form.Group as={Col} >
-                                    <Form.Label>First Name</Form.Label>
-                                    <Form.Control type="text" placeholder="First Name"
-                                        name="firstName" value={firstName} onChange={handleInputChange} />
-                                </Form.Group>
+                            <Row>
 
-                                <Form.Group as={Col} >
-                                    <Form.Label>Last Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Last Name"
-                                        name="lastName" value={lastName} onChange={handleInputChange} />
-                                </Form.Group>
-                            </Form.Row>
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>First Name</Form.Label>
+                                        <Form.Control type="text" placeholder="First Name"
+                                            name="firstName" value={firstName} onChange={handleInputChange} />
+                                    </Form.Group>
+                                </Col>
 
-                            <Form.Row>
-                                <Form.Group as={Col} >
-                                    <Form.Label>Email Address</Form.Label>
-                                    <Form.Control type="email" placeholder="Your Email Address"
-                                        name="email" value={email} onChange={handleInputChange} />
-                                </Form.Group>
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>Last Name</Form.Label>
+                                        <Form.Control type="text" placeholder="Last Name"
+                                            name="lastName" value={lastName} onChange={handleInputChange} />
+                                    </Form.Group>
+                                </Col>
 
-                                <Form.Group as={Col} >
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Your Password"
-                                        name="password" value={password} onChange={handleInputChange} />
-                                </Form.Group>
-                            </Form.Row>
+                            </Row>
 
+                            <Row>
 
-                            <Form.Row>
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>Email Address</Form.Label>
+                                        <Form.Control type="email" placeholder="Your Email Address"
+                                            name="email" value={email} onChange={handleInputChange} />
+                                    </Form.Group>
+                                </Col>
 
-                                <Col xs={6}>
-                                    <Form.Group >
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Your Password"
+                                            name="password" value={password} onChange={handleInputChange} />
+                                    </Form.Group>
+                                </Col>
+
+                            </Row>
+
+                            <Row>
+
+                                <Col xl={6} lg={6} md={12} sm={12} xs={12}>
+                                    <Form.Group>
                                         <Form.Label>Program</Form.Label>
                                         <Form.Control as="select" name="program" onChange={handleInputChange}
                                             value={program}>
@@ -132,40 +142,31 @@ const Signup = (props) => {
                                     </Form.Group>
                                 </Col>
 
-                                <Col>
-                                    <Form.Group >
+                                <Col xl={3} lg={3} md={12} sm={12} xs={12}>
+                                    <Form.Group>
                                         <Form.Label>Matric Number</Form.Label>
                                         <Form.Control placeholder="e.g 16/2016" type="text"
                                             name="matricNumber" value={matricNumber} onChange={handleInputChange} />
                                     </Form.Group>
                                 </Col>
 
-                                <Col>
-                                    <Form.Group >
+                                <Col xl={3} lg={3} md={12} sm={12} xs={12}>
+                                    <Form.Group>
                                         <Form.Label>Graduation Year</Form.Label>
                                         <Form.Control as="select" name="graduationYear" onChange={handleInputChange}
                                             value={graduationYear}>
-
                                             {graduation.map(grad => (<option key={grad}>{grad}</option>))}
-
-
                                         </Form.Control>
                                     </Form.Group>
                                 </Col>
 
+                            </Row>
 
-                            </Form.Row>
-
-                            <div className="form-group">
-                                <Button variant="primary" type="submit" >Sign Up </Button>
-
-                            </div>
-
-
+                            <Button variant="primary" type="submit" >Sign Up </Button>
 
                         </Form>
 
-                        <div className="signUpLinks">
+                        <Row className="signUpLinks">
 
                             <a href="/auth/google" className="google">
                                 <GoogleLoginButton>
@@ -177,22 +178,13 @@ const Signup = (props) => {
                                 <FacebookLoginButton>
                                     <span>Sign up with Facebook</span>
                                 </FacebookLoginButton>
-
                             </a>
 
-                        </div>
+                        </Row>
 
-                    </div>
+                    </Col>
 
-                    <div className="pushSignFooter">
-
-                    </div>
-
-                    {signupErrors != "" ? (
-                        <div className="errorFooter"></div>
-                    ) : null}
-
-                </Container>
+                </Row>
 
             </>
         </Layout>

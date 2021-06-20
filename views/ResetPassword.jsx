@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './shared/Layout'
-import { Form, Button, Alert, Col } from 'react-bootstrap'
+import { Form, Button, Alert, Col, Row } from 'react-bootstrap'
 
 const ResetPassword = (props) => {
 
@@ -37,52 +37,65 @@ const ResetPassword = (props) => {
     return (
 
         <Layout {...props.user}>
+
             <>
 
-                <div className="mx-auto loginCenterDiv">
-                    <h3>Reset Password</h3>
+                <Row className="resetRow">
 
-                    {resetPasswordError != "" ? (resetPasswordError == "New Password set, You can now login." ? (<Alert className="alert alert-success">{resetPasswordError} </Alert>) : (<Alert className="alert alert-danger">{resetPasswordError} </Alert>)) : null}
+                    <Col xl={7} lg={7} md={8} sm={11} xs={11}>
 
-                    <Form id="loginForm" method="POST" action="resetPassword" >
+                        <h3>Reset Password</h3>
 
-                        <Form.Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter Email"
-                                    required name="email" onChange={handleInputChange} value={email} />
-                            </Form.Group>
-                        </Form.Row>
+                        {resetPasswordError != "" ? (resetPasswordError == "New Password set, You can now login." ? (<Alert className="alert alert-success">{resetPasswordError} </Alert>) : (<Alert className="alert alert-danger">{resetPasswordError} </Alert>)) : null}
 
-                        <Form.Row>
-                            <Form.Group as={Col} >
-                                <Form.Label>New Password</Form.Label>
-                                <Form.Control type="password" placeholder="New Password" value={newPassword}
-                                    onChange={handleInputChange} name="newPassword" required />
-                            </Form.Group>
-
-                        </Form.Row>
+                        <Form id="resetForm" method="POST" action="resetPassword" >
 
 
-                        <Form.Row>
-                            <Form.Group as={Col} >
-                                <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword}
-                                    onChange={handleInputChange} name="confirmPassword" required />
-                            </Form.Group>
-                        </Form.Row>
+                            <Row>
 
+                                <Col xl={10} lg={10} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>Email Address</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter Email"
+                                            required name="email" onChange={handleInputChange} value={email} />
+                                    </Form.Group>
+                                </Col>
 
-                        <div className="form-group">
+                            </Row>
+
+                            <Row>
+
+                                <Col xl={10} lg={10} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>New Password</Form.Label>
+                                        <Form.Control type="password" placeholder="New Password" value={newPassword}
+                                            onChange={handleInputChange} name="newPassword" required />
+                                    </Form.Group>
+                                </Col>
+
+                            </Row>
+
+                            <Row>
+
+                                <Col xl={10} lg={10} md={12} sm={12} xs={12}>
+                                    <Form.Group>
+                                        <Form.Label>Confirm Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword}
+                                            onChange={handleInputChange} name="confirmPassword" required />
+                                    </Form.Group>
+                                </Col>
+
+                            </Row>
+
                             <Button variant="primary" type="submit">Submit </Button>
-                        </div>
 
-                    </Form>
+                        </Form>
 
-                </div>
 
-                <div className="pushFooter">
-                </div>
+                    </Col>
+
+                </Row>
+
 
             </>
         </Layout>

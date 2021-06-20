@@ -142,6 +142,7 @@ label{
 .projectCircle{
     position: relative;
     left:-5px;
+    margin-right:3px;
 }
 
 .columnFlex{
@@ -364,9 +365,19 @@ label{
     margin:50px auto;
 }
 
+.signupRow{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:35px 0 30px;
+}
+
+
 .signUpLinks{
-    width:270px;
-    margin:10px auto;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:10px;
 }
 
 .loginLinks{
@@ -496,13 +507,13 @@ label{
 
 .projectRow{
     background-color:rgba(241, 241, 241, 0.884);
-    width:100%;
-    position: relative;
-    left:15px;
+    display: flex;
     height:70px;
-   display: flex;
    align-items: center;
-   justify-content: space-between;
+}
+
+.picturerow{
+    display: flex;
 }
 
 .project{
@@ -749,11 +760,20 @@ width:100%;
     top:65px;
 }
 
+/*Resetpassword.jsx*/
+.resetRow{
+display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:40px 0 78px;
+}
 
-
-.updateDetails{
-    margin:30px auto 20px;
-    width:60%;
+/*Social.jsx*/
+.socialRow{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:40px 0 45px;
 }
 
 #createAccount{

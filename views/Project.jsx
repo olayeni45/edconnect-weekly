@@ -39,42 +39,41 @@ const Project = (props) => {
 
                         <Row className="projectRow">
 
-                            <Col>
+                            <Col xl={12} lg={12} md={12} sm={12} xs={12}>
 
-                                <div className="pictureFlex">
-                                    <div className="projectCircle">
-                                        <Image cloudName="edconnect" publicId={url} type="fetch">
-                                            <Transformation width="45" height="45" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
-                                        </Image>
-                                    </div>
+                                <Row>
 
-                                    <div className="columnFlex">
-                                        <p>Created By</p>
-                                        <p className="bold createdBy" id="project_author">{createdBy}</p>
-                                    </div>
-                                </div>
+                                    <Col className="picturerow" xl={4} lg={4} md={5} sm={5} xs={5}>
+
+                                        <div className="pictureFlex">
+                                            <div className="projectCircle">
+                                                <Image cloudName="edconnect" publicId={url} type="fetch">
+                                                    <Transformation width="55" height="55" gravity="face" radius="max" crop="fill" fetchFormat="auto" />
+                                                </Image>
+                                            </div>
+                                        </div>
+
+                                        <div className="columnFlex">
+                                            <p>Created By</p>
+                                            <p className="bold createdBy" id="project_author">{createdBy}</p>
+                                        </div>
+
+                                    </Col>
+
+                                    <Col className="columnFlex" xl={3} lg={3} md={3} sm={3} xs={3}>
+                                        <p>Date Created</p>
+                                        <p className="bold">{created}</p>
+                                    </Col>
+
+                                    <Col className="columnFlex" xl={3} lg={3} md={3} sm={3} xs={3}>
+                                        <p>Last Updated</p>
+                                        <p className="bold">{updated}</p>
+                                    </Col>
+
+
+                                </Row>
 
                             </Col>
-
-                            <Col>
-
-                                <div className="columnFlex">
-                                    <p>Date Created</p>
-                                    <p className="bold">{created}</p>
-                                </div>
-
-                            </Col>
-
-                            <Col>
-
-                                <div className="columnFlex">
-                                    <p>Last Updated</p>
-                                    <p className="bold">{updated}</p>
-                                </div>
-
-                            </Col>
-
-                            <a href="#"> <button class="btn btn-primary">Edit Project</button></a>
 
                         </Row>
 
