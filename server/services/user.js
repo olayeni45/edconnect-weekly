@@ -296,6 +296,9 @@ const googleCreate = async (firstname, lastname, email, matricNumber, program, g
       url
     });
 
+    const matric = User.find({ matricNumber: matricNumber });
+    console.log("Duplicate matric", matric);
+
     if (password === confirmPassword) {
       user.setPassword(password);
 

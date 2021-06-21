@@ -156,6 +156,17 @@ label{
     font-size:16px;
 }
 
+.nameFlex{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameFlex > p{
+    margin:0;
+    color:rgb(12, 11, 11);
+    font-size:16px;
+}
+
 .bold{
     font-weight:500;
 }
@@ -765,7 +776,7 @@ width:100%;
 display:flex;
     flex-direction: column;
     align-items: center;
-    margin:40px 0 78px;
+    margin:40px 0 100px;
 }
 
 /*Social.jsx*/
@@ -860,6 +871,13 @@ display:flex;
         position: relative;
         left:-10px;
     }
+
+    .nameFlex > p{
+    font-size:14px;
+    }
+    .nameFlex{
+        margin-top: 4px;
+    }
 }
 
 @media (max-width: 530px){
@@ -888,6 +906,14 @@ display:flex;
     /*Profile.jsx*/
     .columnFlex > p{
     font-size:14px;
+    }
+
+    .nameFlex > p{
+    font-size:13px;
+    }
+
+    .projectRow{
+        height:90px;
     }
 }
 

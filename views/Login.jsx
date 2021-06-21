@@ -79,13 +79,13 @@ const Login = (props) => {
 
                             <div className="loginLinks">
 
-                                <a href="/auth/Logingoogle" className="google">
+                                <a href="#" className="google">
                                     <GoogleLoginButton>
                                         <span>Login with Google</span>
                                     </GoogleLoginButton>
                                 </a>
 
-                                <a href="/auth/Loginfacebook" className="facebook">
+                                <a href="#" className="facebook">
                                     <FacebookLoginButton>
                                         <span>Login with Facebook</span>
                                     </FacebookLoginButton>

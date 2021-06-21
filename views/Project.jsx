@@ -43,7 +43,7 @@ const Project = (props) => {
 
                                 <Row>
 
-                                    <Col className="picturerow" xl={4} lg={4} md={5} sm={5} xs={5}>
+                                    <Col className="picturerow" xl={4} lg={4} md={5} sm={6} xs={6}>
 
                                         <div className="pictureFlex">
                                             <div className="projectCircle">
@@ -53,20 +53,20 @@ const Project = (props) => {
                                             </div>
                                         </div>
 
-                                        <div className="columnFlex">
-                                            <p>Created By</p>
+                                        <div className="nameFlex">
+                                            <p >Created By</p>
                                             <p className="bold createdBy" id="project_author">{createdBy}</p>
                                         </div>
 
                                     </Col>
 
-                                    <Col className="columnFlex" xl={3} lg={3} md={3} sm={3} xs={3}>
-                                        <p>Date Created</p>
+                                    <Col className="nameFlex" xl={3} lg={3} md={3} sm={3} xs={3}>
+                                        <p >Date Created</p>
                                         <p className="bold">{created}</p>
                                     </Col>
 
-                                    <Col className="columnFlex" xl={3} lg={3} md={3} sm={3} xs={3}>
-                                        <p>Last Updated</p>
+                                    <Col className="nameFlex" xl={3} lg={3} md={3} sm={3} xs={3}>
+                                        <p >Last Updated</p>
                                         <p className="bold">{updated}</p>
                                     </Col>
 

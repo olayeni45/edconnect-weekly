@@ -8,7 +8,9 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
-
+const fs = require('fs');
+const { promisify } = require('util');
+const deletePicture = promisify(fs.unlink);
 
 //Configurations for Multer
 const multerStorage = multer.diskStorage({
@@ -156,6 +158,7 @@ router.put('/profileUser', upload.single('picture'), async (req, res) => {
             .then((result) => {
                 const image = result.url;
                 urlArray.push(image);
+                deletePicture(filePath);
             })
             .catch((error) => {
                 console.log(error);
@@ -258,10 +261,6 @@ var googleArray = new Array();
 var facebookArray = new Array();
 var socialDetails = new Array();
 
-var googleLoginDetails = new Array();
-var facebookLoginDetails = new Array();
-var loginDetails = new Array();
-
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
@@ -307,34 +306,7 @@ passport.use(
     )
 );
 
-//Login Google auth
-passport.use(
-    new GoogleStrategy(
-        {
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost/auth/google/login"
-        },
-        async function (accessToken, refreshToken, profile, done) {
-
-            const email = profile.emails[0].value;
-            const userData = {
-                email: email,
-                social: "Google"
-            }
-
-            googleLoginDetails.push(userData);
-            loginDetails.push(googleLoginDetails);
-            console.log("Data from Login Google", loginDetails);
-
-            done(null, userData);
-
-        }
-    )
-);
-
-
-//Passport Facebook Login
+//Signup Facebook auth
 passport.use(
     new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -368,29 +340,6 @@ passport.use(
         }
     ));
 
-//Login Facebook Auth
-passport.use(
-    new FacebookStrategy({
-        clientID: process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: "http://localhost/auth/facebook/Loginedconnect",
-        profileFields: ['id', 'displayName', 'name', 'photos', 'email']
-    },
-        function (accessToken, refreshToken, profile, done) {
-
-            const email = profile.emails[0].value;
-            const userData = {
-                email: email,
-                social: "Facebook"
-            }
-
-            facebookLoginDetails.push(userData);
-            loginDetails.push(facebookLoginDetails);
-            console.log("Data from Login Facebook", loginDetails);
-
-            done(null, userData);
-        }
-    ));
 
 //GET Google Authentication API
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
@@ -399,32 +348,6 @@ router.get("/auth/google/callback",
     passport.authenticate("google", { successRedirect: '/Social', failureRedirect: "/signup", session: false }),
     function (req, res) {
         res.redirect("http://localhost");
-    }
-);
-
-//Login Google Routes for Passport Js
-router.get("/auth/Logingoogle", passport.authenticate("google", { scope: ["profile", "email"] }));
-
-router.get("/auth/google/login",
-    passport.authenticate("google", { failureRedirect: "/login", session: false }),
-
-    async function (req, res) {
-        const details = googleLoginDetails;
-        const loginGoogle = await user
-            .socialLogin(details[0].email)
-            .then((login) => {
-                if (login[0] == true) {
-                    req.session.user = login[1];
-                    console.log("REQ.SESSION.USER", req.session.user);
-                    res.redirect("http://localhost");
-                    loginDetails.pop();
-                }
-                else {
-                    req.flash("logError", login[1]);
-                    res.redirect('/login');
-                }
-            })
-
     }
 );
 
@@ -438,35 +361,6 @@ router.get('/auth/facebook/edconnect',
         // Successful authentication, redirect to Social.jsx
         res.redirect('/Social');
     });
-
-
-//Login for Facebook Auth   
-router.get('/auth/Loginfacebook', passport.authenticate('facebook', { scope: 'email' }));
-
-router.get('/auth/facebook/Loginedconnect',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-
-    async function (req, res) {
-        const details = facebookLoginDetails;
-        const loginGoogle = await user
-            .socialLogin(details[0].email)
-            .then((login) => {
-                if (login[0] == true) {
-                    req.session.user = login[1];
-                    console.log("REQ.SESSION.USER", req.session.user);
-                    res.redirect("http://localhost");
-                    loginDetails.pop();
-                }
-                else {
-                    req.flash("logError", login[1]);
-                    res.redirect('/login');
-                }
-            })
-
-    }
-
-
-);
 
 
 //Continue Signup Page
@@ -520,7 +414,7 @@ router.post('/continue', async (req, res) => {
             }
         })
 
-    if (account == true) {
+    if (account === true) {
         const imageUpload = await cloudinary.uploader.upload(url, { folder: "Project Explorer" })
             .then((result) => {
                 console.log("Image upload from /Social", result.url);
