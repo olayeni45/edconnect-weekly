@@ -16,7 +16,7 @@ const Social = (props) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [error, setError] = useState("");
+    const [error, setError] = useState();
 
     useEffect(() => {
         setProgramList(props.programList);

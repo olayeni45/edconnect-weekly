@@ -44,12 +44,14 @@ cloudinary.config({
 });
 
 //ROUTES
+
 //GET Login Route
 router.get('/login', (req, res) => {
     const user = req.session.user;
     const logError = req.flash('logError')
     res.render('Login', { logError, user });
 })
+
 //POST Login Route
 router.post('/login', async (req, res) => {
     const email = req.body.email;
@@ -67,6 +69,7 @@ router.post('/login', async (req, res) => {
             }
         });
 })
+
 
 //GET Signup Route
 router.get('/signup', (req, res) => {
@@ -115,6 +118,7 @@ router.post('/signup', async (req, res) => {
     const croppedImage = cloudinary.image(process.env.DEFAULT_IMAGE, { width: 43, height: 43, gravity: "face", radius: "max", crop: "fill", fetch_format: "auto", type: "fetch" });
     console.log("Default Image Cropped from signup", croppedImage);
 })
+
 
 //Profile page
 router.get('/profile', async (req, res) => {
@@ -206,6 +210,7 @@ router.put('/profilePassword', async (req, res) => {
 
 })
 
+
 //Forgot Password Page
 router.get('/forgotPassword', (req, res) => {
     const forgotError = req.flash("forgotError");
@@ -228,6 +233,7 @@ router.post('/forgotPassword', async (req, res) => {
         })
 
 });
+
 
 //Reset Password Page
 router.get('/resetPassword', (req, res) => {
@@ -256,7 +262,7 @@ router.post('/resetPassword', async (req, res) => {
 });
 
 
-//Passport Google Login
+//Passport JS Signup Authentication Routes and services
 var googleArray = new Array();
 var facebookArray = new Array();
 var socialDetails = new Array();
@@ -270,7 +276,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 //Signup Google auth
-passport.use(
+passport.use('google',
     new GoogleStrategy(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
@@ -307,7 +313,7 @@ passport.use(
 );
 
 //Signup Facebook auth
-passport.use(
+passport.use('facebook',
     new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
@@ -361,6 +367,120 @@ router.get('/auth/facebook/edconnect',
         // Successful authentication, redirect to Social.jsx
         res.redirect('/Social');
     });
+
+
+//Passport JS Login Authentication Routes and services
+var googleLoginDetails = new Array();
+var loginDetails = new Array();
+var facebookLoginDetails = new Array();
+
+//Login Google auth
+passport.use('google-alt',
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: "http://localhost/auth/google/socialLogin"
+        },
+        async function (accessToken, refreshToken, profile, done) {
+
+            const email = profile.emails[0].value;
+            const userData = {
+                email: email,
+                social: "Google"
+            }
+
+            googleLoginDetails.push(userData);
+            loginDetails.push(googleLoginDetails);
+            console.log("Data from Login Google", loginDetails);
+
+            done(null, userData);
+
+        }
+    )
+);
+
+//Login Google Routes for Passport Js
+router.get("/auth/login/google", passport.authenticate('google-alt', { scope: ["profile", "email"] }));
+
+router.get("/auth/google/socialLogin",
+    passport.authenticate('google-alt', { failureRedirect: "/login", session: false }),
+
+    async function (req, res) {
+        const details = googleLoginDetails;
+        const loginGoogle = await user
+            .socialLogin(details[0].email)
+            .then((login) => {
+                if (login[0] == true) {
+                    req.session.user = login[1];
+                    console.log("REQ.SESSION.USER", req.session.user);
+                    loginDetails.pop();
+                    res.redirect('/');
+                }
+                else {
+                    req.flash("logError", login[1]);
+                    res.redirect('/login');
+                }
+            })
+
+    }
+);
+
+
+//Login Facebook Auth
+passport.use('facebook-alt',
+    new FacebookStrategy({
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: "http://localhost/auth/facebook/socialLogin",
+        profileFields: ['id', 'displayName', 'name', 'photos', 'email']
+    },
+        function (accessToken, refreshToken, profile, done) {
+
+            const email = profile.emails[0].value;
+            const userData = {
+                email: email,
+                social: "Facebook"
+            }
+
+            facebookLoginDetails.push(userData);
+            loginDetails.push(facebookLoginDetails);
+            console.log("Data from Login Facebook", loginDetails);
+
+            done(null, userData);
+        }
+    ));
+
+
+
+//Login for Facebook Auth   
+router.get('/auth/login/facebook', passport.authenticate('facebook-alt', { scope: 'email' }));
+
+router.get('/auth/facebook/socialLogin',
+    passport.authenticate('facebook-alt', { failureRedirect: '/login' }),
+
+    async function (req, res) {
+        const details = facebookLoginDetails;
+        const loginGoogle = await user
+            .socialLogin(details[0].email)
+            .then((login) => {
+                if (login[0] == true) {
+                    req.session.user = login[1];
+                    console.log("REQ.SESSION.USER", req.session.user);
+                    loginDetails.pop();
+                    res.redirect('/');
+                }
+                else {
+                    req.flash("logError", login[1]);
+                    res.redirect('/login');
+                }
+            })
+
+    }
+
+
+);
+
 
 
 //Continue Signup Page
