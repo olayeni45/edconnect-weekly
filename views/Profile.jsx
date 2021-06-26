@@ -119,8 +119,8 @@ const Profile = (props) => {
 
                                 <Col xl={8} lg={8} md={8} sm={8} xs={8}>
                                     <div className="userDetails">
-                                        <h3 className="profileName">{props.user.firstname} {props.user.lastname}</h3>
-                                        <p className="text-secondary emailDiv">{props.user.email}</p>
+                                        <h3 className="profileName" id="usernameDiv">{props.user.firstname} {props.user.lastname}</h3>
+                                        <p className="text-secondary emailDiv" id="emailId">{props.user.email}</p>
                                     </div>
                                 </Col>
 
@@ -132,17 +132,17 @@ const Profile = (props) => {
                             <Row className="projectStatus">
                                 <Col className="columnFlex">
                                     <p className="bold">Program</p>
-                                    <p className="boldP">{props.user.program}</p>
+                                    <p className="boldP" id="program">{props.user.program}</p>
                                 </Col>
 
                                 <Col className="columnFlex">
                                     <p className="bold">Matriculation Number</p>
-                                    <p className="boldP">{props.user.matricNumber}</p>
+                                    <p className="boldP" id="matric">{props.user.matricNumber}</p>
                                 </Col>
 
                                 <Col className="columnFlex">
                                     <p className="bold">Graduation Year</p>
-                                    <p className="boldP">{props.user.graduationYear}</p>
+                                    <p className="boldP" id="grad">{props.user.graduationYear}</p>
                                 </Col>
 
 

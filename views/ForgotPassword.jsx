@@ -35,7 +35,12 @@ const ForgotPassword = (props) => {
                         <div className="forgotPassword">
                             <h3>Forgot Password?</h3>
 
-                            {error != "" ? (error != "Invalid Email address" || error != "An error occured, please refresh" ? (<Alert className="alert alert-success">{error} </Alert>) : (<Alert className="alert alert-danger">{error} </Alert>)) : (<Alert className="alert alert-primary">Enter the email address associated with your account </Alert>)}
+                            {error != "" ?
+
+                                ((error == "Invalid Email address") || (error == "An error occured, please refresh") ?
+                                    (<Alert className="alert alert-danger">{error} </Alert>) : (<Alert className="alert alert-success">{error} </Alert>))
+
+                                : (<Alert className="alert alert-primary">Enter the email address associated with your account </Alert>)}
                             <Form id="loginForm" noValidate method="POST" action="forgotPassword" >
 
                                 <Form.Row>

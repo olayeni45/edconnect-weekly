@@ -10,7 +10,7 @@ const UserSchema = new Schema(
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
         salt: { type: String, required: true },
-        matricNumber: { type: String, required: true },
+        matricNumber: { type: String, required: true, unique: true },
         program: { type: String, required: false },
         graduationYear: { type: String, required: true },
         facebookId: { type: String },

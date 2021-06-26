@@ -11,6 +11,7 @@ const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 const { promisify } = require('util');
 const deletePicture = promisify(fs.unlink);
+const emailService = require('../services/email');
 
 //Configurations for Multer
 const multerStorage = multer.diskStorage({
@@ -219,7 +220,7 @@ router.get('/forgotPassword', (req, res) => {
 
 router.post('/forgotPassword', async (req, res) => {
     const email = req.body.email;
-    const resetForgottenPassword = await user
+    const resetForgottenPassword = await emailService
         .resetLink(email)
         .then((result) => {
             if (result == true) {

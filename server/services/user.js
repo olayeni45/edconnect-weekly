@@ -1,7 +1,5 @@
 const User = require('../models/user');
 const helper = require('../models/mongo_helper');
-const mailjet = require('node-mailjet')
-  .connect(process.env.MAILJET_FIRST, process.env.MAILJET_SECOND);
 
 /* Creates new user */
 const create = async ({ firstname, lastname, email, password, matricNumber, program, graduationYear, image, url }) => {
@@ -84,7 +82,6 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
   try {
     if (imageName == "") {
       const imageDB = await User.findOne({ email: email }).image;
-      console.log("ImageDB", imageDB);
       imageName = imageDB;
     }
     const user = await User.findOneAndUpdate(
@@ -97,7 +94,7 @@ const editFunction = async (email, firstname, lastname, matric, program, graduat
 
     if (savedUser) {
       console.log("Saved");
-      console.log(user);
+
       return [true, "Update successful"];
     }
     else {
@@ -128,7 +125,6 @@ const passwordChange = async (email, currentPassword, newPassword, confirmPasswo
 
   try {
     const checkCurrent = await user.validPassword(currentPassword);
-    console.log("2");
 
     if (checkCurrent) {
 
@@ -137,8 +133,6 @@ const passwordChange = async (email, currentPassword, newPassword, confirmPasswo
         const passwordChanges = await userChange.updatePassword(confirmPassword);
         const salt = passwordChanges[0];
         const passwd = passwordChanges[1];
-        console.log("Changed password is", passwd);
-        console.log("3");
 
         if (passwd == undefined) {
           console.log("Undefined password");
@@ -148,7 +142,7 @@ const passwordChange = async (email, currentPassword, newPassword, confirmPasswo
             { email: email },
             { $set: { salt: salt, password: passwd } }
           )
-          console.log("4");
+
 
           const savedUser = await user.save();
           if (savedUser) {
@@ -172,63 +166,6 @@ const passwordChange = async (email, currentPassword, newPassword, confirmPasswo
 
 }
 
-//Reset password link from token
-const resetLink = async (email) => {
-
-  try {
-    console.log("1");
-    const user = await User.findOne({ email: email });
-
-    if (user) {
-      const request = await mailjet
-        .post("send", { 'version': 'v3.1' })
-        .request({
-          "Messages": [
-            {
-              "From": {
-                "Email": "mobolajianney@gmail.com",
-                "Name": "Anifowose"
-              },
-              "To": [
-                {
-                  "Email": user.email,
-                  "Name": user.firstname
-                }
-              ],
-              "Subject": "Password Reset Link",
-              "TextPart": "Reset Link Details",
-              "HTMLPart": ` <p>Forgot your password? Don't worry it happens!</p>
-              <p>To create a new password, click on the link below. </p>
-                  <a href="http://localhost/resetPassword">Password Reset Link</a>`,
-              "CustomID": "AppGettingStartedTest"
-            }
-          ]
-        })
-      /* request
-        .then((result) => {
-          console.log(result.body)
-        })
-        .catch((err) => {
-          console.log(err.statusCode)
-        }) */
-      if (request) {
-        console.log("4");
-        return [true, "An email with instructions for creating a new password has been sent to you."];
-      }
-      else {
-        return [false, "An error occured, please refresh"]
-      }
-
-    }
-    return [false, "Invalid Email address"];
-
-  }
-  catch (error) {
-    console.log(error);
-  }
-
-}
-
 //Reset password from db
 const resetPasswordDB = async (email, newPassword, confirmPassword) => {
 
@@ -242,8 +179,6 @@ const resetPasswordDB = async (email, newPassword, confirmPassword) => {
         const passwordChanges = await userChange.updatePassword(confirmPassword);
         const salt = passwordChanges[0];
         const passwd = passwordChanges[1];
-        console.log("Changed password is", passwd);
-        console.log("3");
 
         if (passwd == undefined) {
           console.log("Undefined password");
@@ -253,7 +188,7 @@ const resetPasswordDB = async (email, newPassword, confirmPassword) => {
             { email: email },
             { $set: { salt: salt, password: passwd } }
           )
-          console.log("4");
+
 
           const savedUser = await user.save();
           if (savedUser) {
@@ -295,9 +230,6 @@ const googleCreate = async (firstname, lastname, email, matricNumber, program, g
       image,
       url
     });
-
-    // const matric = User.find({ matricNumber: matricNumber });
-    // console.log("Duplicate matric", matric);
 
     if (password === confirmPassword) {
       user.setPassword(password);
@@ -341,6 +273,11 @@ const socialLogin = async (email) => {
 }
 
 
+//URL for Google Callbacks and Email API
+const url = async () => {
+
+}
+
 module.exports = {
   create,
   authenticate,
@@ -349,7 +286,6 @@ module.exports = {
   getUser,
   editFunction,
   passwordChange,
-  resetLink,
   resetPasswordDB,
   getDefault,
   googleCreate,

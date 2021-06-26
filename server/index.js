@@ -95,3 +95,5 @@ register(app).then(() => {
 
     );
 })
+
+module.exports = app;
