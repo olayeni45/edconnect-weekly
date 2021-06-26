@@ -103,7 +103,7 @@ describe("Testing the reset Password route", () => {
         console.log(modifyPassword);
         expect(modifyPassword[0]).toBe(true);
 
-        //await userModel.findOneAndDelete({ email: userData.email });
+        await userModel.findOneAndDelete({ email: userData.email });
 
     })
 
