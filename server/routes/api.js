@@ -150,7 +150,7 @@ api.get("/programs", (req, res) => {
 });
 
 api.get("/graduationYears", (req, res) => {
-  res.json(["2015", "2016", "2017", "2018", "2019", "2020"]);
+  res.json(["2015", "2016", "2017", "2018", "2019", "2020", "2021"]);
 });
 
 module.exports = api;
