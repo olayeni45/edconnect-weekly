@@ -12,6 +12,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const deletePicture = promisify(fs.unlink);
 const emailService = require('../services/email');
+const urlLink = user.urlLink();
 
 //Configurations for Multer
 const multerStorage = multer.diskStorage({
@@ -282,7 +283,7 @@ passport.use('google',
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost/auth/google/callback"
+            callbackURL: `${urlLink}/auth/google/callback`
         },
         async function (accessToken, refreshToken, profile, done) {
             console.log("Google profile", profile);
@@ -318,7 +319,7 @@ passport.use('facebook',
     new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: "http://localhost/auth/facebook/edconnect",
+        callbackURL: `${urlLink}/auth/facebook/edconnect`,
         profileFields: ['id', 'displayName', 'name', 'photos', 'email']
     },
         function (accessToken, refreshToken, profile, done) {
@@ -352,9 +353,9 @@ passport.use('facebook',
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get("/auth/google/callback",
-    passport.authenticate("google", { successRedirect: '/Social', failureRedirect: "/signup", session: false }),
+    passport.authenticate("google", { failureRedirect: "/signup", session: false }),
     function (req, res) {
-        res.redirect("http://localhost");
+        res.redirect('/Social');
     }
 );
 
@@ -381,7 +382,7 @@ passport.use('google-alt',
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost/auth/google/socialLogin"
+            callbackURL: `${urlLink}/auth/google/socialLogin`
         },
         async function (accessToken, refreshToken, profile, done) {
 
@@ -433,7 +434,7 @@ passport.use('facebook-alt',
     new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: "http://localhost/auth/facebook/socialLogin",
+        callbackURL: `${urlLink}/auth/facebook/socialLogin`,
         profileFields: ['id', 'displayName', 'name', 'photos', 'email']
     },
         function (accessToken, refreshToken, profile, done) {

@@ -1,6 +1,8 @@
 const userModel = require('../models/user');
 const mailjet = require('node-mailjet')
     .connect(process.env.MAILJET_FIRST, process.env.MAILJET_SECOND);
+const userService = require('../services/user');
+const url = userService.urlLink();
 
 //Reset password link using email
 const resetLink = async (email) => {
@@ -29,7 +31,7 @@ const resetLink = async (email) => {
                             "TextPart": "Reset Link Details",
                             "HTMLPart": ` <p>Forgot your password? Don't worry it happens!</p>
               <p>To create a new password, click on the link below. </p>
-                  <a href="http://localhost/resetPassword">Password Reset Link</a>
+                  <a href="${url}/resetPassword">Password Reset Link</a>
                   <br />  <br />
                   <small>Olayeni from EdConnect!</small>`,
                             "CustomID": "AppGettingStartedTest"

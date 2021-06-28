@@ -48,23 +48,24 @@ describe('Testing the create function and the edit function from User Service', 
         expect(createdUser[0]).toBe(true);
 
         //act
-        const resp = request(app)
-            .put('/profileUser')
-            .send({
-                email: "Changed@changed.com",
-                firstname: "Changed",
-                lastname: "Lastname",
-                matricNumber: "00/0000",
-                program: "Computer Technology",
-                graduationYear: "2030",
-                image: "Changed Picture",
-                url: "http://changed/changedPicture.jpg"
-            })
+        const firstname = "Changed";
+        const lastname = "Lastname";
+        const matricNumber = "00/0000";
+        const program = "Computer Technology";
+        const graduationYear = "2030";
+        const image = "Changed Picture";
+        const url = "http://changed/changedPicture.jpg";
 
-        const data = await userModel.findOne({ email: "Changed@changed.com" })
-        console.log("DATA", data);
+        const changedDetails = await userService.editFunction(userData.email, firstname, lastname, matricNumber, program, graduationYear, image, url)
+        expect(changedDetails[0]).toBe(true);
 
-
+        const newUser = await userModel.findOne({ email: userData.email });
+        expect(newUser.firstname).toBe("Changed");
+        expect(newUser.lastname).toBe("Lastname");
+        expect(newUser.matricNumber).toBe("00/0000");
+        expect(newUser.program).toBe("Computer Technology");
+        expect(newUser.graduationYear).toBe("2030");
+        expect(newUser.image).toBe("Changed Picture");
 
     })
 
@@ -76,9 +77,6 @@ describe("Testing the reset Password route", () => {
 
     it("should successfully update password and login", async () => {
 
-        const before = await userModel.findOne({ email: userData.email })
-        console.log("before changing password", before);
-
         const resp = request(app)
             .post('/resetPassword')
             .send({
@@ -86,7 +84,7 @@ describe("Testing the reset Password route", () => {
                 newPassword: "EdConnectWeekly",
                 confirmPassword: "EdConnectWeekly"
             })
-            .expect(200)
+            .expect(303)
 
         const response = request(app)
             .post('/login')
@@ -94,13 +92,9 @@ describe("Testing the reset Password route", () => {
                 email: userData.email,
                 password: "EdConnectWeekly"
             })
-            .expect(200)
-
-        const after = await userModel.findOne({ email: userData.email })
-        console.log("after changing password", after);
+            .expect(303)
 
         const modifyPassword = await userService.authenticate(userData.email, userData.password);
-        console.log(modifyPassword);
         expect(modifyPassword[0]).toBe(true);
 
         await userModel.findOneAndDelete({ email: userData.email });
@@ -109,14 +103,3 @@ describe("Testing the reset Password route", () => {
 
 })
 
-//Third test
-describe("It should not display the Page containing the data from Google or Facebook Authentication", () => {
-
-    it("should throw error", async () => {
-        const resp = request(app)
-            .get('/Social')
-            .expect(404)
-
-    })
-
-})

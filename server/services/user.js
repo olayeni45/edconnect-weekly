@@ -274,8 +274,16 @@ const socialLogin = async (email) => {
 
 
 //URL for Google Callbacks and Email API
-const url = async () => {
+const urlLink = () => {
+  var url;
 
+  if (process.env.NODE_ENV == 'development') {
+    url = "http://localhost";
+  }
+  else {
+    url = process.env.APP_NAME;
+  }
+  return url;
 }
 
 module.exports = {
@@ -290,4 +298,5 @@ module.exports = {
   getDefault,
   googleCreate,
   socialLogin,
+  urlLink
 };

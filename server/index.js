@@ -87,7 +87,7 @@ register(app).then(() => {
 
             } else {
 
-                console.log(`Connected to MongoDB @ ${process.env.MONGODB_URI}`);
+                console.log("Connected to MongoDB");
 
             }
 
