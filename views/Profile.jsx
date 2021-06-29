@@ -288,8 +288,11 @@ const Profile = (props) => {
                                                     </Form.Group>
                                                 </Col>
 
-                                                <button type="submit" className="btn btn-primary changeBtn">Change Password</button>
+                                                <div>
+                                                    <button type="submit" className="btn btn-primary changeBtn">Change Password</button>
 
+                                                </div>
+                                                
                                             </Row>
 
                                         </Form>
