@@ -166,7 +166,7 @@ const Signup = (props) => {
 
                         </Form>
 
-                        <Row className="signUpLinks">
+                        <div className="signUpLinks">
 
                             <a href="/auth/google" className="google">
                                 <GoogleLoginButton>
@@ -180,7 +180,7 @@ const Signup = (props) => {
                                 </FacebookLoginButton>
                             </a>
 
-                        </Row>
+                        </div>
 
                     </Col>
 
