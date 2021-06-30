@@ -201,8 +201,8 @@ const Profile = (props) => {
                                                 <Col xl={6} lg={6} md={12} sm={12} xs={12}>
                                                     <Form.Group>
                                                         <Form.Label>Matric Number</Form.Label>
-                                                        <Form.Control type="text" value={matric}
-                                                            onChange={handleInputChange} name="matricNumber" />
+                                                        <Form.Control type="text" value={matric} readOnly
+                                                            name="matricNumber" />
                                                     </Form.Group>
                                                 </Col>
 
