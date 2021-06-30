@@ -25,11 +25,10 @@ const Social = (props) => {
         setFirstName(props.details[0].firstname);
         setLastName(props.details[0].lastname);
         setEmail(props.details[0].email);
+
+        setError(props.error);
     }, [])
 
-    useEffect(() => {
-        setError(props.error);
-    })
 
     const handleInputChange = event => {
         const { name, value } = event.target;

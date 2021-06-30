@@ -13,6 +13,16 @@ const Profile = (props) => {
     const [program, setProgram] = useState("");
     const [year, setYear] = useState("");
 
+    const [picture, setPicture] = useState();
+    const [imagepath, setImagepath] = useState("");
+
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [profileError, setProfileError] = useState("");
+
+    const [success, setSuccess] = useState("");
 
     useEffect(() => {
         setProgramList(props.programList);
@@ -23,6 +33,9 @@ const Profile = (props) => {
         setMatric(props.user.matricNumber);
         setProgram(props.user.program);
         setYear(props.user.graduationYear);
+
+        setProfileError(props.modifyError);
+        setSuccess(props.success);
     }, [])
 
 
@@ -54,9 +67,6 @@ const Profile = (props) => {
         }
     }
 
-    const [picture, setPicture] = useState();
-    const [imagepath, setImagepath] = useState("");
-
     const handlePicture = event => {
         const { name, files } = event.target;
 
@@ -67,11 +77,6 @@ const Profile = (props) => {
                 setImagepath(value);
         }
     }
-
-
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
 
     const handlePasswordChange = event => {
         const { name, value, files } = event.target;
@@ -92,18 +97,6 @@ const Profile = (props) => {
 
         }
     }
-
-    const [profileError, setProfileError] = useState("");
-
-    useEffect(() => {
-        setProfileError(props.modifyError);
-    }, [])
-
-    const [success, setSuccess] = useState("");
-
-    useEffect(() => {
-        setSuccess(props.success);
-    }, [])
 
     return (
 
@@ -292,7 +285,7 @@ const Profile = (props) => {
                                                     <button type="submit" className="btn btn-primary changeBtn">Change Password</button>
 
                                                 </div>
-                                                
+
                                             </Row>
 
                                         </Form>

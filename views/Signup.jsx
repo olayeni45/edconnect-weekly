@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './shared/Layout'
 import { Form, Button, Alert, Container, Col, Row } from 'react-bootstrap'
-import { useHistory } from "react-router-dom";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 
 const Signup = (props) => {
@@ -65,8 +64,6 @@ const Signup = (props) => {
                 break;
         }
     }
-
-    const history = useHistory();
 
 
     return (
